@@ -20,5 +20,5 @@ struct booking {
 };
 
 int main(){
-
+    cout << "Hello, World" << endl;
 }
