@@ -1,24 +1,13 @@
 #include <iostream>
+#include "structs.h"
 using namespace std;
 
-struct user {
-	int Id;
-	string UserName, Password, Email, Phone;
-	bool IsAdmin;
-};
 
-struct space {
-	int SpaceId, PricePerHour, NoOfSeatAvailable;
-	float Rating;
-	string Name, Area;
-	bool HasWifi, HasMeetingRoom;
-};
+int main() {
+    User user;
+    user.Id = 123;
+    cout << user.Id;
 
-struct booking {
-	string date;
-	int BookingId, UserId, SpaceId, Hours, TotalCost, Seats;
-};
-
-int main(){
-    cout << "Hello, World" << endl;
+    int holder;
+    cin >> holder;
 }
