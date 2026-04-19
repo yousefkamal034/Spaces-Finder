@@ -7,7 +7,10 @@
 using namespace std;
 
 User usersArray[100];
+Booking bookingsArray[100];
 int totalUsersCount = 0;
+int totalBookingsCount = 0;
+
 
 int Log_in();
 int Sign_up();
@@ -15,6 +18,9 @@ int Logging();
 void LoadData();
 int AddSpace();
 void admin_main_menu();
+void view_my_bookings(int userid);
+void book_space(int userid);
+bool isvaliddate(string date);
 
 int Log_in() {
 	system("cls");
@@ -150,6 +156,35 @@ void LoadData() {
 			totalUsersCount++;
 		}
 		file.close();
+
+
+	}
+	ifstream file2("bookings.csv");
+	if (file2.is_open()) {
+		string header;
+		getline(file2, header);
+
+		string bookingID, spaceID, userID, Date, Hours, TotalCost, Seats;
+
+
+		while (getline(file2, bookingID, ',')) {
+			getline(file2, spaceID, ',');
+			getline(file2, userID, ',');
+			getline(file2, Date, ',');
+			getline(file2, Hours, ',');
+			getline(file2, TotalCost, ',');
+			getline(file2, Seats, '\n');
+
+			bookingsArray[totalBookingsCount].BookingId = stoi(bookingID);
+			bookingsArray[totalBookingsCount].SpaceId = stoi(spaceID);
+			bookingsArray[totalBookingsCount].UserId = stoi(userID);
+			bookingsArray[totalBookingsCount].date = Date;
+			bookingsArray[totalBookingsCount].Hours = stoi(Hours);
+			bookingsArray[totalBookingsCount].TotalCost = stoi(TotalCost);
+			bookingsArray[totalBookingsCount].Seats = stoi(Seats);
+			totalBookingsCount++;
+		}
+		file2.close();
 	}
 }
 
@@ -226,10 +261,89 @@ void admin_main_menu() {
 			continue; //TODO
 	}
 }
+void view_my_bookings(int userid) {
+		for (int i = 0; i < totalBookingsCount; i++) {
+			if (bookingsArray[i].UserId == userid) {
+				cout << "Booking ID: " << bookingsArray[i].BookingId;
+				cout << "Space ID: " << bookingsArray[i].SpaceId;
+				cout << "Date: " << bookingsArray[i].date;
+				cout << "Hours: " << bookingsArray[i].Hours;
+				cout << "Total Cost: " << bookingsArray[i].TotalCost;
+				cout << "Seats: " << bookingsArray[i].Seats;
+				cout << "-----------------------------";
+			}
+		}
+	}
+	
+void book_space(int userid) {
+	int chosenspaceid;
+	int hours, seats;
+	string date;
+		cout << "Enter Space ID: ";
+		cin >> chosenspaceid;
+		for (int i = 0; i < totalBookingsCount; i++) {
+			if (bookingsArray[i].SpaceId == chosenspaceid) {
+				//BREAK TAKEN RIGHT HERE , STILL GONNA CONTINUE
+				cout << "Enter how many seats you want to book: ";
+				cin >> seats;
+				while (seats > bookingsArray[i].Seats) {
+					cout << "Not enough seats available!\n";
+					cin >> seats;
+				}
+				cout << "Enter how many hours you want to book for: ";
+				cin >> hours;
+				while (hours > 13) {
+					cout << "You can't book for more than 12 hours!\n";
+					cin >> hours;
+				}
+				cout << "Enter the date you want to book for (DD/MM/YYYY): ";
+				cin >> date;
+				while (!isvaliddate(date)) {
+					cout << "Invalid date format! Please enter in DD/MM/YYYY format: ";
+					cin >> date;
+				}
+				int totalcost = hours * bookingsArray[i].TotalCost;
+				cout << "booking successful!, Here's your booking details: \n";
+				cout << "Booking ID: " << bookingsArray[i].BookingId << endl;
+				cout << "Space ID: " << bookingsArray[i].SpaceId << endl;
+				cout << "Date: " << date << endl;
+				cout << "Hours: " << hours << endl;
+				cout << "Total Cost: " << totalcost << endl;
+			
+			}
+		
+
+		}
+
+
+
+	
+}
+bool isvaliddate(string date) {
+	if (date.length() != 10) {
+		return false;
+	}
+	if (date[2] != '/' || date[5] != '/') {
+		return false;
+	}
+	for (int i = 0; i < date.length(); i++) {
+		if (i == 2 || i == 5) {
+			continue;
+		}
+		else if (!isdigit(date[i])) {
+			return false;
+		}
+		return true;
+	}
+}
 
 int main(){
+
 	LoadData();
 	int activeUserID=Logging(); //if -1 there is error  if = 0 activeuser is admin 
 	if (activeUserID == 0)
 		admin_main_menu();
+	book_space(activeUserID);
+
+
 }
