@@ -3,7 +3,12 @@
   "tasks": [
     {
       "taskLabel": "task-Shiting",
-      "appliesTo": "Shiting.cpp",
+      "appliesTo": "CoWorkingSpaceFinder.cpp",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "task-Users",
+      "appliesTo": "Spaces-Finder/Users.csv",
       "type": "launch"
     }
   ]

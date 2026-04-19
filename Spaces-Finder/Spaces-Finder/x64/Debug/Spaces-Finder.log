@@ -1,2 +1,4 @@
 ﻿  CoWorkingSpaceFinder.cpp
+C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(87,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(74,1): warning C4715: 'Log_in': not all control paths return a value
   Spaces-Finder.vcxproj -> C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\x64\Debug\Spaces-Finder.exe
