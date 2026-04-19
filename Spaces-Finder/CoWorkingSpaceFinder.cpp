@@ -7,5 +7,5 @@ using namespace std;
 //void Sign_up() {}
 //void Log_in() {}
 int main(){
-	cout << "Hello, World" << ;
+	cout << "Hello, World";
 }
