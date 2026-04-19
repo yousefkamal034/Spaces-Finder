@@ -4,6 +4,7 @@
 #include <ctime>
 #include <string>
 #include "structs.h"
+#include "adminfuncs.h"
 using namespace std;
 
 User usersArray[100];
@@ -188,79 +189,6 @@ void LoadData() {
 	}
 }
 
-int AddSpace() {
-	Space s;
-	char haswifi, hmr; // hmr = HasMeetingRoom
-	string wifi, meetingroom;
-	cout << "enter space name: ";
-	getline(cin >> ws, s.Name);
-	cout << "enter area: ";
-	cin >> s.Area;
-	cout << "enter price per hour: ";
-	cin >> s.PricePerHour;
-	cout << "enter number of seats available: ";
-	cin >> s.NoOfSeatAvailable;
-	cout << "what's the place's rating?: ";
-	cin >> s.Rating;
-
-	while (true) { // to check if the admin entered y or n only
-		cout << "does it have wifi? (y,n): ";
-		cin >> haswifi;
-		if (haswifi == 'y' || haswifi == 'Y') {
-			wifi = "Yes"; break;
-		}
-		else if (haswifi == 'n' || haswifi == 'N') {
-		wifi = "No"; break;
-	}
-		else
-			cout << "wrong choice, enter y or n only\n";
-	}
-
-	while (true) { // to check if the admin entered y or n only
-		cout << "does it have a meeting room? (y,n): ";
-		cin >> hmr;
-		if (hmr == 'y' || hmr == 'Y') {
-			meetingroom = "Yes"; break;
-		}
-		else if (hmr == 'n' || hmr == 'N') {
-			meetingroom = "No"; break;
-		}
-		else
-			cout << "wrong choice, enter y or n only\n";
-	}
-
-	srand(time(0)); // c++ why do u have to be like this???, i need this line so rand() works
-	s.SpaceId = rand() % (1000 - 100 + 1) + 100; // i think between 100 and 1000
-	ofstream file("Spaces.csv", ios::app); //ios::app for appending in the file
-	if (file.is_open()) {
-		file << s.Name << "," << s.SpaceId << "," << s.Area << "," << s.PricePerHour
-			<< "," << s.NoOfSeatAvailable << "," << s.Rating << "," << wifi << "," << meetingroom << endl;
-		file.close();
-	}
-	system("cls");
-	admin_main_menu();
-	return 0;
-}
-
-void admin_main_menu() {
-	int choice;
-	cout << "______________________\n 1.add a space\n 2.delete a space\n 3.logout\n 4.TODO\n __________________\n";
-	while (true) {
-		cout << "choice: ";
-		cin >> choice;
-		if (choice == 1) {
-			system("cls");
-			AddSpace();
-			break;
-		}
-		else if (choice == 2)
-			continue; //TODO
-		else if (choice == 3)
-			continue; //TODO
-		else 
-			continue; //TODO
-	}
-}
 void view_my_bookings(int userid) {
 		for (int i = 0; i < totalBookingsCount; i++) {
 			if (bookingsArray[i].UserId == userid) {
@@ -319,6 +247,7 @@ void book_space(int userid) {
 
 	
 }
+
 bool isvaliddate(string date) {
 	if (date.length() != 10) {
 		return false;
@@ -344,6 +273,5 @@ int main(){
 	if (activeUserID == 0)
 		admin_main_menu();
 	book_space(activeUserID);
-
 
 }
