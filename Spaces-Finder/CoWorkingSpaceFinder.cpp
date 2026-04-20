@@ -26,6 +26,8 @@ void admin_main_menu();
 void view_my_bookings(int userid);
 void book_space(int userid);
 bool isvaliddate(string date);
+void FilterSpaces();
+void SearchByArea();
 
 int Log_in() {
 	system("cls");
@@ -231,14 +233,16 @@ void ViewSpaces(int userid) {
 	cout << "\n-----------Available Spaces-----------\n" << endl;
 	
 	for (int i = 0; i < totalSpacesCount; i++) {
-		cout << i + 1 << ". "
-			<< spaceArray[i].Name << " | "
-			<< spaceArray[i].Area << " | "
-			<< spaceArray[i].PricePerHour << " EGP | "
-			<< "☆" << spaceArray[i].Rating << " / 5 " << " | "
-			<< "Wifi: " << (spaceArray[i].HasWifi ? "✔" : "✘") << " | "
-			<< "Meeting Room: " << (spaceArray[i].HasMeetingRoom ? "✔" : "✘")
-			<< endl;
+		cout << i + 1 << ". ";
+		cout << "Space Name: " << spaceArray[i].Name << endl;
+		cout << "Space ID: " << spaceArray[i].SpaceId << endl;
+		cout << "Area: " << spaceArray[i].Area << endl;
+		cout << "Price Per Hour: " << spaceArray[i].PricePerHour << endl;
+		cout << "Number of Seats Available: " << spaceArray[i].NoOfSeatAvailable << endl;
+		cout << "Rating: " << spaceArray[i].Rating << " / 5" << endl;
+		cout << "Has Wifi: " << (spaceArray[i].HasWifi ? "Yes" : "No") << endl;
+		cout << "Has Meeting Room: " << (spaceArray[i].HasMeetingRoom ? "Yes" : "No") << endl;
+		cout << "-----------------------------" << endl;
 	}
 	
 	cout << "s --> search area" << endl;
@@ -253,10 +257,10 @@ while (true) {
 		char choice;
 		cin >> choice;
 		if (choice == 's' || choice == 'S') {
-			//SearchByArea();
+			SearchByArea();
 		}
 		else if (choice == 'f' || choice == 'F') {
-			//FilterSpaces();
+			FilterSpaces();
 		}
 		else if (choice == 'b' || choice == 'B') {
 			book_space(userid);
@@ -447,7 +451,7 @@ int main(){
 	int activeUserID=Logging(); //if -1 there is error  if = 0 activeuser is admin 
 	if (activeUserID == 0)
 		admin_main_menu();
-	//SearchByArea();
-	view_my_bookings(activeUserID);
+	ViewSpaces(activeUserID);
+	//view_my_bookings(activeUserID);
 
 }
