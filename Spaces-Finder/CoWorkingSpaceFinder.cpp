@@ -364,13 +364,13 @@ void FilterSpaces() {
 void view_my_bookings(int userid) {
 		for (int i = 0; i < totalBookingsCount; i++) {
 			if (bookingsArray[i].UserId == userid) {
-				cout << "Booking ID: " << bookingsArray[i].BookingId;
-				cout << "Space ID: " << bookingsArray[i].SpaceId;
-				cout << "Date: " << bookingsArray[i].date;
-				cout << "Hours: " << bookingsArray[i].Hours;
-				cout << "Total Cost: " << bookingsArray[i].TotalCost;
-				cout << "Seats: " << bookingsArray[i].Seats;
-				cout << "-----------------------------";
+				cout << "Booking ID: " << bookingsArray[i].BookingId << endl;
+				cout << "Space ID: " << bookingsArray[i].SpaceId << endl;
+				cout << "Date: " << bookingsArray[i].date << endl;
+				cout << "Hours: " << bookingsArray[i].Hours << endl;
+				cout << "Total Cost: " << bookingsArray[i].TotalCost << endl;
+				cout << "Seats: " << bookingsArray[i].Seats << endl;
+				cout << "-----------------------------" << endl;
 			}
 		}
 	}
@@ -379,11 +379,13 @@ void book_space(int userid) {
 	int chosenspaceid;
 	int hours, seats;
 	string date;
+	bool zebda = false;
+	while (zebda == false) {
 		cout << "Enter Space ID: ";
 		cin >> chosenspaceid;
 		for (int i = 0; i < totalBookingsCount; i++) {
 			if (bookingsArray[i].SpaceId == chosenspaceid) {
-				//BREAK TAKEN RIGHT HERE , STILL GONNA CONTINUE
+				zebda = true;
 				cout << "Enter how many seats you want to book: ";
 				cin >> seats;
 				while (seats > bookingsArray[i].Seats) {
@@ -409,12 +411,13 @@ void book_space(int userid) {
 				cout << "Date: " << date << endl;
 				cout << "Hours: " << hours << endl;
 				cout << "Total Cost: " << totalcost << endl;
-			
+
 			}
-		
+
 
 		}
 
+	}
 
 
 	
@@ -445,6 +448,6 @@ int main(){
 	if (activeUserID == 0)
 		admin_main_menu();
 	//SearchByArea();
-	//book_space(activeUserID);
+	view_my_bookings(activeUserID);
 
 }
