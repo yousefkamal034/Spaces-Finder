@@ -227,7 +227,7 @@ void LoadData() {
 
 
 
-void ViewSpaces() {
+void ViewSpaces(int userid) {
 	cout << "\n-----------Available Spaces-----------\n" << endl;
 	
 	for (int i = 0; i < totalSpacesCount; i++) {
@@ -253,10 +253,10 @@ while (true) {
 		char choice;
 		cin >> choice;
 		if (choice == 's' || choice == 'S') {
-			SearchByArea();
+			//SearchByArea();
 		}
 		else if (choice == 'f' || choice == 'F') {
-			FilterSpaces();
+			//FilterSpaces();
 		}
 		else if (choice == 'b' || choice == 'B') {
 			book_space(userid);
@@ -444,7 +444,7 @@ int main(){
 	int activeUserID=Logging(); //if -1 there is error  if = 0 activeuser is admin 
 	if (activeUserID == 0)
 		admin_main_menu();
-	SearchByArea();
+	//SearchByArea();
 	//book_space(activeUserID);
 
 }
