@@ -312,12 +312,14 @@ void FilterSpaces() {
 	double maxPrice;
 	bool found = false;
 	cout << "\n------------Filters------------\n" << endl;
-	cout << "P --> Max Price" << endl;
-	cout << "R --> Min Rating" << endl;
-	cout << "W --> WiFi" << endl;
-	cout << "M --> Meeting room" << endl;
-	cout << "A --> availability" << endl;
 	while (true) {
+		system("cls");
+		cout << "\n------------Filters------------\n" << endl;
+		cout << "P --> Max Price" << endl;
+		cout << "R --> Min Rating" << endl;
+		cout << "W --> WiFi" << endl;
+		cout << "M --> Meeting room" << endl;
+		cout << "A --> availability" << endl;
 		cout << "Enter filter choice (P/R/W/M/A): ";
 		char choice;
 		cin >> choice;
@@ -493,6 +495,6 @@ int main(){
 	if (activeUserID == 0)
 		admin_main_menu();
 	ViewSpaces(activeUserID);
-	//view_my_bookings(activeUserID);
+	
 
 }
