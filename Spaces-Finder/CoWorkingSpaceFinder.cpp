@@ -312,58 +312,12 @@ void FilterSpaces() {
 	double maxPrice;
 	bool found = false;
 	cout << "\n------------Filters------------\n" << endl;
-	cout << "Max Price Per Hour: ";
-	cin >> maxPrice;
-	cout << "Minimum Rating: ";
-	cin >> minRating;
-	while (true) {
-		cout << "Require Wifi? (y/n): ";
-		cin >> wifiFilter;
-		if (wifiFilter == 'y' || wifiFilter == 'Y' || wifiFilter == 'n' || wifiFilter == 'N') {
-			break;
-		}
-		else {
-			cout << "Invalid choice, please enter y or n." << endl;
-		}
-	}
-	while (true) {
-		cout << "Require Meeting Room? (y/n): ";
-		cin >> meetingRoomFilter;
-		if (meetingRoomFilter == 'y' || meetingRoomFilter == 'Y' || meetingRoomFilter == 'n' || meetingRoomFilter == 'N') {
-			break;
-		}
-		else {
-			cout << "Invalid choice, please enter y or n." << endl;
-		}
-	}
-	cout << "\n-----------Filter Results-----------" << endl;
-	for (int i = 0; i < totalSpacesCount; i++) {
-		if (spaceArray[i].PricePerHour <= maxPrice && spaceArray[i].Rating >= minRating &&
-			spaceArray[i].NoOfSeatAvailable > 0) {
-			if ((wifiFilter == 'y' || wifiFilter == 'Y') && !spaceArray[i].HasWifi) {
-				continue;
-			}
-			if ((meetingRoomFilter == 'y' || meetingRoomFilter == 'Y') && !spaceArray[i].HasMeetingRoom) {
-				continue;
-			}
-			cout << "Space Name: " << spaceArray[i].Name << endl;
-			cout << "Space ID: " << spaceArray[i].SpaceId << endl;
-			cout << "Area: " << spaceArray[i].Area << endl;
-			cout << "Price Per Hour: " << spaceArray[i].PricePerHour << endl;
-			cout << "Number of Seats Available: " << spaceArray[i].NoOfSeatAvailable << endl;
-			cout << "Rating: " << spaceArray[i].Rating << " / 5" << endl;
-			cout << "Has Wifi: " << (spaceArray[i].HasWifi ? "Yes" : "No") << endl;
-			cout << "Has Meeting Room: " << (spaceArray[i].HasMeetingRoom ? "Yes" : "No") << endl;
-			cout << "-----------------------------" << endl;
-			found = true;
-		}
-	}
-	if (!found) {
-		cout << "No spaces found matching the filters." << endl;
-	}
-	system("pause");
+	cout << "P --> Max Price" << endl;
+	cout << "R --> Min Rating" << endl;
+	cout << "W --> WiFi" << endl;
+	cout << "M --> Meeting room" << endl;
+	cout << "A --> availability" << endl;
 	
-}
 
 void view_my_bookings(int userid) {
 		for (int i = 0; i < totalBookingsCount; i++) {
