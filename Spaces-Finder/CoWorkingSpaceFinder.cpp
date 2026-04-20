@@ -317,6 +317,82 @@ void FilterSpaces() {
 	cout << "W --> WiFi" << endl;
 	cout << "M --> Meeting room" << endl;
 	cout << "A --> availability" << endl;
+	while (true) {
+		cout << "Enter filter choice (P/R/W/M/A): ";
+		char choice;
+		cin >> choice;
+		if (choice == 'P' || choice == 'p') {
+			cout << "Enter maximum price per hour: ";
+			cin >> maxPrice;
+			cout << "\n--- Results for Price <= " << maxPrice << " ---" << endl;
+			for(int i = 0; i < totalSpacesCount; i++) {
+				if (spaceArray[i].PricePerHour <= maxPrice) {
+					found = true;
+					cout << "Space Name: " << spaceArray[i].Name << endl;
+					cout << "Space ID: " << spaceArray[i].SpaceId << endl;
+					cout << "Price Per Hour: " << spaceArray[i].PricePerHour << endl;
+					cout << "-----------------------------" << endl;
+				}
+			}
+		}
+		else if (choice == 'R' || choice == 'r') {
+			cout << "Enter minimum rating: ";
+			cin >> minRating;
+			for (int i = 0; i < totalSpacesCount; i++) {
+				if (spaceArray[i].Rating >= minRating) {
+					found = true;
+					cout << "Space Name: " << spaceArray[i].Name << endl;
+					cout << "Space ID: " << spaceArray[i].SpaceId << endl;
+					cout << "Rating: " << spaceArray[i].Rating << " / 5" << endl;
+					cout << "-----------------------------" << endl;
+				}
+			}
+		}
+		else if (choice == 'W' || choice == 'w') {
+			cout << "Require WiFi? (Y/N): ";
+			cin >> wifiFilter;
+			wifiFilter = toupper(wifiFilter);
+			for(int i = 0; i < totalSpacesCount; i++) {
+				if (spaceArray[i].HasWifi == (wifiFilter == 'Y')) {
+					found = true;
+					cout << "Space Name: " << spaceArray[i].Name << endl;
+					cout << "Space ID: " << spaceArray[i].SpaceId << endl;
+					cout << "Has Wifi: " << (spaceArray[i].HasWifi ? "Yes" : "No") << endl;
+					cout << "-----------------------------" << endl;
+				}
+			}
+		}
+		else if (choice == 'M' || choice == 'm') {
+			cout << "Require Meeting Room? (Y/N): ";
+			cin >> meetingRoomFilter;
+			meetingRoomFilter = toupper(meetingRoomFilter);
+			for(int i = 0; i < totalSpacesCount; i++) {
+				if (spaceArray[i].HasMeetingRoom == (meetingRoomFilter == 'Y')) {
+					found = true;
+					cout << "Space Name: " << spaceArray[i].Name << endl;
+					cout << "Space ID: " << spaceArray[i].SpaceId << endl;
+					cout << "Has Meeting Room: " << (spaceArray[i].HasMeetingRoom ? "Yes" : "No") << endl;
+					cout << "-----------------------------" << endl;
+				}
+			}
+		}
+		else if (choice == 'A' || choice == 'a') {
+			for(int i = 0; i < totalSpacesCount; i++) {
+				if (spaceArray[i].NoOfSeatAvailable > 0) {
+					found = true;
+					cout << "Space Name: " << spaceArray[i].Name << endl;
+					cout << "Space ID: " << spaceArray[i].SpaceId << endl;
+					cout << "Number of Seats Available: " << spaceArray[i].NoOfSeatAvailable << endl;
+					cout << "-----------------------------" << endl;
+				}
+			}
+		}
+		else {
+			cout << "Invalid choice, please enter P, R, W, M, or A." << endl;
+			continue;
+		}
+	}
+}
 	
 
 void view_my_bookings(int userid) {
