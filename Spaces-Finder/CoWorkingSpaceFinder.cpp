@@ -244,29 +244,34 @@ void ViewSpaces() {
 	cout << "s --> search area" << endl;
 	cout << "f --> filtering" << endl;
 	cout << "b --> Book a space" << endl;
-	
+	cout << "m --> main menu" << endl;
+
+
+
+while (true) {
+		cout << "Enter choice (s/f/b/m): ";
+		char choice;
+		cin >> choice;
+		if (choice == 's' || choice == 'S') {
+			SearchByArea();
+		}
+		else if (choice == 'f' || choice == 'F') {
+			FilterSpaces();
+		}
+		else if (choice == 'b' || choice == 'B') {
+			book_space(userid);
+			
+		}
+		else if (choice == 'm' || choice == 'M') {
+			break;
+		}
+		else {
+			cout << "Invalid choice, please enter s, f, b, or m." << endl;
+			continue;
+		}
+	}
 }
 
-while(true) {
-	char choice;
-	cin >> choice;
-	if (choice == 's' || choice == 'S') {
-		SearchByArea();
-		
-	}
-	else if (choice == 'f' || choice == 'F') {
-		FilterSpaces();
-		
-	}
-	else if (choice == 'b' || choice == 'B') {
-		book_space(userid);
-		break;
-	}
-	else {
-		cout << "Invalid choice, please enter s, f, or b." << endl;
-		continue;
-	}
-}
 
 
 void SearchByArea() {
