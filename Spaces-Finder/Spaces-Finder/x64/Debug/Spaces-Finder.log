@@ -1,10 +1,11 @@
 ﻿  CoWorkingSpaceFinder.cpp
-C:\Users\Dahsh\source\repos\Spaces-Finder\Spaces-Finder\adminfuncs.h(55,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\123college project\Spaces-Finder\Spaces-Finder\adminfuncs.h(55,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   (compiling source file 'CoWorkingSpaceFinder.cpp')
   
-C:\Users\Dahsh\source\repos\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(105,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Dahsh\source\repos\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(213,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Dahsh\source\repos\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(92,1): warning C4715: 'Log_in': not all control paths return a value
-C:\Users\Dahsh\source\repos\Spaces-Finder\Spaces-Finder\adminfuncs.h(217,1): warning C4715: 'EditSpace': not all control paths return a value
-C:\Users\Dahsh\source\repos\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(442,1): warning C4715: 'isvaliddate': not all control paths return a value
-  Spaces-Finder.vcxproj -> C:\Users\Dahsh\Source\Repos\Spaces-Finder\Spaces-Finder\x64\Debug\Spaces-Finder.exe
+D:\123college project\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(105,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\123college project\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(213,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\123college project\Spaces-Finder\Spaces-Finder\adminfuncs.h(280,1): warning C4715: 'DeleteSpace': not all control paths return a value
+D:\123college project\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(92,1): warning C4715: 'Log_in': not all control paths return a value
+D:\123college project\Spaces-Finder\Spaces-Finder\adminfuncs.h(217,1): warning C4715: 'EditSpace': not all control paths return a value
+D:\123college project\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(442,1): warning C4715: 'isvaliddate': not all control paths return a value
+  Spaces-Finder.vcxproj -> D:\123college project\Spaces-Finder\Spaces-Finder\x64\Debug\Spaces-Finder.exe

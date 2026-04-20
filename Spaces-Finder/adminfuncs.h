@@ -216,9 +216,72 @@ int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 	admin_main_menu();
 }
 
+int DeleteSpace() {
+	system("cls");
+	int chosenid;
+	string header, temp;
+	bool found = false;
+	Space s;
+
+	cout << "enter the id for the space you want to delete: ";
+	cin >> chosenid;
+
+	ifstream origfile("Spaces.csv");
+	if (!origfile.is_open()) {
+		cout << "error opening file\n";
+		return 2;
+	}
+
+	getline(origfile, header);
+
+	ofstream copy("temp.csv");
+	if (!copy.is_open()) {
+		cout << "couldn't create file\n";
+		return 2;
+	}
+
+	copy << header << endl;
+
+	string line;
+	while (getline(origfile, line)) {
+		stringstream ss(line);
+		getline(ss, s.Name, ',');
+		getline(ss, temp, ',');
+		if (chosenid == stoi(temp)) {
+			found = true;
+			continue;
+		}
+
+		copy << line << endl;
+	}
+
+	origfile.close();
+	copy.close();
+	system("cls");
+
+	// delete original file, and rename the file we changed
+	if (remove("Spaces.csv") != 0) {
+		cout << "Error: Could not delete the old database file!\n";
+	}
+	else {
+		if (rename("temp.csv", "Spaces.csv") != 0) {
+			cout << "Error: Could not rename the temp file!\n";
+		}
+		else {
+			if (found == true)
+				cout << "space successfully deleted!\n";
+			else
+				cout << "space not found\n";
+		}
+	}
+	admin_main_menu();
+
+
+}
+
 void admin_main_menu() {
 	int choice;
-	cout << "______________________\n 1.add a space\n 2.edit a space\n 3.exit program\n 4.TODO\n __________________\n";
+	cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.exit program\n __________________\n";
 	while (true) {
 		cout << "choice: ";
 		cin >> choice;
@@ -232,9 +295,12 @@ void admin_main_menu() {
 			break;
 		}
 
-		else if (choice == 3)
-			exit(0);
+		else if (choice == 3) {
+			DeleteSpace();
+			break;
+		}
+
 		else
-			continue; //TODO
+			exit(0);
 	}
 }
