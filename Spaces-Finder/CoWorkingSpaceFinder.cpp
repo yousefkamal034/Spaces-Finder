@@ -378,16 +378,26 @@ void FilterSpaces() {
 			}break;
 		}
 		else if (choice == 'A' || choice == 'a') {
-			for (int i = 0; i < totalSpacesCount; i++) {
-				if (spaceArray[i].NoOfSeatAvailable > 0) {
-					found = true;
-					cout << "Space Name: " << spaceArray[i].Name << endl;
-					cout << "Space ID: " << spaceArray[i].SpaceId << endl;
-					cout << "Number of Seats Available: " << spaceArray[i].NoOfSeatAvailable << endl;
-					cout << "-----------------------------" << endl;
-				}
-			}break;
+	
+	for (int i = 0; i < totalSpacesCount - 1; i++) {
+		for (int j = 0; j < totalSpacesCount - i - 1; j++) {
+			if (spaceArray[j].NoOfSeatAvailable < spaceArray[j + 1].NoOfSeatAvailable) {
+				Space temp = spaceArray[j];
+				spaceArray[j] = spaceArray[j + 1];
+				spaceArray[j + 1] = temp;
+			}
 		}
+	}
+	found = false; 
+	for (int i = 0; i < totalSpacesCount; i++) {
+		if (spaceArray[i].NoOfSeatAvailable > 0) {
+			found = true;
+			cout << "Space Name: " << spaceArray[i].Name << endl;
+			cout << "Number of Seats: " << spaceArray[i].NoOfSeatAvailable << endl;
+			cout << "-----------------------------" << endl;
+		}
+	}break;
+}
 		else {
 			cout << "Invalid choice, please enter P, R, W, M, or A." << endl;
 			continue;
