@@ -5,12 +5,16 @@
 #include <string>
 #include "structs.h"
 #include "adminfuncs.h"
+#include <cctype>
+
 using namespace std;
 
 User usersArray[100];
 Booking bookingsArray[100];
+Space spaceArray[100];
 int totalUsersCount = 0;
 int totalBookingsCount = 0;
+int totalSpacesCount = 0;
 
 
 int Log_in();
@@ -202,7 +206,7 @@ void LoadData() {
 			getline(file3, tempHasMeetingRoom, '\n');
 
 			spaceArray[totalSpacesCount].Name = tempName;
-			spaceArray[totalSpacesCount].SpaceId = tempID;
+			spaceArray[totalSpacesCount].SpaceId = stoi(tempID);
 			spaceArray[totalSpacesCount].Area = tempArea;
 			spaceArray[totalSpacesCount].PricePerHour = stoi(tempPricePerHour);
 			spaceArray[totalSpacesCount].NoOfSeatAvailable = stoi(tempNoOfSeatAvailable);
@@ -239,26 +243,26 @@ void ViewSpaces() {
 	
 }
 
-while(true) {
-	char choice;
-	cin >> choice;
-	if (choice == 's' || choice == 'S') {
-		SearchByArea();
+//while(true) {
+	//char choice;
+	//cin >> choice;
+	//if (choice == 's' || choice == 'S') {
+		//SearchByArea();
 		
-	}
-	else if (choice == 'f' || choice == 'F') {
-		FilterSpaces();
+	//}
+	//else if (choice == 'f' || choice == 'F') {
+		//FilterSpaces();
 		
-	}
-	else if (choice == 'b' || choice == 'B') {
-		book_space(userid);
-		break;
-	}
-	else {
-		cout << "Invalid choice, please enter s, f, or b." << endl;
-		continue;
-	}
-}
+	//}
+	//else if (choice == 'b' || choice == 'B') {
+		//book_space(userid);
+		//break;
+	//}
+	//else {
+		//cout << "Invalid choice, please enter s, f, or b." << endl;
+		//continue;
+	//}
+//}
 
 
 void SearchByArea() {
@@ -269,7 +273,7 @@ void SearchByArea() {
 	cout << "\n-----------Search Results-----------\n" << endl;
 	
 	for (int i = 0; i < totalSpacesCount; i++) {
-		if (toLower(spaceArray[i].Area) == toLower(area)) {
+		if (tolower(spaceArray[i].Area[0]) == tolower(area[0])) {
 			found = true;
 			cout << "Space Name: " << spaceArray[i].Name << endl;
 			cout << "Space ID: " << spaceArray[i].SpaceId << endl;
@@ -431,6 +435,7 @@ int main(){
 	int activeUserID=Logging(); //if -1 there is error  if = 0 activeuser is admin 
 	if (activeUserID == 0)
 		admin_main_menu();
-	book_space(activeUserID);
+	SearchByArea();
+	//book_space(activeUserID);
 
 }

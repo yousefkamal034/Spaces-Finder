@@ -1,9 +1,10 @@
 ﻿  CoWorkingSpaceFinder.cpp
-D:\123college project\Spaces-Finder\Spaces-Finder\adminfuncs.h(55,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\adminfuncs.h(55,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   (compiling source file 'CoWorkingSpaceFinder.cpp')
   
-D:\123college project\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(101,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\123college project\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(88,1): warning C4715: 'Log_in': not all control paths return a value
-D:\123college project\Spaces-Finder\Spaces-Finder\adminfuncs.h(217,1): warning C4715: 'EditSpace': not all control paths return a value
-D:\123college project\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(267,1): warning C4715: 'isvaliddate': not all control paths return a value
-  Spaces-Finder.vcxproj -> D:\123college project\Spaces-Finder\Spaces-Finder\x64\Debug\Spaces-Finder.exe
+C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(105,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(213,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\adminfuncs.h(217,1): warning C4715: 'EditSpace': not all control paths return a value
+C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(92,1): warning C4715: 'Log_in': not all control paths return a value
+C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(430,1): warning C4715: 'isvaliddate': not all control paths return a value
+  Spaces-Finder.vcxproj -> C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\x64\Debug\Spaces-Finder.exe
