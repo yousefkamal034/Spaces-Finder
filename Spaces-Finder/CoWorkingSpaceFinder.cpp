@@ -518,23 +518,25 @@ int SaveAll() {
 		cout << "couldn't open file";
 		return 1;
 	}
-	savebookingsfile << "BookingId, SpaceId, UserId, date, Hours, TotalCost, Seats\n";
+	savebookingsfile << "BookingId,SpaceId,UserId,date,Hours,TotalCost,Seats\n";
 	for (int i = 0; i < totalBookingsCount; i++) {
 		savebookingsfile << bookingsArray[i].BookingId << "," << bookingsArray[i].SpaceId << "," << bookingsArray[i].UserId << "," <<
 			bookingsArray[i].date << "," << bookingsArray[i].Hours << "," << bookingsArray[i].TotalCost << "," << bookingsArray[i].Seats << endl;
 	}
 	savebookingsfile.close();
 
-	ofstream saveuserfile("bookings.csv");
+	ofstream saveuserfile("Users.csv");
 	if (!saveuserfile.is_open()) {
 		cout << "couldn't open file";
 		return 1;
 	}
-	saveuserfile << "UserName,UserID,Password,Email,Phonen";
+	saveuserfile << "UserName,UserID,Password,Email,Phonen\n";
 	for (int i = 0; i < totalUsersCount; i++) {
 		saveuserfile << usersArray[i].UserName << "," << usersArray[i].Id << "," << usersArray[i].Password << "," << usersArray[i].Email << "," << usersArray[i].Phone << endl;
 	}
 	saveuserfile.close();
+
+	return 0;
 }
 
 int main(){
