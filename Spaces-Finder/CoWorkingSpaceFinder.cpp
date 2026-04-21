@@ -30,6 +30,16 @@ bool isvaliddate(string date);
 void FilterSpaces();
 void SearchByArea();
 bool isNumber(string s);
+string stringtolower(string s);
+
+// this is a helper function to turn a string into lower case
+string stringtolower(string s) {
+	int length = s.length();
+	for (int i = 0; i < length; i++) {
+		s[i] = tolower(s[i]);
+	}
+	return s;
+}
 
 // this is to check if a string is a number or not
 bool isNumber(string s) {
@@ -306,7 +316,7 @@ void SearchByArea() {
 	cout << "\n-----------Search Results-----------\n" << endl;
 	
 	for (int i = 0; i < totalSpacesCount; i++) {
-		if (tolower(spaceArray[i].Area[0]) == tolower(area[0])) {
+		if (stringtolower(spaceArray[i].Area) == stringtolower(area)) {
 			found = true;
 			cout << "Space Name: " << spaceArray[i].Name << endl;
 			cout << "Space ID: " << spaceArray[i].SpaceId << endl;
