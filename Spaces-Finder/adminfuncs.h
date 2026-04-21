@@ -67,45 +67,38 @@ int AddSpace() {
 	srand(time(0)); // c++ why do u have to be like this???, i need this line so rand() works
 	spaceArray[j].SpaceId = rand() % (1000 - 100 + 1) + 100; // i think between 100 and 1000
 
-	//ofstream file("Spaces.csv");
-	//if (!file.is_open()) {
-	//	cout << "couldn't open file";
-	//	return 1;
-	//}
-
-	//file << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n";
-	//string wifi, hmr;
-	//for (int i = 0; i < totalSpacesCount; i++) {
-	//	if (spaceArray[i].HasWifi)
-	//		wifi = "Yes";
-	//	else
-	//		wifi = "No";
-	//	if (spaceArray[i].HasMeetingRoom)
-	//		hmr = "Yes";
-	//	else
-	//		hmr = "No";
-	//	file << spaceArray[i].Name << "," << spaceArray[i].SpaceId << "," << spaceArray[i].Area << "," << spaceArray[i].PricePerHour <<
-	//		"," << spaceArray[i].NoOfSeatAvailable << "," << spaceArray[i].Rating << "," << wifi << "," << hmr << endl;
-	//}
-	//file.close();
-
 	totalSpacesCount++;
 	system("cls");
+	cout << "added space successfully\n";
 	admin_main_menu();
 	return 0;
 }
 
 int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 	system("cls");
-	int tempid; // to store the id for the space i want to edit
-	cout << "enter the id for the space you want to edit: ";
+	string tempid; // to store the id for the space i want to edit
+	bool found = false;
+	cout << "enter the id for the space you want to edit (press b to go back): ";
 	cin >> tempid;
+
+	if (tempid == "b" || tempid == "B") {
+		admin_main_menu();
+		return 0;
+	}
+
 	int j = 0;
 	for (int i = 0; i < totalSpacesCount; i++) {
-		if (spaceArray[i].SpaceId == tempid) {
+		if (spaceArray[i].SpaceId == stoi(tempid)) {
+			found = true;
 			break;
 		}
 		j++;
+	}
+
+	if (found = false) {
+		cout << "didn't find space!\n";
+		admin_main_menu();
+		return 0;
 	}
 
 
@@ -160,28 +153,6 @@ int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 		}break;
 	}
 
-	//ofstream file("Spaces.csv"); // read from original file
-	//if (!file.is_open()) {
-	//	cout << "couldn't open file";
-	//	return 1;
-	//}
-
-	//file << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n";
-	//string wifi, hmr;
-	//for (int i = 0; i < totalSpacesCount; i++) {
-	//	if (spaceArray[i].HasWifi)
-	//		wifi = "Yes";
-	//	else
-	//		wifi = "No";
-	//	if (spaceArray[i].HasMeetingRoom)
-	//		hmr = "Yes";
-	//	else
-	//		hmr = "No";
-	//	file << spaceArray[i].Name << "," << spaceArray[i].SpaceId << "," << spaceArray[i].Area << "," << spaceArray[i].PricePerHour <<
-	//		"," << spaceArray[i].NoOfSeatAvailable << "," << spaceArray[i].Rating << "," << wifi << "," << hmr << endl;
-	//}
-	//file.close();
-
 	system("cls");
 	cout << "updated space successfully\n";
 	admin_main_menu();
@@ -190,15 +161,20 @@ int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 
 int DeleteSpace() {
 	system("cls");
-	int chosenid;
+	string chosenid;
 	bool found = false;
 
-	cout << "enter the id for the space you want to delete: ";
+	cout << "enter the id for the space you want to delete (press b to go back): ";
 	cin >> chosenid;
+
+	if (chosenid == "b" || chosenid == "B") {
+		admin_main_menu();
+		return 0;
+	}
 
 	for (int i = 0; i < totalSpacesCount; i++) {
 
-		if (spaceArray[i].SpaceId == chosenid) {
+		if (spaceArray[i].SpaceId == stoi(chosenid)) {
 
 			found = true;
 
@@ -212,27 +188,11 @@ int DeleteSpace() {
 			break;
 		}
 	}
-	//ofstream file("Spaces.csv");
-	//if (!file.is_open()) {
-	//	cout << "couldn't open file!\n";
-	//	return 2;
-	//}
 
-	//file << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n";
-	//for (int i = 0; i < totalSpacesCount; i++) {
-	//	string wifi, hmr;
-	//	if (spaceArray[i].HasWifi)
-	//		wifi = "Yes";
-	//	else
-	//		wifi = "No";
-	//	if (spaceArray[i].HasMeetingRoom)
-	//		hmr = "Yes";
-	//	else
-	//		hmr = "No";
-	//	file << spaceArray[i].Name << "," << spaceArray[i].SpaceId << "," << spaceArray[i].Area << "," << spaceArray[i].PricePerHour <<
-	//		"," << spaceArray[i].NoOfSeatAvailable << "," << spaceArray[i].Rating << "," << wifi << "," << hmr << endl;
-	//}
-	//file.close();
+	if (found == false) {
+		cout << "didn't find space!\n";
+	}
+
 	admin_main_menu();
 	return 0;
 }
@@ -254,34 +214,35 @@ int ViewAllBookings() {
 }
 
 void admin_main_menu() {
-	int choice;
+	string choice;
 	cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.View all bookings\n 5.exit program\n __________________\n";
 	while (true) {
 		cout << "choice: ";
 		cin >> choice;
-		if (choice == 1) {
+		if (choice == "1") {
 			system("cls");
 			AddSpace();
 			break;
 		}
-		else if (choice == 2) {
+		else if (choice == "2") {
 			EditSpace();
 			break;
 		}
 
-		else if (choice == 3) {
+		else if (choice == "3") {
 			DeleteSpace();
 			break;
 		}
 
-		else if (choice == 4) {
+		else if (choice == "4") {
 			ViewAllBookings();
 			break;
 		}
 
-		else
+		else if (choice == "5") {
 			SaveAll();
-		exit(0);
+			exit(0);
+		}
 	}
 }
 
