@@ -12,6 +12,7 @@ using namespace std;
 User usersArray[100];
 Booking bookingsArray[100];
 Space spaceArray[100];
+int activeUserID;
 int totalUsersCount = 0;
 int totalBookingsCount = 0;
 int totalSpacesCount = 0;
@@ -267,6 +268,7 @@ while (true) {
 			
 		}
 		else if (choice == 'm' || choice == 'M') {
+			SaveAll();
 			break;
 		}
 		else {
@@ -431,19 +433,19 @@ void book_space(int userid) {
 		cout << "Enter Space ID: ";
 		cin >> chosenspaceid;
 
-		int j = 0;
-		for (int i = 0; i < totalSpacesCount; i++) {
-			if (spaceArray[i].SpaceId == chosenspaceid)
-				break;
-			j++;
-		}
+		//int j = 0;
+		//for (int i = 0; i < totalSpacesCount; i++) {
+		//	if (spaceArray[i].SpaceId == chosenspaceid)
+		//		break;
+		//	j++;
+		//}
 
-		for (int i = 0; i < totalBookingsCount; i++) {
-			if (bookingsArray[i].SpaceId == chosenspaceid) {
+		for (int i = 0; i < totalSpacesCount; i++) {
+			if (spaceArray[i].SpaceId == chosenspaceid) {
 				zebda = true;
 				cout << "Enter how many seats you want to book: ";
 				cin >> seats;
-				while (seats > spaceArray[j].NoOfSeatAvailable) {
+				while (seats > spaceArray[i].NoOfSeatAvailable) {
 					cout << "Not enough seats available!\n";
 					cin >> seats;
 				}
@@ -459,13 +461,23 @@ void book_space(int userid) {
 					cout << "Invalid date format! Please enter in DD/MM/YYYY format: ";
 					cin >> date;
 				}
-				bookingsArray[i].TotalCost = hours * spaceArray[j].PricePerHour;
+
+				srand(time(0));
+				bookingsArray[totalBookingsCount].BookingId = rand() % (2000 - 1000 + 1) + 1000;
+				bookingsArray[totalBookingsCount].SpaceId = spaceArray[i].SpaceId;
+				bookingsArray[totalBookingsCount].UserId = activeUserID;
+				bookingsArray[totalBookingsCount].date = date;
+				bookingsArray[totalBookingsCount].Hours = hours;
+				bookingsArray[totalBookingsCount].TotalCost = hours * spaceArray[i].PricePerHour;
+				bookingsArray[totalBookingsCount].Seats = seats;
+				
 				cout << "booking successful!, Here's your booking details: \n";
-				cout << "Booking ID: " << bookingsArray[i].BookingId << endl;
-				cout << "Space ID: " << bookingsArray[i].SpaceId << endl;
+				cout << "Booking ID: " << bookingsArray[totalBookingsCount].BookingId << endl;
+				cout << "Space ID: " << bookingsArray[totalBookingsCount].SpaceId << endl;
 				cout << "Date: " << date << endl;
 				cout << "Hours: " << hours << endl;
-				cout << "Total Cost: " << bookingsArray[i].TotalCost << endl;
+				cout << "Total Cost: " << bookingsArray[totalBookingsCount].TotalCost << endl;
+				totalBookingsCount++;
 			}
 		}
 	}
@@ -542,7 +554,7 @@ int SaveAll() {
 int main(){
 
 	LoadData();
-	int activeUserID=Logging(); //if -1 there is error  if = 0 activeuser is admin 
+	activeUserID=Logging(); //if -1 there is error  if = 0 activeuser is admin 
 	if (activeUserID == 0)
 		admin_main_menu();
 	ViewSpaces(activeUserID);
