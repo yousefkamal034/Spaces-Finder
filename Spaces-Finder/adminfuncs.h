@@ -19,33 +19,57 @@ void LoadData();
 void admin_main_menu();
 int SaveAll();
 
+// this is to check if a string is a number or not
+bool isNumber(string s) {
+	for (char c : s) {
+		if (isdigit(c) == false) return false;
+	}
+	return true;
+}
+
 
 int AddSpace() {
 	system("cls");
-	int j = totalSpacesCount;
-
-	//Space s;
+	string temp;
 	char haswifi, hasmr; // hmr = HasMeetingRoom
-	//string wifi, meetingroom;
 	cout << "enter space name: ";
-	getline(cin >> ws, spaceArray[j].Name);
+	getline(cin >> ws, spaceArray[totalSpacesCount].Name);
+
 	cout << "enter area: ";
-	cin >> spaceArray[j].Area;
+	cin >> spaceArray[totalSpacesCount].Area;
+
 	cout << "enter price per hour: ";
-	cin >> spaceArray[j].PricePerHour;
+	cin >> temp;
+	while (!isNumber(temp)) {
+		cout << "this isn't a number, please enter it again: ";
+		cin >> temp;
+	}
+	spaceArray[totalSpacesCount].PricePerHour = stoi(temp);
+
 	cout << "enter number of seats available: ";
-	cin >> spaceArray[j].NoOfSeatAvailable;
+	cin >> temp;
+	while (!isNumber(temp)) {
+		cout << "this isn't a number, please enter it again: ";
+		cin >> temp;
+	}
+	spaceArray[totalSpacesCount].NoOfSeatAvailable = stoi(temp);
+
 	cout << "what's the place's rating?: ";
-	cin >> spaceArray[j].Rating;
+	cin >> temp;
+	while (!isNumber(temp)) {
+		cout << "this isn't a number, please enter it again: ";
+		cin >> temp;
+	}
+	spaceArray[totalSpacesCount].Rating = stof(temp);
 
 	while (true) { // to check if the admin entered y or n only
 		cout << "does it have wifi? (y,n): ";
 		cin >> haswifi;
 		if (haswifi == 'y' || haswifi == 'Y') {
-			spaceArray[j].HasWifi = true; break;
+			spaceArray[totalSpacesCount].HasWifi = true; break;
 		}
 		else if (haswifi == 'n' || haswifi == 'N') {
-			spaceArray[j].HasWifi = false; break;
+			spaceArray[totalSpacesCount].HasWifi = false; break;
 		}
 		else
 			cout << "wrong choice, enter y or n only\n";
@@ -55,17 +79,17 @@ int AddSpace() {
 		cout << "does it have a meeting room? (y,n): ";
 		cin >> hasmr;
 		if (hasmr == 'y' || hasmr == 'Y') {
-			spaceArray[j].HasMeetingRoom = true; break;
+			spaceArray[totalSpacesCount].HasMeetingRoom = true; break;
 		}
 		else if (hasmr == 'n' || hasmr == 'N') {
-			spaceArray[j].HasMeetingRoom = false; break;
+			spaceArray[totalSpacesCount].HasMeetingRoom = false; break;
 		}
 		else
 			cout << "wrong choice, enter y or n only\n";
 	}
 
 	srand(time(0)); // c++ why do u have to be like this???, i need this line so rand() works
-	spaceArray[j].SpaceId = rand() % (1000 - 100 + 1) + 100; // i think between 100 and 1000
+	spaceArray[totalSpacesCount].SpaceId = rand() % (1000 - 100 + 1) + 100; // i think between 100 and 1000
 
 	totalSpacesCount++;
 	system("cls");
@@ -74,19 +98,24 @@ int AddSpace() {
 	return 0;
 }
 
-int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
+int EditSpace() {
 	system("cls");
 	string tempid; // to store the id for the space i want to edit
 	bool found = false;
-	cout << "enter the id for the space you want to edit (press b to go back): ";
+	cout << "enter the id for the space you want to edit (press q to go back): ";
 	cin >> tempid;
 
-	if (tempid == "b" || tempid == "B") {
+	if (tempid == "q" || tempid == "Q") { // if admin wants to go back
 		admin_main_menu();
 		return 0;
 	}
 
-	int j = 0;
+	while (!isNumber(tempid)) { // this effictively guards from wierd inputs like "dsigdaognabg"
+		cout << "this isn't a number, please enter it again: ";
+		cin >> tempid;
+	}
+
+	int j = 0; // this loop is to get the index of the space we want to edit and store it in a variable
 	for (int i = 0; i < totalSpacesCount; i++) {
 		if (spaceArray[i].SpaceId == stoi(tempid)) {
 			found = true;
@@ -102,11 +131,24 @@ int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 	}
 
 
-	int choice;
+	string choice;
 	string newwifi, newhmr; // hmr = has meeting room
-	cout << "change:\n1.Name  2.Area  3.price per hour  4.number of seats available\n 5.Rating  6.HasWifi  7.HasMeetingRoom\n choice: ";
+	cout << "change:\n1.Name\n2.Area\n3.price per hour\n4.number of seats available\n5.Rating\n6.HasWifi\n7.HasMeetingRoom\n(press 'q' to go back)\nchoice: ";
 	cin >> choice;
-	switch (choice) {
+
+	if (choice == "Q" || choice == "q") {
+		system("cls");
+		admin_main_menu();
+		return 0;
+	}
+
+	while (!isNumber(choice)) {
+		cout << "this isn't a number, please enter it again: ";
+		cin >> choice;
+	}
+
+	string temp;
+	switch (stoi(choice)) {
 	case 1:
 		cout << "enter new name: ";
 		cin >> spaceArray[j].Name;
@@ -117,15 +159,30 @@ int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 		break;
 	case 3:
 		cout << "enter new price: ";
-		cin >> spaceArray[j].PricePerHour;
+		cin >> temp;
+		while (!isNumber(temp)) {
+			cout << "this isn't a number, please enter it again: ";
+			cin >> temp;
+		}
+		spaceArray[j].PricePerHour = stoi(temp);
 		break;
 	case 4:
 		cout << "enter new number of seats available: ";
-		cin >> spaceArray[j].NoOfSeatAvailable;
+		cin >> temp;
+		while (!isNumber(temp)) {
+			cout << "this isn't a number, please enter it again: ";
+			cin >> temp;
+		}
+		spaceArray[j].NoOfSeatAvailable = stoi(temp);
 		break;
 	case 5:
 		cout << "enter new rating: ";
-		cin >> spaceArray[j].Rating;
+		cin >> temp;
+		while (!isNumber(temp)) {
+			cout << "this isn't a number, please enter it again: ";
+			cin >> temp;
+		}
+		spaceArray[j].Rating = stof(temp);
 		break;
 	case 6: // loop to make sure admin hits y or n only
 		while (true) {
@@ -167,13 +224,18 @@ int DeleteSpace() {
 	cout << "enter the id for the space you want to delete (press b to go back): ";
 	cin >> chosenid;
 
-	if (chosenid == "b" || chosenid == "B") {
+	if (chosenid == "b" || chosenid == "B") { // if admin chose to go back
 		admin_main_menu();
 		return 0;
 	}
 
-	for (int i = 0; i < totalSpacesCount; i++) {
+	while (!isNumber(chosenid)) {
+		cout << "this isn't a number, please enter it again: ";
+		cin >> chosenid;
+	}
 
+
+	for (int i = 0; i < totalSpacesCount; i++) {
 		if (spaceArray[i].SpaceId == stoi(chosenid)) {
 
 			found = true;
@@ -181,7 +243,7 @@ int DeleteSpace() {
 			// Overwrite this space with the very last space in the array
 			spaceArray[i] = spaceArray[totalSpacesCount - 1];
 
-			// Shrink the active size of the array so that last space is "deleted"
+			// -1 from totalspacecount (a space is deleted)
 			totalSpacesCount--;
 
 			cout << "Space deleted from memory!\n";
@@ -199,6 +261,7 @@ int DeleteSpace() {
 
 int ViewAllBookings() {
 	system("cls");
+	// just read everything from the bookings array bruh
 	for (int i = 0; i < totalBookingsCount; i++) {
 		cout << "Booking ID: " << bookingsArray[i].BookingId << endl;
 		cout << "Space ID: " << bookingsArray[i].SpaceId << endl;
@@ -216,7 +279,7 @@ int ViewAllBookings() {
 void admin_main_menu() {
 	string choice;
 	cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.View all bookings\n 5.exit program\n __________________\n";
-	while (true) {
+	while (true) { // no need to check if it's a number or not, this loop handles this
 		cout << "choice: ";
 		cin >> choice;
 		if (choice == "1") {
