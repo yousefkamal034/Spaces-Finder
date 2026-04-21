@@ -97,12 +97,21 @@ int Log_in() {
 int Sign_up() {
 	system("cls");
 	string tempUsername, tempPassword, tempEmail, tempPhone;
+	bool pass_correct = false;
 	cout << "Enter A UserName: ";
 	getline(cin >> ws, tempUsername);
 	cout << "Enter Email: ";
 	cin >> tempEmail;
-	cout << "Create A Password: ";
-	cin >> tempPassword;
+	while (!pass_correct) {
+		cout << "Create A password:";
+		cin >> tempPassword;
+		if (tempPassword.length() < 6) {
+			cout << "Password Should be more than 6 characters" << endl;
+			continue;
+		}
+		else
+			pass_correct = true;
+	}
 	cout << "Enter Phone Number: ";
 	cin >> tempPhone;
 	srand(time(0));
