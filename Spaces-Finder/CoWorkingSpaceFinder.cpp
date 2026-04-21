@@ -435,13 +435,11 @@ void view_my_bookings(int userid) {
 	
 void book_space(int userid) {
 	int chosenspaceid;
-	int hours, seats;
-	string date;
+	string date, seats, hours;
 	bool zebda = false;
-	cout << "Enter Space ID: ";
+	cout << "Enter SpaceID: ";
+	cin >> chosenspaceid;
 	while (zebda == false) {
-		cout << "Enter Space ID: ";
-		cin >> chosenspaceid;
 
 		//int j = 0;
 		//for (int i = 0; i < totalSpacesCount; i++) {
@@ -449,47 +447,54 @@ void book_space(int userid) {
 		//		break;
 		//	j++;
 		//}
-
-		for (int i = 0; i < totalSpacesCount; i++) {
-			if (spaceArray[i].SpaceId == chosenspaceid) {
-				zebda = true;
-				cout << "Enter how many seats you want to book: ";
-				cin >> seats;
-				while (seats > spaceArray[i].NoOfSeatAvailable) {
-					cout << "Not enough seats available!\n";
+			for (int i = 0; i < totalSpacesCount; i++) {
+				if (spaceArray[i].SpaceId == chosenspaceid) {
+					zebda = true;
+					cout << "Enter how many seats you want to book: ";
 					cin >> seats;
-				}
-				cout << "Enter how many hours you want to book for: ";
-				cin >> hours;
-				while (hours > 13) {
-					cout << "You can't book for more than 12 hours!\n";
+					while (!(isdigit(seats[0]))) {
+						cout << "Enter A Valid number Please,Enter how many seats you want to book: ";
+						cin >> seats;
+					}
+					while (stoi(seats) > spaceArray[i].NoOfSeatAvailable) {
+						cout << "Not enough seats available!\n";
+						cin >> seats;
+					}
+					cout << "Enter how many hours you want to book for: ";
 					cin >> hours;
-				}
-				cout << "Enter the date you want to book for (DD/MM/YYYY): ";
-				cin >> date;
-				while (!isvaliddate(date)) {
-					cout << "Invalid date format! Please enter in DD/MM/YYYY format: ";
+					while (!(isdigit(hours[0]))) {
+						cout << "Enter A Valid number Please,Enter how many hours you want to book for: ";
+						cin >> hours;
+					}
+					while (stoi(hours) > 13) {
+						cout << "You can't book for more than 12 hours!\n";
+						cin >> hours;
+					}
+					cout << "Enter the date you want to book for (DD/MM/YYYY): ";
 					cin >> date;
+					while (!isvaliddate(date)) {
+						cout << "Invalid date! Please enter Date Again: ";
+						cin >> date;
+					}
+
+					srand(time(0));
+					bookingsArray[totalBookingsCount].BookingId = rand() % (2000 - 1000 + 1) + 1000;
+					bookingsArray[totalBookingsCount].SpaceId = spaceArray[i].SpaceId;
+					bookingsArray[totalBookingsCount].UserId = activeUserID;
+					bookingsArray[totalBookingsCount].date = date;
+					bookingsArray[totalBookingsCount].Hours = stoi(hours);
+					bookingsArray[totalBookingsCount].TotalCost = stoi(hours) * spaceArray[i].PricePerHour;
+					bookingsArray[totalBookingsCount].Seats = stoi(seats);
+
+					cout << endl << "booking successful!, Here's your booking details: \n";
+					cout << "Booking ID: " << bookingsArray[totalBookingsCount].BookingId << endl;
+					cout << "Space ID: " << bookingsArray[totalBookingsCount].SpaceId << endl;
+					cout << "Date: " << date << endl;
+					cout << "Hours: " << hours << endl;
+					cout << "Total Cost: " << bookingsArray[totalBookingsCount].TotalCost << endl;
+					totalBookingsCount++;
 				}
-
-				srand(time(0));
-				bookingsArray[totalBookingsCount].BookingId = rand() % (2000 - 1000 + 1) + 1000;
-				bookingsArray[totalBookingsCount].SpaceId = spaceArray[i].SpaceId;
-				bookingsArray[totalBookingsCount].UserId = activeUserID;
-				bookingsArray[totalBookingsCount].date = date;
-				bookingsArray[totalBookingsCount].Hours = hours;
-				bookingsArray[totalBookingsCount].TotalCost = hours * spaceArray[i].PricePerHour;
-				bookingsArray[totalBookingsCount].Seats = seats;
-
-				cout << "booking successful!, Here's your booking details: \n";
-				cout << "Booking ID: " << bookingsArray[totalBookingsCount].BookingId << endl;
-				cout << "Space ID: " << bookingsArray[totalBookingsCount].SpaceId << endl;
-				cout << "Date: " << date << endl;
-				cout << "Hours: " << hours << endl;
-				cout << "Total Cost: " << bookingsArray[totalBookingsCount].TotalCost << endl;
-				totalBookingsCount++;
 			}
-		}
 	}
 }
 
@@ -507,8 +512,27 @@ bool isvaliddate(string date) {
 		else if (!isdigit(date[i])) {
 			return false;
 		}
-		return true;
 	}
+	string year = date.substr(6, 4);
+	int yearInt = stoi(year);
+
+	if (yearInt > 2029 || yearInt < 2026) {
+		return false;
+	}
+	string month = date.substr(3, 2);
+	int monthInt = stoi(month);
+
+	if (monthInt > 12 || monthInt < 1) {
+		return false;
+	}
+	string days = date.substr(0, 2);
+	int daysInt = stoi(days);
+
+	if (daysInt > 31 || daysInt < 1) {
+		return false;
+	}
+	return true;
+
 }
 
 int SaveAll() {
@@ -568,6 +592,8 @@ int main(){
 	if (activeUserID == 0)
 		admin_main_menu();
 	ViewSpaces(activeUserID);
+	
+	
 	
 
 }
