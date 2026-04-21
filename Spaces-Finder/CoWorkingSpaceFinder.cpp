@@ -438,6 +438,7 @@ void book_space(int userid) {
 	int hours, seats;
 	string date;
 	bool zebda = false;
+	cout << "Enter Space ID: ";
 	while (zebda == false) {
 		cout << "Enter Space ID: ";
 		cin >> chosenspaceid;
@@ -479,7 +480,7 @@ void book_space(int userid) {
 				bookingsArray[totalBookingsCount].Hours = hours;
 				bookingsArray[totalBookingsCount].TotalCost = hours * spaceArray[i].PricePerHour;
 				bookingsArray[totalBookingsCount].Seats = seats;
-				
+
 				cout << "booking successful!, Here's your booking details: \n";
 				cout << "Booking ID: " << bookingsArray[totalBookingsCount].BookingId << endl;
 				cout << "Space ID: " << bookingsArray[totalBookingsCount].SpaceId << endl;
