@@ -8,32 +8,44 @@
 #include "structs.h"
 using namespace std;
 
+extern User usersArray[100];
+extern Booking bookingsArray[100];
+extern Space spaceArray[100];
+extern int totalUsersCount;
+extern int totalBookingsCount;
+extern int totalSpacesCount;
+
+void LoadData();
 void admin_main_menu();
+int SaveAll();
+
 
 int AddSpace() {
 	system("cls");
-	Space s;
-	char haswifi, hmr; // hmr = HasMeetingRoom
-	string wifi, meetingroom;
+	int j = totalSpacesCount;
+
+	//Space s;
+	char haswifi, hasmr; // hmr = HasMeetingRoom
+	//string wifi, meetingroom;
 	cout << "enter space name: ";
-	getline(cin >> ws, s.Name);
+	getline(cin >> ws, spaceArray[j].Name);
 	cout << "enter area: ";
-	cin >> s.Area;
+	cin >> spaceArray[j].Area;
 	cout << "enter price per hour: ";
-	cin >> s.PricePerHour;
+	cin >> spaceArray[j].PricePerHour;
 	cout << "enter number of seats available: ";
-	cin >> s.NoOfSeatAvailable;
+	cin >> spaceArray[j].NoOfSeatAvailable;
 	cout << "what's the place's rating?: ";
-	cin >> s.Rating;
+	cin >> spaceArray[j].Rating;
 
 	while (true) { // to check if the admin entered y or n only
 		cout << "does it have wifi? (y,n): ";
 		cin >> haswifi;
 		if (haswifi == 'y' || haswifi == 'Y') {
-			wifi = "Yes"; break;
+			spaceArray[j].HasWifi = true; break;
 		}
 		else if (haswifi == 'n' || haswifi == 'N') {
-			wifi = "No"; break;
+			spaceArray[j].HasWifi = false; break;
 		}
 		else
 			cout << "wrong choice, enter y or n only\n";
@@ -41,25 +53,43 @@ int AddSpace() {
 
 	while (true) { // to check if the admin entered y or n only
 		cout << "does it have a meeting room? (y,n): ";
-		cin >> hmr;
-		if (hmr == 'y' || hmr == 'Y') {
-			meetingroom = "Yes"; break;
+		cin >> hasmr;
+		if (hasmr == 'y' || hasmr == 'Y') {
+			spaceArray[j].HasMeetingRoom = true; break;
 		}
-		else if (hmr == 'n' || hmr == 'N') {
-			meetingroom = "No"; break;
+		else if (hasmr == 'n' || hasmr == 'N') {
+			spaceArray[j].HasMeetingRoom = false; break;
 		}
 		else
 			cout << "wrong choice, enter y or n only\n";
 	}
 
 	srand(time(0)); // c++ why do u have to be like this???, i need this line so rand() works
-	s.SpaceId = rand() % (1000 - 100 + 1) + 100; // i think between 100 and 1000
-	ofstream file("Spaces.csv", ios::app); //ios::app for appending in the file
-	if (file.is_open()) {
-		file << s.Name << "," << s.SpaceId << "," << s.Area << "," << s.PricePerHour
-			<< "," << s.NoOfSeatAvailable << "," << s.Rating << "," << wifi << "," << meetingroom << endl;
-		file.close();
+	spaceArray[j].SpaceId = rand() % (1000 - 100 + 1) + 100; // i think between 100 and 1000
+
+	ofstream file("Spaces.csv");
+	if (!file.is_open()) {
+		cout << "couldn't open file";
+		return 1;
 	}
+
+	totalSpacesCount++;
+	//file << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n";
+	//string wifi, hmr;
+	//for (int i = 0; i < totalSpacesCount; i++) {
+	//	if (spaceArray[i].HasWifi)
+	//		wifi = "Yes";
+	//	else
+	//		wifi = "No";
+	//	if (spaceArray[i].HasMeetingRoom)
+	//		hmr = "Yes";
+	//	else
+	//		hmr = "No";
+	//	file << spaceArray[i].Name << "," << spaceArray[i].SpaceId << "," << spaceArray[i].Area << "," << spaceArray[i].PricePerHour <<
+	//		"," << spaceArray[i].NoOfSeatAvailable << "," << spaceArray[i].Rating << "," << wifi << "," << hmr << endl;
+	//}
+	//file.close();
+
 	system("cls");
 	admin_main_menu();
 	return 0;
@@ -70,48 +100,14 @@ int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 	int tempid; // to store the id for the space i want to edit
 	cout << "enter the id for the space you want to edit: ";
 	cin >> tempid;
-	Space s;
-	ifstream file("Spaces.csv");
-	if (file.is_open()) { // always check if it opened correctly
-		string temp; // to store things temporary
-		bool matching = false;
-		getline(file, temp); // to get rid of the header file
-		while (getline(file, s.Name, ',')) {
-			getline(file, temp, ','); // to store the id in
-			s.SpaceId = stoi(temp);
-			if (s.SpaceId == tempid)
-				matching = true;
-
-			getline(file, s.Area, ',');
-
-			getline(file, temp, ',');
-			s.PricePerHour = stoi(temp);
-
-			getline(file, temp, ',');
-			s.NoOfSeatAvailable = stoi(temp);
-
-			getline(file, temp, ',');
-			s.Rating = stof(temp);
-
-			getline(file, temp, ',');
-			if (temp == "Yes")
-				s.HasWifi = true;
-			else s.HasWifi = false;
-
-			getline(file, temp);
-			if (temp == "Yes")
-				s.HasMeetingRoom = true;
-			else s.HasMeetingRoom = false;
-			if (matching == true) // if we found the space
-				break;
-			else
-				continue;
+	int j = 0;
+	for (int i = 0; i < totalSpacesCount; i++) {
+		if (spaceArray[i].SpaceId == tempid) {
+			break;
 		}
-		if (!matching) { // if we didn't find the space ever
-			cout << "didn't find " << tempid << " in the data base, please check the id again";
-		}
+		j++;
 	}
-	file.close();
+
 
 	int choice;
 	string newwifi, newhmr; // hmr = has meeting room
@@ -120,23 +116,23 @@ int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 	switch (choice) {
 	case 1:
 		cout << "enter new name: ";
-		cin >> s.Name;
+		cin >> spaceArray[j].Name;
 		break;
 	case 2:
 		cout << "enter new area: ";
-		cin >> s.Area;
+		cin >> spaceArray[j].Area;
 		break;
 	case 3:
 		cout << "enter new price: ";
-		cin >> s.PricePerHour;
+		cin >> spaceArray[j].PricePerHour;
 		break;
 	case 4:
 		cout << "enter new number of seats available: ";
-		cin >> s.NoOfSeatAvailable;
+		cin >> spaceArray[j].NoOfSeatAvailable;
 		break;
 	case 5:
 		cout << "enter new rating: ";
-		cin >> s.Rating;
+		cin >> spaceArray[j].Rating;
 		break;
 	case 6: // loop to make sure admin hits y or n only
 		while (true) {
@@ -144,10 +140,10 @@ int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 			char choice2;
 			cin >> choice2;
 			if (choice2 == 'y' || choice2 == 'Y') {
-				s.HasWifi = true; break;
+				spaceArray[j].HasWifi = true; break;
 			}
 			else if (choice2 == 'n' || choice2 == 'N') {
-				s.HasWifi = false; break;
+				spaceArray[j].HasWifi = false; break;
 			}
 		}break;
 	case 7:
@@ -156,132 +152,108 @@ int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 			char choice3;
 			cin >> choice3;
 			if (choice3 == 'y' || choice3 == 'Y') {
-				s.HasMeetingRoom = true; break;
+				spaceArray[j].HasMeetingRoom = true; break;
 			}
 			else if (choice3 == 'n' || choice3 == 'N') {
-				s.HasMeetingRoom = false; break;
+				spaceArray[j].HasMeetingRoom = false; break;
 			}
 		}break;
 	}
 
-	if (s.HasWifi == true)
-		newwifi = "Yes";
-	else newwifi = "No";
-
-	if (s.HasMeetingRoom == true)
-		newhmr = "Yes";
-	else newhmr = "No";
-
-	ifstream origfile("Spaces.csv"); // read from original file
-	if (!origfile.is_open()) {
+	ofstream file("Spaces.csv"); // read from original file
+	if (!file.is_open()) {
 		cout << "couldn't open file";
 		return 1;
 	}
-	ofstream copy("temp.csv"); // write into another file, but change the space with the id in s with the data we entered
-	if (!copy.is_open()) {
-		cout << "a problem happened, couldn't create temp.csv";
-		return 2;
-	}
-	string line, tempname, tempid2;
-	int first2 = 1; // to make sure we don't try to stoi() the header
-	while (getline(origfile, line)) {
-		stringstream ss(line);
-		if (first2 != 1) {
-			getline(ss, tempname, ',');
-			getline(ss, tempid2, ',');
-			if (stoi(tempid2) == s.SpaceId) {
-				copy << s.Name << "," << s.SpaceId << "," << s.Area << "," << s.PricePerHour
-					<< "," << s.NoOfSeatAvailable << "," << s.Rating << "," << newwifi << "," << newhmr << endl;
-				continue;
-			}
-		}
-		first2++;
-		copy << line << endl;
-	}
-	origfile.close();
-	copy.close();
 
-	// delete original file, and rename the file we changed
-	if (remove("Spaces.csv") != 0) {
-		cout << "Error: Could not delete the old database file!\n";
-	}
-	else {
-		if (rename("temp.csv", "Spaces.csv") != 0) {
-			cout << "Error: Could not rename the temp file!\n";
-		}
-		else {
-			cout << "space successfully updated!\n";
-		}
-	}
+	//file << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n";
+	//string wifi, hmr;
+	//for (int i = 0; i < totalSpacesCount; i++) {
+	//	if (spaceArray[i].HasWifi)
+	//		wifi = "Yes";
+	//	else
+	//		wifi = "No";
+	//	if (spaceArray[i].HasMeetingRoom)
+	//		hmr = "Yes";
+	//	else
+	//		hmr = "No";
+	//	file << spaceArray[i].Name << "," << spaceArray[i].SpaceId << "," << spaceArray[i].Area << "," << spaceArray[i].PricePerHour <<
+	//		"," << spaceArray[i].NoOfSeatAvailable << "," << spaceArray[i].Rating << "," << wifi << "," << hmr << endl;
+	//}
+	//file.close();
+
 	admin_main_menu();
+	return 0;
 }
 
 int DeleteSpace() {
 	system("cls");
 	int chosenid;
-	string header, temp;
 	bool found = false;
-	Space s;
 
 	cout << "enter the id for the space you want to delete: ";
 	cin >> chosenid;
 
-	ifstream origfile("Spaces.csv");
-	if (!origfile.is_open()) {
-		cout << "error opening file\n";
-		return 2;
-	}
+	for (int i = 0; i < totalSpacesCount; i++) {
 
-	getline(origfile, header);
+		if (spaceArray[i].SpaceId == chosenid) {
 
-	ofstream copy("temp.csv");
-	if (!copy.is_open()) {
-		cout << "couldn't create file\n";
-		return 2;
-	}
-
-	copy << header << endl;
-
-	string line;
-	while (getline(origfile, line)) {
-		stringstream ss(line);
-		getline(ss, s.Name, ',');
-		getline(ss, temp, ',');
-		if (chosenid == stoi(temp)) {
+			// WE FOUND IT!
 			found = true;
-			continue;
-		}
 
-		copy << line << endl;
+			// Overwrite this space with the very last space in the array
+			spaceArray[i] = spaceArray[totalSpacesCount - 1];
+
+			// Shrink the active size of the array so that last space is "deleted"
+			totalSpacesCount--;
+
+			cout << "Space deleted from memory!\n";
+			break;
+		}
+	}
+	ofstream file("Spaces.csv");
+	if (!file.is_open()) {
+		cout << "couldn't open file!\n";
+		return 2;
 	}
 
-	origfile.close();
-	copy.close();
+	//file << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n";
+	//for (int i = 0; i < totalSpacesCount; i++) {
+	//	string wifi, hmr;
+	//	if (spaceArray[i].HasWifi)
+	//		wifi = "Yes";
+	//	else
+	//		wifi = "No";
+	//	if (spaceArray[i].HasMeetingRoom)
+	//		hmr = "Yes";
+	//	else
+	//		hmr = "No";
+	//	file << spaceArray[i].Name << "," << spaceArray[i].SpaceId << "," << spaceArray[i].Area << "," << spaceArray[i].PricePerHour <<
+	//		"," << spaceArray[i].NoOfSeatAvailable << "," << spaceArray[i].Rating << "," << wifi << "," << hmr << endl;
+	//}
+	//file.close();
+	admin_main_menu();
+}
+
+int ViewAllBookings() {
 	system("cls");
-
-	// delete original file, and rename the file we changed
-	if (remove("Spaces.csv") != 0) {
-		cout << "Error: Could not delete the old database file!\n";
-	}
-	else {
-		if (rename("temp.csv", "Spaces.csv") != 0) {
-			cout << "Error: Could not rename the temp file!\n";
-		}
-		else {
-			if (found == true)
-				cout << "space successfully deleted!\n";
-			else
-				cout << "space not found\n";
-		}
+	for (int i = 0; i < totalBookingsCount; i++) {
+		cout << "Booking ID: " << bookingsArray[i].BookingId << endl;
+		cout << "Space ID: " << bookingsArray[i].SpaceId << endl;
+		cout << "Date: " << bookingsArray[i].date << endl;
+		cout << "Hours: " << bookingsArray[i].Hours << endl;
+		cout << "Total Cost: " << bookingsArray[i].TotalCost << endl;
+		cout << "Seats: " << bookingsArray[i].Seats << endl;
+		cout << "-----------------------------" << endl;
 	}
 	admin_main_menu();
-
+	return 0;
 
 }
 
 void admin_main_menu() {
 	int choice;
-	cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.exit program\n __________________\n";
+	cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.View all bookings\n 5.exit program\n __________________\n";
 	while (true) {
 		cout << "choice: ";
 		cin >> choice;
@@ -300,7 +272,15 @@ void admin_main_menu() {
 			break;
 		}
 
+		else if (choice == 4) {
+			ViewAllBookings();
+			break;
+		}
+
 		else
-			exit(0);
+			SaveAll();
+		exit(0);
 	}
 }
+
+

@@ -430,12 +430,20 @@ void book_space(int userid) {
 	while (zebda == false) {
 		cout << "Enter Space ID: ";
 		cin >> chosenspaceid;
+
+		int j = 0;
+		for (int i = 0; i < totalSpacesCount; i++) {
+			if (spaceArray[i].SpaceId == chosenspaceid)
+				break;
+			j++;
+		}
+
 		for (int i = 0; i < totalBookingsCount; i++) {
 			if (bookingsArray[i].SpaceId == chosenspaceid) {
 				zebda = true;
 				cout << "Enter how many seats you want to book: ";
 				cin >> seats;
-				while (seats > bookingsArray[i].Seats) {
+				while (seats > spaceArray[j].NoOfSeatAvailable) {
 					cout << "Not enough seats available!\n";
 					cin >> seats;
 				}
@@ -451,23 +459,16 @@ void book_space(int userid) {
 					cout << "Invalid date format! Please enter in DD/MM/YYYY format: ";
 					cin >> date;
 				}
-				int totalcost = hours * bookingsArray[i].TotalCost;
+				bookingsArray[i].TotalCost = hours * spaceArray[j].PricePerHour;
 				cout << "booking successful!, Here's your booking details: \n";
 				cout << "Booking ID: " << bookingsArray[i].BookingId << endl;
 				cout << "Space ID: " << bookingsArray[i].SpaceId << endl;
 				cout << "Date: " << date << endl;
 				cout << "Hours: " << hours << endl;
-				cout << "Total Cost: " << totalcost << endl;
-
+				cout << "Total Cost: " << bookingsArray[i].TotalCost << endl;
 			}
-
-
 		}
-
 	}
-
-
-	
 }
 
 bool isvaliddate(string date) {
@@ -486,6 +487,54 @@ bool isvaliddate(string date) {
 		}
 		return true;
 	}
+}
+
+int SaveAll() {
+	ofstream savespacefile("Spaces.csv");
+	if (!savespacefile.is_open()) {
+		cout << "couldn't open file";
+		return 1;
+	}
+
+	savespacefile << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n";
+	string wifi, hmr;
+	for (int i = 0; i < totalSpacesCount; i++) {
+		if (spaceArray[i].HasWifi)
+			wifi = "Yes";
+		else
+			wifi = "No";
+		if (spaceArray[i].HasMeetingRoom)
+			hmr = "Yes";
+		else
+			hmr = "No";
+		savespacefile << spaceArray[i].Name << "," << spaceArray[i].SpaceId << "," << spaceArray[i].Area << "," << spaceArray[i].PricePerHour <<
+			"," << spaceArray[i].NoOfSeatAvailable << "," << spaceArray[i].Rating << "," << wifi << "," << hmr << endl;
+	}
+	savespacefile.close();
+
+
+	ofstream savebookingsfile("bookings.csv");
+	if (!savebookingsfile.is_open()) {
+		cout << "couldn't open file";
+		return 1;
+	}
+	savebookingsfile << "BookingId, SpaceId, UserId, date, Hours, TotalCost, Seats\n";
+	for (int i = 0; i < totalBookingsCount; i++) {
+		savebookingsfile << bookingsArray[i].BookingId << "," << bookingsArray[i].SpaceId << "," << bookingsArray[i].UserId << "," <<
+			bookingsArray[i].date << "," << bookingsArray[i].Hours << "," << bookingsArray[i].TotalCost << "," << bookingsArray[i].Seats << endl;
+	}
+	savebookingsfile.close();
+
+	ofstream saveuserfile("bookings.csv");
+	if (!saveuserfile.is_open()) {
+		cout << "couldn't open file";
+		return 1;
+	}
+	saveuserfile << "UserName,UserID,Password,Email,Phonen";
+	for (int i = 0; i < totalUsersCount; i++) {
+		saveuserfile << usersArray[i].UserName << "," << usersArray[i].Id << "," << usersArray[i].Password << "," << usersArray[i].Email << "," << usersArray[i].Phone << endl;
+	}
+	saveuserfile.close();
 }
 
 int main(){
