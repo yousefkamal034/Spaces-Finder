@@ -18,14 +18,7 @@ extern int totalSpacesCount;
 void LoadData();
 void admin_main_menu();
 int SaveAll();
-
-// this is to check if a string is a number or not
-bool isNumber(string s) {
-	for (char c : s) {
-		if (isdigit(c) == false) return false;
-	}
-	return true;
-}
+bool isNumber(string s);
 
 
 int AddSpace() {
