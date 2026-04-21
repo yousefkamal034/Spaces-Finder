@@ -67,13 +67,12 @@ int AddSpace() {
 	srand(time(0)); // c++ why do u have to be like this???, i need this line so rand() works
 	spaceArray[j].SpaceId = rand() % (1000 - 100 + 1) + 100; // i think between 100 and 1000
 
-	ofstream file("Spaces.csv");
-	if (!file.is_open()) {
-		cout << "couldn't open file";
-		return 1;
-	}
+	//ofstream file("Spaces.csv");
+	//if (!file.is_open()) {
+	//	cout << "couldn't open file";
+	//	return 1;
+	//}
 
-	totalSpacesCount++;
 	//file << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n";
 	//string wifi, hmr;
 	//for (int i = 0; i < totalSpacesCount; i++) {
@@ -90,6 +89,7 @@ int AddSpace() {
 	//}
 	//file.close();
 
+	totalSpacesCount++;
 	system("cls");
 	admin_main_menu();
 	return 0;
@@ -160,11 +160,11 @@ int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 		}break;
 	}
 
-	ofstream file("Spaces.csv"); // read from original file
-	if (!file.is_open()) {
-		cout << "couldn't open file";
-		return 1;
-	}
+	//ofstream file("Spaces.csv"); // read from original file
+	//if (!file.is_open()) {
+	//	cout << "couldn't open file";
+	//	return 1;
+	//}
 
 	//file << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n";
 	//string wifi, hmr;
@@ -182,6 +182,8 @@ int EditSpace() { // alot os shinanigans i'll try to comment as good as i can
 	//}
 	//file.close();
 
+	system("cls");
+	cout << "updated space successfully\n";
 	admin_main_menu();
 	return 0;
 }
@@ -198,7 +200,6 @@ int DeleteSpace() {
 
 		if (spaceArray[i].SpaceId == chosenid) {
 
-			// WE FOUND IT!
 			found = true;
 
 			// Overwrite this space with the very last space in the array
@@ -211,11 +212,11 @@ int DeleteSpace() {
 			break;
 		}
 	}
-	ofstream file("Spaces.csv");
-	if (!file.is_open()) {
-		cout << "couldn't open file!\n";
-		return 2;
-	}
+	//ofstream file("Spaces.csv");
+	//if (!file.is_open()) {
+	//	cout << "couldn't open file!\n";
+	//	return 2;
+	//}
 
 	//file << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n";
 	//for (int i = 0; i < totalSpacesCount; i++) {
@@ -233,6 +234,7 @@ int DeleteSpace() {
 	//}
 	//file.close();
 	admin_main_menu();
+	return 0;
 }
 
 int ViewAllBookings() {

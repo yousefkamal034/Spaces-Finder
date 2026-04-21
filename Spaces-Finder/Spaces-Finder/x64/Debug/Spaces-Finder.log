@@ -4,7 +4,6 @@ D:\123college project\Spaces-Finder\Spaces-Finder\adminfuncs.h(67,12): warning C
   
 D:\123college project\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(107,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 D:\123college project\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(215,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\123college project\Spaces-Finder\Spaces-Finder\adminfuncs.h(236,1): warning C4715: 'DeleteSpace': not all control paths return a value
 D:\123college project\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(94,1): warning C4715: 'Log_in': not all control paths return a value
 D:\123college project\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(490,1): warning C4715: 'isvaliddate': not all control paths return a value
   Spaces-Finder.vcxproj -> D:\123college project\Spaces-Finder\Spaces-Finder\x64\Debug\Spaces-Finder.exe
