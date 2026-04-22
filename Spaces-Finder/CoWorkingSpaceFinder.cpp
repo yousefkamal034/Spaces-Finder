@@ -51,6 +51,18 @@ bool isNumber(string s) {
 }
 
 
+// this one is to check if a string is a float (i hate this featureless language)
+bool isFloat(string str) {
+	try {
+		stof(str);
+		return true;
+	}
+	catch (...) {
+		return false;
+	}
+}
+
+
 int Log_in() {
 	system("cls");
 	string username, password;
@@ -287,19 +299,18 @@ while (true) {
 		cout << "b --> Book a space" << endl;
 		cout << "m --> main menu" << endl;
 		cout << "Enter choice (s/f/b/m): ";
-		char choice;
+		string choice; // changed this to a string, so if the user types something like (hsdnf) no weird behaviour accours
 		cin >> choice;
-		if (choice == 's' || choice == 'S') {
+		if (choice == "s" || choice == "S") {
 			SearchByArea();
 		}
-		else if (choice == 'f' || choice == 'F') {
+		else if (choice == "f" || choice == "F") {
 			FilterSpaces();
 		}
-		else if (choice == 'b' || choice == 'B') {
+		else if (choice == "b" || choice == "B") {
 			book_space(userid);
-			
 		}
-		else if (choice == 'm' || choice == 'M') {
+		else if (choice == "m" || choice == "M") {
 			SaveAll();
 			break;
 		}
@@ -490,8 +501,11 @@ void book_space(int userid) {
 			}
 		}
 
-		cout << "Enter the date you want to book for (DD/MM/YYYY): ";
+		cout << "Enter the date you want to book for (DD/MM/YYYY) (press b to go back): ";
 		cin >> date;
+		if (date == "b" || date == "B") {
+			ViewSpaces(activeUserID);
+		}
 		while (!isvaliddate(date)) {
 			cout << "Invalid date! Please enter Date Again: ";
 			cin >> date;

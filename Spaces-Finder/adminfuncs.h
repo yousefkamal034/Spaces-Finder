@@ -19,6 +19,8 @@ void LoadData();
 void admin_main_menu();
 int SaveAll();
 bool isNumber(string s);
+bool isFloat(string s);
+
 
 
 int AddSpace() {
@@ -49,7 +51,7 @@ int AddSpace() {
 
 	cout << "what's the place's rating?: ";
 	cin >> temp;
-	while (!isNumber(temp)) {
+	while (!isFloat(temp)) {
 		cout << "this isn't a number, please enter it again: ";
 		cin >> temp;
 	}
@@ -171,7 +173,7 @@ int EditSpace() {
 	case 5:
 		cout << "enter new rating: ";
 		cin >> temp;
-		while (!isNumber(temp)) {
+		while (!isFloat(temp)) {
 			cout << "this isn't a number, please enter it again: ";
 			cin >> temp;
 		}
@@ -276,7 +278,6 @@ void admin_main_menu() {
 		cout << "choice: ";
 		cin >> choice;
 		if (choice == "1") {
-			system("cls");
 			AddSpace();
 			break;
 		}
