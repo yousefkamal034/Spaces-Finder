@@ -32,7 +32,7 @@ void SearchByArea();
 bool isNumber(string s);
 string stringtolower(string s);
 
-// this is a helper function to turn a string into lower case
+// this is to turn a string into lower case
 string stringtolower(string s) {
 	int length = s.length();
 	for (int i = 0; i < length; i++) {
@@ -41,6 +41,7 @@ string stringtolower(string s) {
 	return s;
 }
 
+
 // this is to check if a string is a number or not
 bool isNumber(string s) {
 	for (char c : s) {
@@ -48,6 +49,7 @@ bool isNumber(string s) {
 	}
 	return true;
 }
+
 
 int Log_in() {
 	system("cls");
@@ -113,6 +115,7 @@ int Log_in() {
 	}
 }
 
+
 int Sign_up() {
 	system("cls");
 	string tempUsername, tempPassword, tempEmail, tempPhone;
@@ -154,6 +157,7 @@ int Sign_up() {
 	return Log_in();
 }
 
+
 int Logging() {
 	int choice;
 	cout << "-----------" << '\n' << "1- Log in" << '\n' << "2-Don't Have an Account? " << '\n' << "-----------" << endl;
@@ -167,6 +171,7 @@ int Logging() {
 	else
 		return Logging();
 	}
+
 
 void LoadData() {
 	ifstream file("Users.csv");
@@ -257,7 +262,6 @@ void LoadData() {
 }
 
 
-
 void ViewSpaces(int userid) {
 	cout << "\n-----------Available Spaces-----------\n" << endl;
 	
@@ -307,7 +311,6 @@ while (true) {
 }
 
 
-
 void SearchByArea() {
 	string area;
 	cout << "Enter Area: ";
@@ -335,6 +338,7 @@ void SearchByArea() {
 	system("pause");
 	
 }
+
 
 void FilterSpaces() {
 	char wifiFilter, meetingRoomFilter;
@@ -452,6 +456,7 @@ void view_my_bookings(int userid) {
 		}
 	}
 	
+
 void book_space(int userid) {
 	string chosenspaceid;
 	string date, seats, hours;
@@ -482,13 +487,13 @@ void book_space(int userid) {
 	cout << "Enter how many seats you want to book: ";
 	cin >> seats;
 	bool seatsyes = false;
-	if (isNumber(seats) && stoi(seats) < spaceArray[j].NoOfSeatAvailable && stoi(seats) > 0)
+	if (isNumber(seats) && stoi(seats) <= spaceArray[j].NoOfSeatAvailable && stoi(seats) > 0)
 		seatsyes = true;
 
 	while (!seatsyes) {
 		cout << "Enter A Valid number, Please Enter how many seats you want to book: ";
 		cin >> seats;
-		if (isNumber(seats) && stoi(seats) < spaceArray[j].NoOfSeatAvailable && stoi(seats) > 0) {
+		if (isNumber(seats) && stoi(seats) <= spaceArray[j].NoOfSeatAvailable && stoi(seats) > 0) {
 			seatsyes = true;
 		}
 	}
@@ -532,6 +537,7 @@ void book_space(int userid) {
 	totalBookingsCount++;
 }
 
+
 bool isvaliddate(string date) {
 	if (date.length() != 10) {
 		return false;
@@ -568,6 +574,7 @@ bool isvaliddate(string date) {
 	return true;
 
 }
+
 
 int SaveAll() {
 	ofstream savespacefile("Spaces.csv");
@@ -619,6 +626,7 @@ int SaveAll() {
 	return 0;
 }
 
+
 int main(){
 
 	LoadData();
@@ -626,8 +634,4 @@ int main(){
 	if (activeUserID == 0)
 		admin_main_menu();
 	ViewSpaces(activeUserID);
-	
-	
-	
-
 }
