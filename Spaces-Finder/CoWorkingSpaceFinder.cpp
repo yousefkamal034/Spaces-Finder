@@ -458,34 +458,38 @@ void view_my_bookings(int userid) {
 	
 
 void book_space(int userid) {
-	string chosenspaceid;
+	string chosenspaceid = "b";
 	string date, hours;
-	string seats = "q";
+	string seats = "d";
 	bool zebda = false;
+	int j = 0; // this is the chosen space index in spacesarray
 
-	cout << "Enter SpaceID: ";
-	cin >> chosenspaceid;
-	int j = 0;
-	while (zebda == false) {
-		while (!isNumber(chosenspaceid)) {
-			cout << "enter a valid number for space id: ";
-			cin >> chosenspaceid;
-		}
-		j = 0;
-		for (int i = 0; i < totalSpacesCount; i++) {
-			if (spaceArray[i].SpaceId == stoi(chosenspaceid)) {
-				zebda = true; break;
-			}
-			j++;
-		}
-		if (zebda == false) {
-			cout << "wrong id, please enter a valid space id: ";
-			cin >> chosenspaceid;
-		}
-	}
 
 	int availableseats;
-	while (seats == "q" || seats == "Q") {
+	while (seats == "d" || seats == "D" || seats == "b" || seats == "B") {
+		if (seats == "b" || seats == "B" || chosenspaceid == "b" || chosenspaceid == "B") {
+			zebda == false;
+			cout << "Enter SpaceID: ";
+			cin >> chosenspaceid;
+			while (zebda == false) {
+				while (!isNumber(chosenspaceid)) {
+					cout << "enter a valid number for space id: ";
+					cin >> chosenspaceid;
+				}
+				j = 0;
+				for (int i = 0; i < totalSpacesCount; i++) {
+					if (spaceArray[i].SpaceId == stoi(chosenspaceid)) {
+						zebda = true; break;
+					}
+					j++;
+				}
+				if (zebda == false) {
+					cout << "wrong id, please enter a valid space id: ";
+					cin >> chosenspaceid;
+				}
+			}
+		}
+
 		cout << "Enter the date you want to book for (DD/MM/YYYY): ";
 		cin >> date;
 		while (!isvaliddate(date)) {
@@ -499,14 +503,22 @@ void book_space(int userid) {
 				availableseats -= bookingsArray[i].Seats;
 			}
 		}
+
 		if (availableseats <= 0) {
 			cout << "the space is fully booked in this date, please chose another date!\n";
 			continue;
 		}
 
 		cout << "Enter how many seats you want to book (" << availableseats << " seats are available for this space in this date)\n "
-			<< "(press q to chose another date): ";
+			<< "(press 'd' to chose another date, or 'b' to choose another space): ";
 		cin >> seats;
+
+		if (seats == "d" || seats == "D") {
+			continue;
+		}
+		if (seats == "b" || seats == "B") {
+			continue;
+		}
 
 		bool seatsyes = false;
 		if (isNumber(seats) && stoi(seats) <= availableseats && stoi(seats) > 0)
