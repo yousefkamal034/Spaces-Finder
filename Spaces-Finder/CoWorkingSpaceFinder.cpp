@@ -459,7 +459,8 @@ void view_my_bookings(int userid) {
 
 void book_space(int userid) {
 	string chosenspaceid;
-	string date, seats, hours;
+	string date, hours;
+	string seats = "q";
 	bool zebda = false;
 
 	cout << "Enter SpaceID: ";
@@ -483,22 +484,43 @@ void book_space(int userid) {
 		}
 	}
 
+	int availableseats;
+	while (seats == "q" || seats == "Q") {
+		cout << "Enter the date you want to book for (DD/MM/YYYY): ";
+		cin >> date;
+		while (!isvaliddate(date)) {
+			cout << "Invalid date! Please enter Date Again: ";
+			cin >> date;
+		}
 
-	cout << "Enter how many seats you want to book: ";
-	cin >> seats;
-	bool seatsyes = false;
-	if (isNumber(seats) && stoi(seats) <= spaceArray[j].NoOfSeatAvailable && stoi(seats) > 0)
-		seatsyes = true;
+		availableseats = spaceArray[j].NoOfSeatAvailable;
+		for (int i = 0; i < totalBookingsCount; i++) {
+			if (bookingsArray[i].SpaceId == stoi(chosenspaceid) && bookingsArray[i].date == date) {
+				availableseats -= bookingsArray[i].Seats;
+			}
+		}
+		if (availableseats <= 0) {
+			cout << "the space is fully booked in this date, please chose another date!\n";
+			continue;
+		}
 
-	while (!seatsyes) {
-		cout << "Enter A Valid number, Please Enter how many seats you want to book: ";
+		cout << "Enter how many seats you want to book (" << availableseats << " seats are available for this space in this date)\n "
+			<< "(press q to chose another date): ";
 		cin >> seats;
-		if (isNumber(seats) && stoi(seats) <= spaceArray[j].NoOfSeatAvailable && stoi(seats) > 0) {
+
+		bool seatsyes = false;
+		if (isNumber(seats) && stoi(seats) <= availableseats && stoi(seats) > 0)
 			seatsyes = true;
+
+		while (!seatsyes) {
+			cout << "Enter A Valid number, Please Enter how many seats you want to book: ";
+			cin >> seats;
+			if (isNumber(seats) && stoi(seats) <= availableseats && stoi(seats) > 0) {
+				seatsyes = true;
+			}
 		}
 	}
-
-
+	
 	cout << "Enter how many hours you want to book for: ";
 	cin >> hours;
 	bool hoursyes = false;
@@ -511,13 +533,6 @@ void book_space(int userid) {
 			hoursyes = true;
 	}
 
-
-	cout << "Enter the date you want to book for (DD/MM/YYYY): ";
-	cin >> date;
-	while (!isvaliddate(date)) {
-		cout << "Invalid date! Please enter Date Again: ";
-		cin >> date;
-	}
 
 	srand(time(0));
 	bookingsArray[totalBookingsCount].BookingId = rand() % (2000 - 1000 + 1) + 1000;
