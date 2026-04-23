@@ -14,12 +14,15 @@ extern Space spaceArray[100];
 extern int totalUsersCount;
 extern int totalBookingsCount;
 extern int totalSpacesCount;
+extern int activeUserID;
 
 void LoadData();
-void admin_main_menu();
+int admin_main_menu();
 int SaveAll();
 bool isNumber(string s);
 bool isFloat(string s);
+void ViewSpaces(int userid);
+int Logging();
 
 
 
@@ -51,8 +54,8 @@ int AddSpace() {
 
 	cout << "what's the place's rating?: ";
 	cin >> temp;
-	while (!isFloat(temp)) {
-		cout << "this isn't a number, please enter it again: ";
+	while (!isFloat(temp) || stof(temp) > 5 || stof(temp) < 0) {
+		cout << "please enter a number between 0 and 5.0: ";
 		cin >> temp;
 	}
 	spaceArray[totalSpacesCount].Rating = stof(temp);
@@ -173,8 +176,8 @@ int EditSpace() {
 	case 5:
 		cout << "enter new rating: ";
 		cin >> temp;
-		while (!isFloat(temp)) {
-			cout << "this isn't a number, please enter it again: ";
+		while (!isFloat(temp) || stof(temp) > 5 || stof(temp) < 0) {
+			cout << "please enter a number between 0 and 5.0: ";
 			cin >> temp;
 		}
 		spaceArray[j].Rating = stof(temp);
@@ -271,32 +274,37 @@ int ViewAllBookings() {
 
 }
 
-void admin_main_menu() {
+int admin_main_menu() {
 	string choice;
-	cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.View all bookings\n 5.exit program\n __________________\n";
+	cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.View all bookings\n 5.logout \n 6.exit program\n __________________\n";
 	while (true) { // no need to check if it's a number or not, this loop handles this
 		cout << "choice: ";
 		cin >> choice;
 		if (choice == "1") {
-			AddSpace();
-			break;
+			return AddSpace();
 		}
 		else if (choice == "2") {
-			EditSpace();
-			break;
+			return EditSpace();
 		}
 
 		else if (choice == "3") {
-			DeleteSpace();
-			break;
+			return DeleteSpace();
 		}
 
 		else if (choice == "4") {
-			ViewAllBookings();
-			break;
+			return ViewAllBookings();
 		}
 
 		else if (choice == "5") {
+			system("cls");
+			activeUserID = Logging();
+			if (activeUserID == 0)
+				return admin_main_menu();
+			ViewSpaces(activeUserID);
+			return 0;
+		}
+
+		else if (choice == "6") {
 			SaveAll();
 			exit(0);
 		}

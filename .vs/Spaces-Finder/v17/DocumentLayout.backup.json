@@ -1,22 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\123college project\\Spaces-Finder\\",
+  "WorkspaceRootPath": "C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\123college project\\Spaces-Finder\\Spaces-Finder\\CoWorkingSpaceFinder.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Spaces-Finder\\CoWorkingSpaceFinder.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\123college project\\Spaces-Finder\\Spaces-Finder\\Spaces.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Spaces-Finder\\Spaces.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\123college project\\Spaces-Finder\\Spaces-Finder\\structs.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\structs.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Spaces-Finder\\structs.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\123college project\\Spaces-Finder\\Spaces-Finder\\Shiting.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Spaces-Finder\\Shiting.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\adminfuncs.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Spaces-Finder\\adminfuncs.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\CoWorkingSpaceFinder.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Spaces-Finder\\CoWorkingSpaceFinder.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\Spaces.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Spaces-Finder\\Spaces.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -41,56 +41,61 @@
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "structs.h",
-              "DocumentMoniker": "D:\\123college project\\Spaces-Finder\\Spaces-Finder\\structs.h",
+              "DocumentMoniker": "C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\structs.h",
               "RelativeDocumentMoniker": "Spaces-Finder\\structs.h",
-              "ToolTip": "D:\\123college project\\Spaces-Finder\\Spaces-Finder\\structs.h",
+              "ToolTip": "C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\structs.h",
               "RelativeToolTip": "Spaces-Finder\\structs.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-04-19T15:17:47.106Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Spaces.csv",
-              "DocumentMoniker": "D:\\123college project\\Spaces-Finder\\Spaces-Finder\\Spaces.csv",
-              "RelativeDocumentMoniker": "Spaces-Finder\\Spaces.csv",
-              "ToolTip": "D:\\123college project\\Spaces-Finder\\Spaces-Finder\\Spaces.csv",
-              "RelativeToolTip": "Spaces-Finder\\Spaces.csv",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
-              "WhenOpened": "2026-04-19T16:07:04.244Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CoWorkingSpaceFinder.cpp",
-              "DocumentMoniker": "D:\\123college project\\Spaces-Finder\\Spaces-Finder\\CoWorkingSpaceFinder.cpp",
-              "RelativeDocumentMoniker": "Spaces-Finder\\CoWorkingSpaceFinder.cpp",
-              "ToolTip": "D:\\123college project\\Spaces-Finder\\Spaces-Finder\\CoWorkingSpaceFinder.cpp",
-              "RelativeToolTip": "Spaces-Finder\\CoWorkingSpaceFinder.cpp",
-              "ViewState": "AgIAAKwAAAAAAAAAAAAAwMAAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-19T15:11:53.831Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Shiting.cpp",
-              "DocumentMoniker": "D:\\123college project\\Spaces-Finder\\Spaces-Finder\\Shiting.cpp",
-              "RelativeDocumentMoniker": "Spaces-Finder\\Shiting.cpp",
-              "ToolTip": "D:\\123college project\\Spaces-Finder\\Spaces-Finder\\Shiting.cpp",
-              "RelativeToolTip": "Spaces-Finder\\Shiting.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAAaAAAAAAAAAA==",
+              "Title": "Spaces.csv",
+              "DocumentMoniker": "C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\Spaces.csv",
+              "RelativeDocumentMoniker": "Spaces-Finder\\Spaces.csv",
+              "ToolTip": "C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\Spaces.csv",
+              "RelativeToolTip": "Spaces-Finder\\Spaces.csv",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2026-04-19T16:31:40.419Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CoWorkingSpaceFinder.cpp",
+              "DocumentMoniker": "C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\CoWorkingSpaceFinder.cpp",
+              "RelativeDocumentMoniker": "Spaces-Finder\\CoWorkingSpaceFinder.cpp",
+              "ToolTip": "C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\CoWorkingSpaceFinder.cpp",
+              "RelativeToolTip": "Spaces-Finder\\CoWorkingSpaceFinder.cpp",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAPkBAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-19T16:19:23.85Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T15:11:53.831Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "adminfuncs.h",
+              "DocumentMoniker": "C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\adminfuncs.h",
+              "RelativeDocumentMoniker": "Spaces-Finder\\adminfuncs.h",
+              "ToolTip": "C:\\Users\\dell\\Documents\\GitHub\\Spaces-Finder\\Spaces-Finder\\adminfuncs.h",
+              "RelativeToolTip": "Spaces-Finder\\adminfuncs.h",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABwAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-23T20:45:22.657Z"
             }
           ]
         }

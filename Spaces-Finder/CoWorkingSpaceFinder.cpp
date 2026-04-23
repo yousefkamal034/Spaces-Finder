@@ -23,14 +23,13 @@ int Sign_up();
 int Logging();
 void LoadData();
 int AddSpace();
-void admin_main_menu();
+int admin_main_menu();
 void view_my_bookings(int userid);
+void ViewSpaces(int userid);
 void book_space(int userid);
 bool isvaliddate(string date);
 void FilterSpaces();
 void SearchByArea();
-bool isNumber(string s);
-string stringtolower(string s);
 
 // this is to turn a string into lower case
 string stringtolower(string s) {
@@ -173,6 +172,7 @@ int Sign_up() {
 int Logging() {
 	int choice;
 	cout << "-----------" << '\n' << "1- Log in" << '\n' << "2-Don't Have an Account? " << '\n' << "-----------" << endl;
+	cout << "choice: ";
 	cin >> choice;;
 	if (choice == 1) {
 		return Log_in();
@@ -312,7 +312,7 @@ while (true) {
 		}
 		else if (choice == "m" || choice == "M") {
 			SaveAll();
-			break;
+			exit(0);
 		}
 		else {
 			cout << "Invalid choice, please enter s, f, b, or m." << endl;

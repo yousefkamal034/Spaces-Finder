@@ -5,7 +5,6 @@ using namespace std;
 struct User {
 	int Id;
 	string UserName, Password, Email, Phone;
-	bool IsAdmin;
 };
 
 struct Space {
