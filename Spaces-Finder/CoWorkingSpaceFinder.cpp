@@ -9,13 +9,13 @@
 
 using namespace std;
 
-User usersArray[100];
-Booking bookingsArray[100];
-Space spaceArray[100];
+User* usersArray = nullptr;
+Booking* bookingsArray = nullptr;
+Space* spaceArray = nullptr;
 int activeUserID;
-int totalUsersCount = 0;
-int totalBookingsCount = 0;
-int totalSpacesCount = 0;
+int totalUsersCount = 0, userCapacity = 0;
+int totalBookingsCount = 0, bookingCapacity = 0;
+int totalSpacesCount = 0, spaceCapacity = 0;
 
 
 int Log_in();
@@ -62,6 +62,62 @@ bool isFloat(string str) {
 }
 
 
+// a function to increase space array count
+void increaseSpaceArray() {
+	// a loop to make spacearray bigger by multiplying it's capacity * 2
+	if (spaceCapacity == 0)
+		spaceCapacity = 5;
+	else
+		spaceCapacity *= 2;
+
+	Space* biggerarray = new Space[spaceCapacity];
+
+	for (int i = 0; i < totalSpacesCount; i++) 
+		biggerarray[i] = spaceArray[i];
+
+	if (spaceArray != nullptr) 
+		delete[] spaceArray;
+
+	spaceArray = biggerarray;
+}
+
+void increaseUserArray() {
+	// a loop to make usersarray bigger by multiplying it's capacity * 2
+	if (userCapacity == 0)
+		userCapacity = 5;
+	else
+		userCapacity *= 2;
+
+	User* biggerarray = new User[userCapacity];
+
+	for (int i = 0; i < totalUsersCount; i++)
+		biggerarray[i] = usersArray[i];
+
+	if (usersArray != nullptr)
+		delete[] usersArray;
+
+	usersArray = biggerarray;
+}
+
+void increasebookingArray() {
+	// a loop to make bookingarray bigger by multiplying it's capacity * 2
+	if (bookingCapacity == 0)
+		bookingCapacity = 5;
+	else
+		bookingCapacity *= 2;
+
+	Booking* biggerarray = new Booking[bookingCapacity];
+
+	for (int i = 0; i < totalBookingsCount; i++)
+		biggerarray[i] = bookingsArray[i];
+
+	if (bookingsArray != nullptr)
+		delete[] bookingsArray;
+
+	bookingsArray = biggerarray;
+}
+
+
 int Log_in() {
 	system("cls");
 	string username, password;
@@ -105,7 +161,7 @@ int Log_in() {
 						else {
 							cout << "Incorrect Password" << '\n' << pass_tries << " Tries left" << endl;
 							pass_correct = true;
-							return -1;
+							return Log_in();
 
 						}
 					}
@@ -129,6 +185,11 @@ int Log_in() {
 
 int Sign_up() {
 	system("cls");
+
+	if (totalUsersCount == userCapacity) {
+		increaseUserArray();
+	}
+
 	string tempUsername, tempPassword, tempEmail, tempPhone;
 	bool pass_correct = false;
 	cout << "Enter A UserName: ";
@@ -188,6 +249,12 @@ int Logging() {
 void LoadData() {
 	ifstream file("Users.csv");
 	if (file.is_open()) {
+
+		// a loop to make usersarray bigger by multiplying it's capacity * 2
+		if (totalUsersCount == userCapacity) {
+			increaseUserArray();
+		}
+
 		string header;
 		getline(file, header);
 
@@ -214,6 +281,11 @@ void LoadData() {
 	}
 	ifstream file2("bookings.csv");
 	if (file2.is_open()) {
+
+		if (totalBookingsCount == bookingCapacity) {
+			increasebookingArray();
+		}
+		
 		string header;
 		getline(file2, header);
 
@@ -245,6 +317,12 @@ void LoadData() {
 		getline(file3, header);
 		string tempName, tempID, tempArea, tempPricePerHour, tempNoOfSeatAvailable, tempRating, tempHasWifi, tempHasMeetingRoom;
 		while (getline(file3, tempName, ',')) {
+
+			// a loop to make spacearray bigger by multiplying it's capacity * 2
+			if (totalSpacesCount == spaceCapacity) {
+				increaseSpaceArray();
+			}
+
 			getline(file3, tempID, ',');
 			getline(file3, tempArea, ',');
 			getline(file3, tempPricePerHour, ',');
@@ -469,6 +547,9 @@ void view_my_bookings(int userid) {
 	
 
 void book_space(int userid) {
+	if (totalBookingsCount == bookingCapacity) {
+		increasebookingArray();
+	}
 	string chosenspaceid = "b";
 	string date, hours;
 	string seats = "d";
@@ -550,7 +631,7 @@ void book_space(int userid) {
 	cout << "Enter how many hours you want to book for: ";
 	cin >> hours;
 	bool hoursyes = false;
-	if (isNumber(hours) && stoi(hours) < 12 && stoi(hours) > 0)
+	if (isNumber(hours) && stoi(hours) <= 12 && stoi(hours) > 0)
 		hoursyes = true;
 	while (!hoursyes) {
 		cout << "Enter A Valid number, Please Enter how many hours you want to book for (1:12) : ";

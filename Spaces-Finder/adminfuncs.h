@@ -8,12 +8,12 @@
 #include "structs.h"
 using namespace std;
 
-extern User usersArray[100];
-extern Booking bookingsArray[100];
-extern Space spaceArray[100];
+extern User* usersArray;
+extern Booking* bookingsArray;
+extern Space* spaceArray;
 extern int totalUsersCount;
 extern int totalBookingsCount;
-extern int totalSpacesCount;
+extern int totalSpacesCount, spaceCapacity;
 extern int activeUserID;
 
 void LoadData();
@@ -23,11 +23,17 @@ bool isNumber(string s);
 bool isFloat(string s);
 void ViewSpaces(int userid);
 int Logging();
+void increaseSpaceArray();
 
 
 
 int AddSpace() {
 	system("cls");
+
+	if (totalSpacesCount == spaceCapacity) {
+		increaseSpaceArray();
+	}
+
 	string temp;
 	char haswifi, hasmr; // hmr = HasMeetingRoom
 	cout << "enter space name: ";
