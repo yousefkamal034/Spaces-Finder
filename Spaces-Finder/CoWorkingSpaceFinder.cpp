@@ -389,6 +389,7 @@ while (true) {
 		}
 		else if (choice == "b" || choice == "B") {
 			book_space(userid);
+			// this loop is so the user sees the spaces again, probably could've made it in a better way
 			for (int i = 0; i < totalSpacesCount; i++) {
 				cout << i + 1 << ". ";
 				cout << "Space Name: " << spaceArray[i].Name << endl;
@@ -699,12 +700,14 @@ void book_space(int userid) {
 void cancel_booking(int userid) {
 	string bookid;
 	cout << "enter the id for the booking you want to cancel: ";
-	cin >> bookid;
+	
 
 	while (true) {
+		cin >> bookid;
+
 		if (!isNumber(bookid)) {
 			cout << "please enter a number for a booking id: ";
-			cin >> bookid;
+			continue;
 		}
 
 		bool found = false;
