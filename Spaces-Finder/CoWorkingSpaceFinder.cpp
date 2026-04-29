@@ -405,7 +405,7 @@ while (true) {
 		}
 		else if (choice == "m" || choice == "M") {
 			system("cls");
-			user_main_menu();
+			break;
 		}
 		else {
 			cout << "Invalid choice, please enter 's', 'f', 'b', or 'm'." << endl;
@@ -573,7 +573,7 @@ void view_my_bookings(int userid) {
 		}
 		else if (choice == "2") {
 			system("cls");
-			user_main_menu();
+			break;
 		}
 	}
 }
