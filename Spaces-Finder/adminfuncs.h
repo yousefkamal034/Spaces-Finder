@@ -17,13 +17,14 @@ extern int totalSpacesCount, spaceCapacity;
 extern int activeUserID;
 
 void LoadData();
-int admin_main_menu();
+void admin_main_menu();
 int SaveAll();
 bool isNumber(string s);
 bool isFloat(string s);
 void ViewSpaces(int userid);
 int Logging();
 void increaseSpaceArray();
+int user_main_menu();
 
 
 
@@ -98,7 +99,6 @@ int AddSpace() {
 	totalSpacesCount++;
 	system("cls");
 	cout << "added space successfully\n";
-	admin_main_menu();
 	return 0;
 }
 
@@ -130,7 +130,6 @@ int EditSpace() {
 
 	if (found = false) {
 		cout << "didn't find space!\n";
-		admin_main_menu();
 		return 0;
 	}
 
@@ -142,7 +141,6 @@ int EditSpace() {
 
 	if (choice == "Q" || choice == "q") {
 		system("cls");
-		admin_main_menu();
 		return 0;
 	}
 
@@ -216,7 +214,6 @@ int EditSpace() {
 
 	system("cls");
 	cout << "updated space successfully\n";
-	admin_main_menu();
 	return 0;
 }
 
@@ -229,7 +226,6 @@ int DeleteSpace() {
 	cin >> chosenid;
 
 	if (chosenid == "b" || chosenid == "B") { // if admin chose to go back
-		admin_main_menu();
 		return 0;
 	}
 
@@ -259,7 +255,6 @@ int DeleteSpace() {
 		cout << "didn't find space!\n";
 	}
 
-	admin_main_menu();
 	return 0;
 }
 
@@ -275,39 +270,34 @@ int ViewAllBookings() {
 		cout << "Seats: " << bookingsArray[i].Seats << endl;
 		cout << "-----------------------------" << endl;
 	}
-	admin_main_menu();
 	return 0;
 
 }
 
-int admin_main_menu() {
+void admin_main_menu() {
 	string choice;
-	cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.View all bookings\n 5.logout \n 6.exit program\n __________________\n";
 	while (true) { // no need to check if it's a number or not, this loop handles this
+		cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.View all bookings\n 5.logout \n 6.exit program\n __________________\n";
 		cout << "choice: ";
 		cin >> choice;
 		if (choice == "1") {
-			return AddSpace();
+			AddSpace();
 		}
 		else if (choice == "2") {
-			return EditSpace();
+			EditSpace();
 		}
 
 		else if (choice == "3") {
-			return DeleteSpace();
+			DeleteSpace();
 		}
 
 		else if (choice == "4") {
-			return ViewAllBookings();
+			ViewAllBookings();
 		}
 
 		else if (choice == "5") {
 			system("cls");
-			activeUserID = Logging();
-			if (activeUserID == 0)
-				return admin_main_menu();
-			ViewSpaces(activeUserID);
-			return 0;
+			return;
 		}
 
 		else if (choice == "6") {

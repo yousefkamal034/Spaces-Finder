@@ -23,7 +23,7 @@ int Sign_up();
 int Logging();
 void LoadData();
 int AddSpace();
-int admin_main_menu();
+void admin_main_menu();
 void view_my_bookings(int userid);
 void ViewSpaces(int userid);
 void book_space(int userid);
@@ -31,6 +31,7 @@ bool isvaliddate(string date);
 void FilterSpaces();
 void SearchByArea();
 int user_main_menu();
+void cancel_booking(int userid);
 
 // this is to turn a string into lower case
 string stringtolower(string s) {
@@ -388,13 +389,25 @@ while (true) {
 		}
 		else if (choice == "b" || choice == "B") {
 			book_space(userid);
+			for (int i = 0; i < totalSpacesCount; i++) {
+				cout << i + 1 << ". ";
+				cout << "Space Name: " << spaceArray[i].Name << endl;
+				cout << "Space ID: " << spaceArray[i].SpaceId << endl;
+				cout << "Area: " << spaceArray[i].Area << endl;
+				cout << "Price Per Hour: " << spaceArray[i].PricePerHour << endl;
+				cout << "Number of Seats Available: " << spaceArray[i].NoOfSeatAvailable << endl;
+				cout << "Rating: " << spaceArray[i].Rating << " / 5" << endl;
+				cout << "Has Wifi: " << (spaceArray[i].HasWifi ? "Yes" : "No") << endl;
+				cout << "Has Meeting Room: " << (spaceArray[i].HasMeetingRoom ? "Yes" : "No") << endl;
+				cout << "-----------------------------" << endl;
+			}
 		}
 		else if (choice == "m" || choice == "M") {
 			system("cls");
 			user_main_menu();
 		}
 		else {
-			cout << "Invalid choice, please enter s, f, b, or m." << endl;
+			cout << "Invalid choice, please enter 's', 'f', 'b', or 'm'." << endl;
 			continue;
 		}
 	}
@@ -533,18 +546,36 @@ void FilterSpaces() {
 	
 
 void view_my_bookings(int userid) {
-		for (int i = 0; i < totalBookingsCount; i++) {
-			if (bookingsArray[i].UserId == userid) {
-				cout << "Booking ID: " << bookingsArray[i].BookingId << endl;
-				cout << "Space ID: " << bookingsArray[i].SpaceId << endl;
-				cout << "Date: " << bookingsArray[i].date << endl;
-				cout << "Hours: " << bookingsArray[i].Hours << endl;
-				cout << "Total Cost: " << bookingsArray[i].TotalCost << endl;
-				cout << "Seats: " << bookingsArray[i].Seats << endl;
-				cout << "-----------------------------" << endl;
-			}
+	for (int i = 0; i < totalBookingsCount; i++) {
+		if (bookingsArray[i].UserId == userid) {
+			cout << "Booking ID: " << bookingsArray[i].BookingId << endl;
+			cout << "Space ID: " << bookingsArray[i].SpaceId << endl;
+			cout << "Date: " << bookingsArray[i].date << endl;
+			cout << "Hours: " << bookingsArray[i].Hours << endl;
+			cout << "Total Cost: " << bookingsArray[i].TotalCost << endl;
+			cout << "Seats: " << bookingsArray[i].Seats << endl;
+			cout << "-----------------------------" << endl;
 		}
 	}
+
+	cout <<
+		"1. cancel a booking\n"
+		"2. main menu\n";
+
+	string choice;
+	while (true) {
+		cout << "choice: ";
+		cin >> choice;
+		if (choice == "1") {
+			cancel_booking(activeUserID);
+			break;
+		}
+		else if (choice == "2") {
+			system("cls");
+			user_main_menu();
+		}
+	}
+}
 	
 
 void book_space(int userid) {
@@ -651,6 +682,7 @@ void book_space(int userid) {
 	bookingsArray[totalBookingsCount].TotalCost = stoi(hours) * spaceArray[j].PricePerHour;
 	bookingsArray[totalBookingsCount].Seats = stoi(seats);
 
+	system("cls");
 	cout << endl << "booking successful!, Here's your booking details: \n";
 	cout << "Booking ID: " << bookingsArray[totalBookingsCount].BookingId << endl;
 	cout << "Space ID: " << bookingsArray[totalBookingsCount].SpaceId << endl;
@@ -658,6 +690,42 @@ void book_space(int userid) {
 	cout << "Hours: " << hours << endl;
 	cout << "Total Cost: " << bookingsArray[totalBookingsCount].TotalCost << endl;
 	totalBookingsCount++;
+
+	system("pause");
+	system("cls");
+}
+
+
+void cancel_booking(int userid) {
+	string bookid;
+	cout << "enter the id for the booking you want to cancel: ";
+	cin >> bookid;
+
+	while (true) {
+		if (!isNumber(bookid)) {
+			cout << "please enter a number for a booking id: ";
+			cin >> bookid;
+		}
+
+		bool found = false;
+		for (int i = 0; i < totalBookingsCount; i++) {
+			if (stoi(bookid) == bookingsArray[i].BookingId && userid == bookingsArray[i].UserId) {
+				found = true;
+				bookingsArray[i] = bookingsArray[totalBookingsCount - 1];
+				totalBookingsCount--;
+				system("cls");
+				cout << "booking canceled!\n\n";
+			}
+		}
+
+		if (!found) {
+			cout << "didn't find the booking, please re-enter the booking id: ";
+			cin >> bookid;
+			continue;
+		}
+
+		break;
+	}
 }
 
 
@@ -752,16 +820,16 @@ int SaveAll() {
 
 int user_main_menu() {
 	string choice;
-	cout << 
-		"          ---Main Menu---        \n"
-		"--------------------------------------\n"
-		"1. spaces\n"
-		"2. view my bookings\n"
-		"3. cancel a booking\n"
-		"4. exit program\n"
-		"--------------------------------------\n";
-
 	while (true) {
+
+		cout <<
+			"          ---Main Menu---        \n"
+			"--------------------------------------\n"
+			"1. spaces\n"
+			"2. view my bookings\n"
+			"3. logout\n"
+			"4. exit program\n"
+			"--------------------------------------\n";
 
 		cout << "choice: ";
 		cin >> choice;
@@ -769,17 +837,14 @@ int user_main_menu() {
 		if (choice == "1") {
 			system("cls");
 			ViewSpaces(activeUserID);
-			break;
 		}
 		else if (choice == "2") {
 			system("cls");
 			view_my_bookings(activeUserID);
-			user_main_menu();
-			break;
 		}
 		else if (choice == "3") {
-			// UPDATE WHEN YOU IMPLEMENT CANCEL BOOKING FUNCTION
-			continue;
+			system("cls");
+			return 0;
 		}
 		else if (choice == "4") {
 			SaveAll();
@@ -795,8 +860,12 @@ int user_main_menu() {
 int main(){
 
 	LoadData();
-	activeUserID=Logging(); //if -1 there is error  if = 0 activeuser is admin 
-	if (activeUserID == 0)
-		admin_main_menu();
-	user_main_menu();
+	while (true) {
+		activeUserID=Logging(); //if -1 there is error  if = 0 activeuser is admin 
+		if (activeUserID == 0)
+			admin_main_menu();
+		else
+			user_main_menu();
+	}
+
 }
