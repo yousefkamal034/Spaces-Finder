@@ -723,7 +723,6 @@ void cancel_booking(int userid) {
 
 		if (!found) {
 			cout << "didn't find the booking, please re-enter the booking id: ";
-			cin >> bookid;
 			continue;
 		}
 
