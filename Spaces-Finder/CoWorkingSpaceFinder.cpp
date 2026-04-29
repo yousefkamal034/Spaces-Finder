@@ -64,59 +64,62 @@ bool isFloat(string str) {
 }
 
 
-// a function to increase space array count
-void increaseSpaceArray() {
-	// a loop to make spacearray bigger by multiplying it's capacity * 2
-	if (spaceCapacity == 0)
-		spaceCapacity = 5;
-	else
-		spaceCapacity *= 2;
+// a function to increase array count
+void increaseArray(string x) {
 
-	Space* biggerarray = new Space[spaceCapacity];
+	if (x == "space") {
+		// a loop to make spacearray bigger by multiplying it's capacity * 2
+		if (spaceCapacity == 0)
+			spaceCapacity = 5;
+		else
+			spaceCapacity *= 2;
 
-	for (int i = 0; i < totalSpacesCount; i++) 
-		biggerarray[i] = spaceArray[i];
+		Space* biggerarray = new Space[spaceCapacity];
 
-	if (spaceArray != nullptr) 
-		delete[] spaceArray;
+		for (int i = 0; i < totalSpacesCount; i++)
+			biggerarray[i] = spaceArray[i];
 
-	spaceArray = biggerarray;
-}
+		if (spaceArray != nullptr)
+			delete[] spaceArray;
 
-void increaseUserArray() {
-	// a loop to make usersarray bigger by multiplying it's capacity * 2
-	if (userCapacity == 0)
-		userCapacity = 5;
-	else
-		userCapacity *= 2;
+		spaceArray = biggerarray;
+	}
 
-	User* biggerarray = new User[userCapacity];
+	else if (x == "user") {
+		// a loop to make usersarray bigger by multiplying it's capacity * 2
+		if (userCapacity == 0)
+			userCapacity = 5;
+		else
+			userCapacity *= 2;
 
-	for (int i = 0; i < totalUsersCount; i++)
-		biggerarray[i] = usersArray[i];
+		User* biggerarray = new User[userCapacity];
 
-	if (usersArray != nullptr)
-		delete[] usersArray;
+		for (int i = 0; i < totalUsersCount; i++)
+			biggerarray[i] = usersArray[i];
 
-	usersArray = biggerarray;
-}
+		if (usersArray != nullptr)
+			delete[] usersArray;
 
-void increasebookingArray() {
-	// a loop to make bookingarray bigger by multiplying it's capacity * 2
-	if (bookingCapacity == 0)
-		bookingCapacity = 5;
-	else
-		bookingCapacity *= 2;
+		usersArray = biggerarray;
+	}
 
-	Booking* biggerarray = new Booking[bookingCapacity];
+	else if (x == "booking") {
+		// a loop to make bookingarray bigger by multiplying it's capacity * 2
+		if (bookingCapacity == 0)
+			bookingCapacity = 5;
+		else
+			bookingCapacity *= 2;
 
-	for (int i = 0; i < totalBookingsCount; i++)
-		biggerarray[i] = bookingsArray[i];
+		Booking* biggerarray = new Booking[bookingCapacity];
 
-	if (bookingsArray != nullptr)
-		delete[] bookingsArray;
+		for (int i = 0; i < totalBookingsCount; i++)
+			biggerarray[i] = bookingsArray[i];
 
-	bookingsArray = biggerarray;
+		if (bookingsArray != nullptr)
+			delete[] bookingsArray;
+
+		bookingsArray = biggerarray;
+	}
 }
 
 
@@ -189,7 +192,7 @@ int Sign_up() {
 	system("cls");
 
 	if (totalUsersCount == userCapacity) {
-		increaseUserArray();
+		increaseArray("user");
 	}
 
 	string tempUsername, tempPassword, tempEmail, tempPhone;
@@ -233,15 +236,19 @@ int Sign_up() {
 
 
 int Logging() {
-	int choice;
-	cout << "-----------" << '\n' << "1- Log in" << '\n' << "2-Don't Have an Account? " << '\n' << "-----------" << endl;
+	string choice;
+	cout << "-----------" << '\n' << "1- Log in" << '\n' << "2- Don't Have an Account? " << '\n' << "3- exit program\n" << "-----------" << endl;
 	cout << "choice: ";
 	cin >> choice;;
-	if (choice == 1) {
+	if (choice == "1") {
 		return Log_in();
 	}
-	else if (choice == 2) {
+	else if (choice == "2") {
 		return Sign_up();
+	}
+	else if (choice == "3") {
+		SaveAll();
+		exit(0);
 	}
 	else
 		return Logging();
@@ -254,7 +261,7 @@ void LoadData() {
 
 		// a loop to make usersarray bigger by multiplying it's capacity * 2
 		if (totalUsersCount == userCapacity) {
-			increaseUserArray();
+			increaseArray("user");
 		}
 
 		string header;
@@ -285,7 +292,7 @@ void LoadData() {
 	if (file2.is_open()) {
 
 		if (totalBookingsCount == bookingCapacity) {
-			increasebookingArray();
+			increaseArray("booking");
 		}
 		
 		string header;
@@ -322,7 +329,7 @@ void LoadData() {
 
 			// a loop to make spacearray bigger by multiplying it's capacity * 2
 			if (totalSpacesCount == spaceCapacity) {
-				increaseSpaceArray();
+				increaseArray("space");
 			}
 
 			getline(file3, tempID, ',');
@@ -581,7 +588,7 @@ void view_my_bookings(int userid) {
 
 void book_space(int userid) {
 	if (totalBookingsCount == bookingCapacity) {
-		increasebookingArray();
+		increaseArray("booking");
 	}
 	string chosenspaceid = "b";
 	string date, hours;

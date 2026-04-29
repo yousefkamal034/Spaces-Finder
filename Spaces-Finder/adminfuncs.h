@@ -23,7 +23,7 @@ bool isNumber(string s);
 bool isFloat(string s);
 void ViewSpaces(int userid);
 int Logging();
-void increaseSpaceArray();
+void increaseArray(string x);
 int user_main_menu();
 
 
@@ -32,7 +32,7 @@ int AddSpace() {
 	system("cls");
 
 	if (totalSpacesCount == spaceCapacity) {
-		increaseSpaceArray();
+		increaseArray("space");
 	}
 
 	string temp;
