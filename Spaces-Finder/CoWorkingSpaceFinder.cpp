@@ -252,7 +252,7 @@ int Logging() {
 	}
 	else
 		return Logging();
-	}
+}
 
 
 void LoadData() {
@@ -294,7 +294,7 @@ void LoadData() {
 		if (totalBookingsCount == bookingCapacity) {
 			increaseArray("booking");
 		}
-		
+
 		string header;
 		getline(file2, header);
 
@@ -320,7 +320,7 @@ void LoadData() {
 		}
 		file2.close();
 	}
-     ifstream file3("Spaces.csv");
+	ifstream file3("Spaces.csv");
 	if (file3.is_open()) {
 		string header;
 		getline(file3, header);
@@ -355,7 +355,7 @@ void LoadData() {
 			else
 				spaceArray[totalSpacesCount].HasMeetingRoom = false;
 			totalSpacesCount++;
-		}	
+		}
 		file3.close();
 	}
 }
@@ -363,7 +363,7 @@ void LoadData() {
 
 void ViewSpaces(int userid) {
 	cout << "\n-----------Available Spaces-----------\n" << endl;
-	
+
 	for (int i = 0; i < totalSpacesCount; i++) {
 		cout << i + 1 << ". ";
 		cout << "Space Name: " << spaceArray[i].Name << endl;
@@ -379,7 +379,7 @@ void ViewSpaces(int userid) {
 
 
 
-while (true) {	
+	while (true) {
 		cout << endl;
 		cout << "s --> search area" << endl;
 		cout << "f --> filtering" << endl;
@@ -428,7 +428,7 @@ void SearchByArea() {
 	getline(cin >> ws, area);
 	bool found = false;
 	cout << "\n-----------Search Results-----------\n" << endl;
-	
+
 	for (int i = 0; i < totalSpacesCount; i++) {
 		if (stringtolower(spaceArray[i].Area) == stringtolower(area)) {
 			found = true;
@@ -443,11 +443,11 @@ void SearchByArea() {
 			cout << "-----------------------------" << endl;
 		}
 	}
-	if(!found) {
+	if (!found) {
 		cout << "No spaces found in this area." << endl;
 	}
 	system("pause");
-	
+
 }
 
 
@@ -525,33 +525,33 @@ void FilterSpaces() {
 			}break;
 		}
 		else if (choice == 'A' || choice == 'a') {
-	
-	for (int i = 0; i < totalSpacesCount - 1; i++) {
-		for (int j = 0; j < totalSpacesCount - i - 1; j++) {
-			if (spaceArray[j].NoOfSeatAvailable < spaceArray[j + 1].NoOfSeatAvailable) {
-				Space temp = spaceArray[j];
-				spaceArray[j] = spaceArray[j + 1];
-				spaceArray[j + 1] = temp;
+
+			for (int i = 0; i < totalSpacesCount - 1; i++) {
+				for (int j = 0; j < totalSpacesCount - i - 1; j++) {
+					if (spaceArray[j].NoOfSeatAvailable < spaceArray[j + 1].NoOfSeatAvailable) {
+						Space temp = spaceArray[j];
+						spaceArray[j] = spaceArray[j + 1];
+						spaceArray[j + 1] = temp;
+					}
+				}
 			}
+			found = false;
+			for (int i = 0; i < totalSpacesCount; i++) {
+				if (spaceArray[i].NoOfSeatAvailable > 0) {
+					found = true;
+					cout << "Space Name: " << spaceArray[i].Name << endl;
+					cout << "Number of Seats: " << spaceArray[i].NoOfSeatAvailable << endl;
+					cout << "-----------------------------" << endl;
+				}
+			}break;
 		}
-	}
-	found = false; 
-	for (int i = 0; i < totalSpacesCount; i++) {
-		if (spaceArray[i].NoOfSeatAvailable > 0) {
-			found = true;
-			cout << "Space Name: " << spaceArray[i].Name << endl;
-			cout << "Number of Seats: " << spaceArray[i].NoOfSeatAvailable << endl;
-			cout << "-----------------------------" << endl;
-		}
-	}break;
-}
 		else {
 			cout << "Invalid choice, please enter P, R, W, M, or A." << endl;
 			continue;
 		}
 	}
 }
-	
+
 
 void view_my_bookings(int userid) {
 	for (int i = 0; i < totalBookingsCount; i++) {
@@ -584,7 +584,7 @@ void view_my_bookings(int userid) {
 		}
 	}
 }
-	
+
 
 void book_space(int userid) {
 	if (totalBookingsCount == bookingCapacity) {
@@ -611,9 +611,10 @@ void book_space(int userid) {
 				j = 0;
 				for (int i = 0; i < totalSpacesCount; i++) {
 					if (spaceArray[i].SpaceId == stoi(chosenspaceid)) {
-						zebda = true; break;
+						zebda = true;
+						j = i;
+						break;
 					}
-					j++;
 				}
 				if (zebda == false) {
 					cout << "wrong id, please enter a valid space id: ";
@@ -625,7 +626,8 @@ void book_space(int userid) {
 		cout << "Enter the date you want to book for (DD/MM/YYYY) (press b to go back): ";
 		cin >> date;
 		if (date == "b" || date == "B") {
-			ViewSpaces(activeUserID);
+			system("cls");
+			return;
 		}
 		while (!isvaliddate(date)) {
 			cout << "Invalid date! Please enter Date Again: ";
@@ -667,7 +669,7 @@ void book_space(int userid) {
 			}
 		}
 	}
-	
+
 	cout << "Enter how many hours you want to book for: ";
 	cin >> hours;
 	bool hoursyes = false;
@@ -707,7 +709,7 @@ void book_space(int userid) {
 void cancel_booking(int userid) {
 	string bookid;
 	cout << "enter the id for the booking you want to cancel: ";
-	
+
 
 	while (true) {
 		cin >> bookid;
@@ -866,11 +868,11 @@ int user_main_menu() {
 }
 
 
-int main(){
+int main() {
 
 	LoadData();
 	while (true) {
-		activeUserID=Logging(); //if -1 there is error  if = 0 activeuser is admin 
+		activeUserID = Logging(); //if -1 there is error  if = 0 activeuser is admin 
 		if (activeUserID == 0)
 			admin_main_menu();
 		else
