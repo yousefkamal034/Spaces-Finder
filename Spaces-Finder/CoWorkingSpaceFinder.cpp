@@ -30,6 +30,7 @@ void book_space(int userid);
 bool isvaliddate(string date);
 void FilterSpaces();
 void SearchByArea();
+int user_main_menu();
 
 // this is to turn a string into lower case
 string stringtolower(string s) {
@@ -160,9 +161,8 @@ int Log_in() {
 						}
 						else {
 							cout << "Incorrect Password" << '\n' << pass_tries << " Tries left" << endl;
-							pass_correct = true;
-							return Log_in();
-
+							cout << "failed to log in" << endl;
+							exit(0);
 						}
 					}
 				}
@@ -176,7 +176,8 @@ int Log_in() {
 			}
 			else {
 				cout << "Invalid UserName" << '\n' << name_tries << " Tries left" << endl;
-				return -1;
+				cout << "failed to log in" << endl;
+				exit(0);
 			}
 		}
 	}
@@ -389,8 +390,8 @@ while (true) {
 			book_space(userid);
 		}
 		else if (choice == "m" || choice == "M") {
-			SaveAll();
-			exit(0);
+			system("cls");
+			user_main_menu();
 		}
 		else {
 			cout << "Invalid choice, please enter s, f, b, or m." << endl;
@@ -749,11 +750,53 @@ int SaveAll() {
 }
 
 
+int user_main_menu() {
+	string choice;
+	cout << 
+		"          ---Main Menu---        \n"
+		"--------------------------------------\n"
+		"1. spaces\n"
+		"2. view my bookings\n"
+		"3. cancel a booking\n"
+		"4. exit program\n"
+		"--------------------------------------\n";
+
+	while (true) {
+
+		cout << "choice: ";
+		cin >> choice;
+
+		if (choice == "1") {
+			system("cls");
+			ViewSpaces(activeUserID);
+			break;
+		}
+		else if (choice == "2") {
+			system("cls");
+			view_my_bookings(activeUserID);
+			user_main_menu();
+			break;
+		}
+		else if (choice == "3") {
+			// UPDATE WHEN YOU IMPLEMENT CANCEL BOOKING FUNCTION
+			continue;
+		}
+		else if (choice == "4") {
+			SaveAll();
+			exit(0);
+		}
+		else {
+			continue;
+		}
+	}
+}
+
+
 int main(){
 
 	LoadData();
 	activeUserID=Logging(); //if -1 there is error  if = 0 activeuser is admin 
 	if (activeUserID == 0)
 		admin_main_menu();
-	ViewSpaces(activeUserID);
+	user_main_menu();
 }

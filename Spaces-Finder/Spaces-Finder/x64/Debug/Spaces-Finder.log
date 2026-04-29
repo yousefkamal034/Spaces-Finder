@@ -2,11 +2,12 @@
 C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\adminfuncs.h(95,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   (compiling source file 'CoWorkingSpaceFinder.cpp')
   
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(36,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(56,7): warning C4834: discarding return value of function with [[nodiscard]] attribute
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(211,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(339,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(563,10): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(644,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(183,1): warning C4715: 'Log_in': not all control paths return a value
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(37,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(57,7): warning C4834: discarding return value of function with [[nodiscard]] attribute
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(212,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(340,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(564,10): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(645,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(184,1): warning C4715: 'Log_in': not all control paths return a value
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(793,1): warning C4715: 'user_main_menu': not all control paths return a value
   Spaces-Finder.vcxproj -> C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\x64\Debug\Spaces-Finder.exe
