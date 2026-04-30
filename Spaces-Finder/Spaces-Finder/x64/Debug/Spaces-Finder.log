@@ -1,7 +1,7 @@
 ﻿  CoWorkingSpaceFinder.cpp
 C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(38,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(58,7): warning C4834: discarding return value of function with [[nodiscard]] attribute
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(389,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(930,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(395,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(937,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(192,1): warning C4715: 'Log_in': not all control paths return a value
   Spaces-Finder.vcxproj -> C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\x64\Debug\Spaces-Finder.exe

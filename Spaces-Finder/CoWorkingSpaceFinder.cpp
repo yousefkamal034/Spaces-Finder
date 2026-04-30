@@ -303,6 +303,8 @@ void LoadData() {
 
 
 		while (getline(file, tempUser, ',')) {
+			if (tempUser.empty() || tempUser == "\n") // a small check for safety
+				continue;
 
 			// a loop to make usersarray bigger by multiplying it's capacity * 2
 			if (totalUsersCount == userCapacity) {
@@ -330,12 +332,14 @@ void LoadData() {
 	if (file2.is_open()) {
 
 		string header;
-		getline(file2, header);
-
+		getline(file2, header); // to get rid of the header line
 		string bookingID, spaceID, userID, Date, Hours, TotalCost, Seats;
 
 
 		while (getline(file2, bookingID, ',')) {
+			if (bookingID.empty() || bookingID == "\n") // a small check for safety
+				continue;
+
 			// a loop to increase the size of booking array if needed
 			if (totalBookingsCount == bookingCapacity) {
 				increaseArray("booking");
@@ -367,6 +371,8 @@ void LoadData() {
 		getline(file3, header);
 		string tempName, tempID, tempArea, tempPricePerHour, tempNoOfSeatAvailable, tempRating, tempHasWifi, tempHasMeetingRoom;
 		while (getline(file3, tempName, ',')) {
+			if (tempName.empty() || tempName == "\n") // a small check for safety
+				continue;
 
 			// a loop to make spacearray bigger by multiplying it's capacity * 2
 			if (totalSpacesCount == spaceCapacity) {
@@ -785,6 +791,7 @@ void cancel_booking(int userid) {
 				totalBookingsCount--;
 				system("cls");
 				cout << "booking canceled!\n\n";
+				break;
 			}
 		}
 
@@ -877,7 +884,7 @@ int SaveAll() {
 		cout << "couldn't open file";
 		return 1;
 	}
-	saveuserfile << "UserName,UserID,Password,Email,Phonen\n";
+	saveuserfile << "UserName,UserID,Password,Email,Phone\n";
 	for (int i = 0; i < totalUsersCount; i++) {
 		saveuserfile << usersArray[i].UserName << "," << usersArray[i].Id << "," << usersArray[i].Password << "," << usersArray[i].Email << "," << usersArray[i].Phone << endl;
 	}
