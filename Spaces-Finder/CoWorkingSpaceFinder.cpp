@@ -293,21 +293,22 @@ int Logging() {
 
 
 void LoadData() {
+	// load users from Users.csv into usersarray
 	ifstream file("Users.csv");
 	if (file.is_open()) {
 
-		// a loop to make usersarray bigger by multiplying it's capacity * 2
-		if (totalUsersCount == userCapacity) {
-			increaseArray("user");
-		}
-
 		string header;
-		getline(file, header);
-
+		getline(file, header); // to get rid of the header line
 		string tempID, tempUser, tempPassword, tempEmail, tempPhone;
 
 
 		while (getline(file, tempUser, ',')) {
+
+			// a loop to make usersarray bigger by multiplying it's capacity * 2
+			if (totalUsersCount == userCapacity) {
+				increaseArray("user");
+			}
+
 			getline(file, tempID, ',');
 			getline(file, tempPassword, ',');
 			getline(file, tempEmail, ',');
@@ -322,15 +323,11 @@ void LoadData() {
 			totalUsersCount++;
 		}
 		file.close();
-
-
 	}
+
+	// load bookings from bookings.csv into booking array
 	ifstream file2("bookings.csv");
 	if (file2.is_open()) {
-
-		if (totalBookingsCount == bookingCapacity) {
-			increaseArray("booking");
-		}
 
 		string header;
 		getline(file2, header);
@@ -339,6 +336,11 @@ void LoadData() {
 
 
 		while (getline(file2, bookingID, ',')) {
+			// a loop to increase the size of booking array if needed
+			if (totalBookingsCount == bookingCapacity) {
+				increaseArray("booking");
+			}
+
 			getline(file2, spaceID, ',');
 			getline(file2, userID, ',');
 			getline(file2, Date, ',');
@@ -357,6 +359,8 @@ void LoadData() {
 		}
 		file2.close();
 	}
+
+	// load spaces from Spaces.csv into spacesarray
 	ifstream file3("Spaces.csv");
 	if (file3.is_open()) {
 		string header;
