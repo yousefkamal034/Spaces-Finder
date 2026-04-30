@@ -118,16 +118,16 @@ int EditSpace() {
 		cin >> tempid;
 	}
 
-	int j = 0; // this loop is to get the index of the space we want to edit and store it in a variable
+	int j; // this is the index of the space we want to edit
 	for (int i = 0; i < totalSpacesCount; i++) {
 		if (spaceArray[i].SpaceId == stoi(tempid)) {
 			found = true;
+			j = i;
 			break;
 		}
-		j++;
 	}
 
-	if (found = false) {
+	if (found == false) {
 		cout << "didn't find space!\n";
 		return 0;
 	}
