@@ -1,12 +1,7 @@
 ﻿  CoWorkingSpaceFinder.cpp
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\adminfuncs.h(96,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  (compiling source file 'CoWorkingSpaceFinder.cpp')
-  
 C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(38,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(58,7): warning C4834: discarding return value of function with [[nodiscard]] attribute
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(216,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(348,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(603,10): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(686,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(188,1): warning C4715: 'Log_in': not all control paths return a value
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(385,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(926,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(192,1): warning C4715: 'Log_in': not all control paths return a value
   Spaces-Finder.vcxproj -> C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\x64\Debug\Spaces-Finder.exe

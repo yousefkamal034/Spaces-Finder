@@ -93,7 +93,6 @@ int AddSpace() {
 			cout << "wrong choice, enter y or n only\n";
 	}
 
-	srand(time(0)); // c++ why do u have to be like this???, i need this line so rand() works
 	spaceArray[totalSpacesCount].SpaceId = rand() % (1000 - 100 + 1) + 100; // i think between 100 and 1000
 
 	totalSpacesCount++;
