@@ -61,6 +61,34 @@ bool isFloat(string str) {
 	}
 }
 
+// a hleper function to check if a string has spaces or not
+bool nospaces(string x) {
+	for (int i = 0; i < x.length(); i++) {
+		if (x[i] == ' ') {
+			return false;
+		}
+	}
+	return true;
+}
+
+// a small function to remove redundency in like 3 or 4 places
+void displaySpaces() {
+	cout << "\n-----------Available Spaces-----------\n" << endl;
+
+	for (int i = 0; i < totalSpacesCount; i++) {
+		cout << i + 1 << ". ";
+		cout << "Space Name: " << spaceArray[i].Name << endl;
+		cout << "Space ID: " << spaceArray[i].SpaceId << endl;
+		cout << "Area: " << spaceArray[i].Area << endl;
+		cout << "Price Per Hour: " << spaceArray[i].PricePerHour << endl;
+		cout << "Number of Seats Available: " << spaceArray[i].NoOfSeatAvailable << endl;
+		cout << "Rating: " << spaceArray[i].Rating << " / 5" << endl;
+		cout << "Has Wifi: " << (spaceArray[i].HasWifi ? "Yes" : "No") << endl;
+		cout << "Has Meeting Room: " << (spaceArray[i].HasMeetingRoom ? "Yes" : "No") << endl;
+		cout << "-----------------------------" << endl;
+	}
+}
+
 // a function to increase array count
 void increaseArray(string x) {
 
@@ -119,15 +147,9 @@ void increaseArray(string x) {
 	}
 }
 
-// a hleper function to check if a string has spaces or not
-bool nospaces(string x) {
-	for (int i = 0; i < x.length(); i++) {
-		if (x[i] == ' ') {
-			return false;
-		}
-	}
-	return true;
-}
+
+
+
 
 int Log_in() {
 	system("cls");
@@ -421,21 +443,7 @@ void LoadData() {
 
 
 void ViewSpaces(int userid) {
-	cout << "\n-----------Available Spaces-----------\n" << endl;
-
-	for (int i = 0; i < totalSpacesCount; i++) {
-		cout << i + 1 << ". ";
-		cout << "Space Name: " << spaceArray[i].Name << endl;
-		cout << "Space ID: " << spaceArray[i].SpaceId << endl;
-		cout << "Area: " << spaceArray[i].Area << endl;
-		cout << "Price Per Hour: " << spaceArray[i].PricePerHour << endl;
-		cout << "Number of Seats Available: " << spaceArray[i].NoOfSeatAvailable << endl;
-		cout << "Rating: " << spaceArray[i].Rating << " / 5" << endl;
-		cout << "Has Wifi: " << (spaceArray[i].HasWifi ? "Yes" : "No") << endl;
-		cout << "Has Meeting Room: " << (spaceArray[i].HasMeetingRoom ? "Yes" : "No") << endl;
-		cout << "-----------------------------" << endl;
-	}
-
+	displaySpaces();
 
 
 	while (true) {
@@ -455,20 +463,7 @@ void ViewSpaces(int userid) {
 		}
 		else if (choice == "b" || choice == "B") {
 			book_space(userid);
-			// this loop is so the user sees the spaces again after booking a space, it looks like you went back to "viewSpaces()" this way.
-			cout << "\n-----------Available Spaces-----------\n" << endl;
-			for (int i = 0; i < totalSpacesCount; i++) {
-				cout << i + 1 << ". ";
-				cout << "Space Name: " << spaceArray[i].Name << endl;
-				cout << "Space ID: " << spaceArray[i].SpaceId << endl;
-				cout << "Area: " << spaceArray[i].Area << endl;
-				cout << "Price Per Hour: " << spaceArray[i].PricePerHour << endl;
-				cout << "Number of Seats Available: " << spaceArray[i].NoOfSeatAvailable << endl;
-				cout << "Rating: " << spaceArray[i].Rating << " / 5" << endl;
-				cout << "Has Wifi: " << (spaceArray[i].HasWifi ? "Yes" : "No") << endl;
-				cout << "Has Meeting Room: " << (spaceArray[i].HasMeetingRoom ? "Yes" : "No") << endl;
-				cout << "-----------------------------" << endl;
-			}
+			displaySpaces();
 		}
 		else if (choice == "m" || choice == "M") {
 			system("cls");
