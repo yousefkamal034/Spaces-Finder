@@ -5,7 +5,6 @@
 #include <string>
 #include "structs.h"
 #include "adminfuncs.h"
-#include <cctype>
 
 using namespace std;
 
@@ -25,7 +24,7 @@ void LoadData();
 int AddSpace();
 void admin_main_menu();
 void view_my_bookings(int userid);
-void ViewSpaces(int userid);
+void ViewSpaces();
 void book_space(int userid);
 bool isvaliddate(string date);
 void FilterSpaces();
@@ -45,12 +44,13 @@ string stringtolower(string s) {
 // this is to check if a string is a number or not
 bool isNumber(string s) {
 	for (char c : s) {
-		if (isdigit(c) == false) return false;
+		if (isdigit(c) == false)
+			return false;
 	}
 	return true;
 }
 
-// this one is to check if a string is a float (i hate this featureless language)
+// this one is to check if a string is a float
 bool isFloat(string str) {
 	try {
 		stof(str);
@@ -71,7 +71,7 @@ bool nospaces(string x) {
 	return true;
 }
 
-// a small function to remove redundency in like 3 or 4 places
+// a small function to remove redundency
 void displaySpaces() {
 	cout << "\n-----------Available Spaces-----------\n" << endl;
 
@@ -148,9 +148,6 @@ void increaseArray(string x) {
 }
 
 
-
-
-
 int Log_in() {
 	system("cls");
 	string username, password;
@@ -173,7 +170,7 @@ int Log_in() {
 		//for admin,username, password=admin
 		if (username == "admin") {
 			cout << "Password(Case Sensitive): ";
-			cin >> password;
+			getline(cin >> ws, password);
 			if (password == "admin") {
 				system("cls");
 				cout << "Logged in as Admin Successfully!" << endl;
@@ -261,7 +258,7 @@ int Sign_up() {
 			cout << "username can't contain a space.\n";
 	}
 
-	while (true) {
+	while (true) { // a loop to get an Email
 		cout << "Enter Email: ";
 		getline(cin >> ws, tempEmail);
 		if (nospaces(tempEmail))
@@ -270,8 +267,6 @@ int Sign_up() {
 			cout << "Email can't contain a space.\n";
 		}
 	}
-
-
 
 
 	while (!pass_correct) {
@@ -301,13 +296,6 @@ int Sign_up() {
 	int tempUserID = rand() % (199 - 100 + 1) + 100;
 	cout << "Your ID is: " << tempUserID << endl;
 
-	//ofstream file("Users.csv", ios::app);
-	//if (file.is_open()) {
-	//	file << tempUsername << "," << tempUserID << "," << tempPassword << "," << tempEmail << "," << tempPhone << "\n";
-	//	file.close();
-	//}
-	//else
-	//	return -1;
 	usersArray[totalUsersCount].UserName = tempUsername;
 	usersArray[totalUsersCount].Password = tempPassword;
 	usersArray[totalUsersCount].Id = tempUserID;
@@ -456,10 +444,8 @@ void LoadData() {
 }
 
 
-void ViewSpaces(int userid) {
+void ViewSpaces() {
 	displaySpaces();
-
-
 	while (true) {
 		cout << endl;
 		cout << "s --> search area" << endl;
@@ -476,7 +462,7 @@ void ViewSpaces(int userid) {
 			FilterSpaces();
 		}
 		else if (choice == "b" || choice == "B") {
-			book_space(userid);
+			book_space(activeUserID);
 			displaySpaces();
 		}
 		else if (choice == "m" || choice == "M") {
@@ -580,8 +566,9 @@ void FilterSpaces() {
 		else if (choice == "w" || choice == "W") {
 			cout << "Require WiFi? (Y/N): ";
 			getline(cin >> ws, wifiFilter);
+			wifiFilter = stringtolower(wifiFilter);
 			for (int i = 0; i < totalSpacesCount; i++) {
-				if (spaceArray[i].HasWifi == (wifiFilter == "Y") || spaceArray[i].HasWifi == (wifiFilter == "y")) {
+				if (spaceArray[i].HasWifi == (wifiFilter == "y")) {
 					found = true;
 					cout << "Space Name: " << spaceArray[i].Name << endl;
 					cout << "Space ID: " << spaceArray[i].SpaceId << endl;
@@ -593,8 +580,9 @@ void FilterSpaces() {
 		else if (choice == "m" || choice == "M") {
 			cout << "Require Meeting Room? (Y/N): ";
 			getline(cin >> ws, meetingRoomFilter);
+			meetingRoomFilter = stringtolower(meetingRoomFilter);
 			for (int i = 0; i < totalSpacesCount; i++) {
-				if (spaceArray[i].HasMeetingRoom == (meetingRoomFilter == "Y") || spaceArray[i].HasMeetingRoom == (meetingRoomFilter == "y")) {
+				if (spaceArray[i].HasMeetingRoom == (meetingRoomFilter == "y")) {
 					found = true;
 					cout << "Space Name: " << spaceArray[i].Name << endl;
 					cout << "Space ID: " << spaceArray[i].SpaceId << endl;
@@ -670,18 +658,17 @@ void book_space(int userid) {
 		increaseArray("booking");
 	}
 
-	string chosenspaceid = "b";
+	string chosenspaceid;
 	string date, hours;
-	string seats = "d";
+	string seats;
 	bool idfound = false;
 	bool spaceok = false;
 	bool dateok = false;
-	int j = 0; // this is the chosen space index in spacesarray
+	int j; // this is the chosen space index in spacesarray
 	int availableseats = 0;
 
 	while (true) {
-
-		// --- STEP 1: GET SPACE ID ---
+		// get space id
 		if (!spaceok) {
 			bool idfound = false;
 			cout << "Enter SpaceID: ";
@@ -693,7 +680,6 @@ void book_space(int userid) {
 					getline(cin >> ws, chosenspaceid);
 				}
 
-				j = 0;
 				for (int i = 0; i < totalSpacesCount; i++) {
 					if (spaceArray[i].SpaceId == stoi(chosenspaceid)) {
 						idfound = true;
@@ -707,11 +693,11 @@ void book_space(int userid) {
 					getline(cin >> ws, chosenspaceid);
 				}
 			}
-			spaceok = true; // Check it off the list!
-			dateok = false;   // Make sure we ask for a date for this new space
+			spaceok = true;
+			dateok = false;
 		}
 
-		// --- STEP 2: GET DATE ---
+		// get the date if the dateok = flase
 		if (!dateok) {
 			cout << "Enter the date you want to book for (DD/MM/YYYY) (press b to go back): ";
 			getline(cin >> ws, date);
@@ -728,7 +714,6 @@ void book_space(int userid) {
 			dateok = true; // Check it off the list!
 		}
 
-		// --- STEP 3: CHECK AVAILABILITY ---
 		availableseats = spaceArray[j].NoOfSeatAvailable;
 		for (int i = 0; i < totalBookingsCount; i++) {
 			if (bookingsArray[i].SpaceId == stoi(chosenspaceid) && bookingsArray[i].date == date) {
@@ -738,48 +723,43 @@ void book_space(int userid) {
 
 		if (availableseats <= 0) {
 			cout << "The space is fully booked on this date, please choose another date!\n";
-			dateok = false; // Force them to pick a new date
-			continue; // Restart the loop from the top
+			dateok = false;
+			continue; // restart the loop from the top
 		}
 
-		// --- STEP 4: GET SEATS ---
 		cout << "-----------------------\nEnter how many seats you want to book (" << availableseats << " seats are available for this space on this date)\n"
 			<< "(press 'd' to choose another date, or 'b' to choose another space): ";
-		cin >> seats;
+		getline(cin >> ws, seats);
 
 		if (seats == "d" || seats == "D") {
 			dateok = false;
-			continue; // Restart the loop to ask for a new date
+			continue; // restart the loop to ask for a new date
 		}
 
 		if (seats == "b" || seats == "B") {
 			spaceok = false;
-			continue; // Restart the loop to ask for a new space
+			continue; // restart the loop to ask for a new space
 		}
 
-		// If we made it here, they didn't press 'b' or 'd'. Let's check if it's a valid number.
 		if (isNumber(seats) && stoi(seats) <= availableseats && stoi(seats) > 0) {
-			break; // everything looks good, break out of the loop to proceed to hours
+			break;
 		}
 		else {
 			cout << "\ninvalid number of seats, please enter the number of seats again.\n";
-			// Because spaceok and dateok are true, the loop will just jump right back here to ask for seats again.
 		}
 	}
 
-	// --- STEP 5: HOURS ---
 	cout << "Enter how many hours you want to book for: ";
-	cin >> hours;
+	getline(cin >> ws, hours);
 
 	while (true) {
 		if (isNumber(hours) && stoi(hours) <= 12 && stoi(hours) > 0) {
 			break; // Valid hours, break the loop
 		}
 		cout << "Enter a valid number. Please enter how many hours you want to book for (1-12): ";
-		cin >> hours;
+		getline(cin >> ws, hours);
 	}
 
-	// --- FINAL STEP: BOOKING ---
 	bookingsArray[totalBookingsCount].BookingId = rand() % (2000 - 1000 + 1) + 1000;
 	bookingsArray[totalBookingsCount].SpaceId = spaceArray[j].SpaceId;
 	bookingsArray[totalBookingsCount].UserId = activeUserID;
@@ -940,11 +920,11 @@ int user_main_menu() {
 			"--------------------------------------\n";
 
 		cout << "choice: ";
-		cin >> choice;
+		getline(cin >> ws, choice);
 
 		if (choice == "1") {
 			system("cls");
-			ViewSpaces(activeUserID);
+			ViewSpaces();
 		}
 		else if (choice == "2") {
 			system("cls");
