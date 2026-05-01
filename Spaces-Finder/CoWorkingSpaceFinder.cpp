@@ -42,7 +42,6 @@ string stringtolower(string s) {
 	return s;
 }
 
-
 // this is to check if a string is a number or not
 bool isNumber(string s) {
 	for (char c : s) {
@@ -50,7 +49,6 @@ bool isNumber(string s) {
 	}
 	return true;
 }
-
 
 // this one is to check if a string is a float (i hate this featureless language)
 bool isFloat(string str) {
@@ -62,7 +60,6 @@ bool isFloat(string str) {
 		return false;
 	}
 }
-
 
 // a function to increase array count
 void increaseArray(string x) {
@@ -122,6 +119,15 @@ void increaseArray(string x) {
 	}
 }
 
+// a hleper function to check if a string has spaces or not
+bool nospaces(string x) {
+	for (int i = 0; i < x.length(); i++) {
+		if (x[i] == ' ') {
+			return false;
+		}
+	}
+	return true;
+}
 
 int Log_in() {
 	system("cls");
@@ -205,33 +211,38 @@ int Sign_up() {
 
 	while (true) { // a loop to make sure the username doesn't contain a space 
 		bool nameok = true;
-		cout << "Enter A UserName (presee 'b' to go back): ";
+		cout << "Enter A UserName (press 'b' to go back): ";
 		getline(cin >> ws, tempUsername);
 
 		if (tempUsername == "b" || tempUsername == "B") // to go back to login or signup page
 			return -1;
 
-		for (int i = 0; i < tempUsername.length(); i++) {
-			if (tempUsername[i] == ' ') {
-				cout << "username can't contain a space.\n";
-				nameok = false;
-				break;
-			}
-		}
+		nameok = nospaces(tempUsername);
 
 		if (nameok)
 			break;
+		else
+			cout << "username can't contain a space.\n";
+	}
+
+	while (true) {
+		cout << "Enter Email: ";
+		getline(cin >> ws, tempEmail);
+		if (nospaces(tempEmail))
+			break;
+		else {
+			cout << "Email can't contain a space.\n";
+		}
 	}
 
 
 
-	cout << "Enter Email: ";
-	cin >> tempEmail;
+
 	while (!pass_correct) {
 		cout << "Create A password:";
-		cin >> tempPassword;
-		if (tempPassword.length() < 6) {
-			cout << "Password Should be more than 6 characters" << endl;
+		getline(cin >> ws, tempPassword);
+		if (tempPassword.length() < 6 || !nospaces(tempPassword)) {
+			cout << "Password Should be more than 6 characters, and can't contain spaces" << endl;
 			continue;
 		}
 		else
@@ -240,19 +251,19 @@ int Sign_up() {
 
 	while (!phoneok) {
 		cout << "Enter Phone Number: ";
-		cin >> tempPhone;
+		getline(cin >> ws, tempPhone);
 		if (isNumber(tempPhone)) {
 			phoneok = true;
 		}
 		else {
-			cout << "Phone Number must be a number.\n";
+			cout << "Phone Number must be a number, and can't contain a space.\n";
 			continue;
 		}
 	}
 
 
 	int tempUserID = rand() % (199 - 100 + 1) + 100;
-	cout << "Your ID is" << tempUserID << endl;
+	cout << "Your ID is: " << tempUserID << endl;
 
 	//ofstream file("Users.csv", ios::app);
 	//if (file.is_open()) {
@@ -267,6 +278,7 @@ int Sign_up() {
 	usersArray[totalUsersCount].Email = tempEmail;
 	usersArray[totalUsersCount].Phone = tempPhone;
 	totalUsersCount++;
+	system("pause");
 	system("cls"); //clearing the Terminal
 	return Log_in();
 }
@@ -443,7 +455,8 @@ void ViewSpaces(int userid) {
 		}
 		else if (choice == "b" || choice == "B") {
 			book_space(userid);
-			// this loop is so the user sees the spaces again, probably could've made it in a better way
+			// this loop is so the user sees the spaces again after booking a space, it looks like you went back to "viewSpaces()" this way.
+			cout << "\n-----------Available Spaces-----------\n" << endl;
 			for (int i = 0; i < totalSpacesCount; i++) {
 				cout << i + 1 << ". ";
 				cout << "Space Name: " << spaceArray[i].Name << endl;
