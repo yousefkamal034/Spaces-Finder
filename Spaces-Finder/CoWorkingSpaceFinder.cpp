@@ -158,9 +158,15 @@ int Log_in() {
 	int pass_tries = 3, name_tries = 3;
 	cout << "----Log In---" << endl;
 	while (!name_correct) {
-		cout << "Enter UserName(Case Sensitive) (press 'b' to go back): ";
-		cin >> username;
-
+		while (true) {
+			cout << "Enter UserName(Case Sensitive) (press 'b' to go back): ";
+			getline(cin >> ws, username);
+			if (nospaces(username))
+				break;
+			else
+				cout << "username can't contain spaces.\n";
+		}
+		
 		if (username == "b" || username == "B")
 			return -1;
 
@@ -181,8 +187,16 @@ int Log_in() {
 		for (int i = 0; i < totalUsersCount; i++) {
 			if (usersArray[i].UserName == username) {
 				while (!pass_correct) {
-					cout << "Password(Case Sensitive): ";
-					cin >> password;
+
+					while (true) {
+						cout << "Password(Case Sensitive): ";
+						getline(cin >> ws, password);
+						if (nospaces(password))
+							break;
+						else
+							cout << "password can't contain space.\n";
+					}
+
 					if (usersArray[i].Password == password) {
 						system("cls");
 						cout << "Logged in Succsesfully" << endl;
@@ -310,7 +324,7 @@ int Logging() {
 	string choice;
 	cout << "-----------" << '\n' << "1- Log in" << '\n' << "2- Don't Have an Account? " << '\n' << "3- exit program\n" << "-----------" << endl;
 	cout << "choice: ";
-	cin >> choice;;
+	getline(cin >> ws, choice);
 	if (choice == "1") {
 		return Log_in();
 	}
@@ -454,7 +468,7 @@ void ViewSpaces(int userid) {
 		cout << "m --> main menu" << endl;
 		cout << "Enter choice (s/f/b/m): ";
 		string choice; // changed this to a string, so if the user types something like (hsdnf) no weird behaviour accours
-		cin >> choice;
+		getline(cin >> ws, choice);
 		if (choice == "s" || choice == "S") {
 			SearchByArea();
 		}
@@ -661,12 +675,12 @@ void book_space(int userid) {
 		if (!spaceok) {
 			bool idfound = false;
 			cout << "Enter SpaceID: ";
-			cin >> chosenspaceid;
+			getline(cin >> ws, chosenspaceid);
 
 			while (!idfound) {
 				while (!isNumber(chosenspaceid)) {
 					cout << "Enter a valid number for space ID: ";
-					cin >> chosenspaceid;
+					getline(cin >> ws, chosenspaceid);
 				}
 
 				j = 0;
@@ -680,7 +694,7 @@ void book_space(int userid) {
 
 				if (!idfound) {
 					cout << "Wrong ID, please enter a valid space ID: ";
-					cin >> chosenspaceid;
+					getline(cin >> ws, chosenspaceid);
 				}
 			}
 			spaceok = true; // Check it off the list!
@@ -690,7 +704,7 @@ void book_space(int userid) {
 		// --- STEP 2: GET DATE ---
 		if (!dateok) {
 			cout << "Enter the date you want to book for (DD/MM/YYYY) (press b to go back): ";
-			cin >> date;
+			getline(cin >> ws, date);
 
 			if (date == "b" || date == "B") {
 				spaceok = false; // They want to go back, so we need a space again
@@ -699,7 +713,7 @@ void book_space(int userid) {
 
 			while (!isvaliddate(date)) {
 				cout << "Invalid date! Please enter Date Again: ";
-				cin >> date;
+				getline(cin >> ws, date);
 			}
 			dateok = true; // Check it off the list!
 		}
