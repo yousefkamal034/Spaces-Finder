@@ -41,15 +41,6 @@ string stringtolower(string s) {
 	return s;
 }
 
-// this is to check if a string is a number or not
-bool isNumber(string s) {
-	for (char c : s) {
-		if (isdigit(c) == false)
-			return false;
-	}
-	return true;
-}
-
 // this one is to check if a string is a float
 bool isFloat(string str) {
 	try {
@@ -283,7 +274,7 @@ int Sign_up() {
 	while (!phoneok) {
 		cout << "Enter Phone Number: ";
 		getline(cin >> ws, tempPhone);
-		if (isNumber(tempPhone)) {
+		if (isFloat(tempPhone)) {
 			phoneok = true;
 		}
 		else {
@@ -675,7 +666,7 @@ void book_space(int userid) {
 			getline(cin >> ws, chosenspaceid);
 
 			while (!idfound) {
-				while (!isNumber(chosenspaceid)) {
+				while (!isFloat(chosenspaceid)) {
 					cout << "Enter a valid number for space ID: ";
 					getline(cin >> ws, chosenspaceid);
 				}
@@ -741,7 +732,7 @@ void book_space(int userid) {
 			continue; // restart the loop to ask for a new space
 		}
 
-		if (isNumber(seats) && stoi(seats) <= availableseats && stoi(seats) > 0) {
+		if (isFloat(seats) && stoi(seats) <= availableseats && stoi(seats) > 0) {
 			break;
 		}
 		else {
@@ -753,7 +744,7 @@ void book_space(int userid) {
 	getline(cin >> ws, hours);
 
 	while (true) {
-		if (isNumber(hours) && stoi(hours) <= 12 && stoi(hours) > 0) {
+		if (isFloat(hours) && stoi(hours) <= 12 && stoi(hours) > 0) {
 			break; // Valid hours, break the loop
 		}
 		cout << "Enter a valid number. Please enter how many hours you want to book for (1-12): ";
@@ -786,11 +777,10 @@ void cancel_booking(int userid) {
 	string bookid;
 	cout << "enter the id for the booking you want to cancel: ";
 
-
 	while (true) {
-		cin >> bookid;
+		getline(cin >> ws, bookid);
 
-		if (!isNumber(bookid)) {
+		if (!isFloat(bookid)) {
 			cout << "please enter a number for a booking id: ";
 			continue;
 		}

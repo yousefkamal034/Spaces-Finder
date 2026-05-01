@@ -19,11 +19,10 @@ extern int activeUserID;
 void LoadData();
 void admin_main_menu();
 int SaveAll();
-bool isNumber(string s);
 bool isFloat(string s);
 bool nospaces(string x);
 void displaySpaces();
-void ViewSpaces(int userid);
+void ViewSpaces();
 int Logging();
 void increaseArray(string x);
 int user_main_menu();
@@ -64,7 +63,7 @@ int AddSpace() {
 
 	cout << "enter price per hour: ";
 	getline(cin >> ws, temp);
-	while (!isNumber(temp)) {
+	while (!isFloat(temp)) {
 		cout << "this isn't a number, please enter it again: ";
 		getline(cin >> ws, temp);
 	}
@@ -72,7 +71,7 @@ int AddSpace() {
 
 	cout << "enter number of seats available: ";
 	getline(cin >> ws, temp);
-	while (!isNumber(temp)) {
+	while (!isFloat(temp)) {
 		cout << "this isn't a number, please enter it again: ";
 		getline(cin >> ws, temp);
 	}
@@ -138,7 +137,7 @@ int EditSpace() {
 	displaySpaces();
 
 
-	while (!isNumber(tempid) || !nospaces(tempid)) { // this effictively guards from wierd inputs like "dsigdaog nabg"
+	while (!isFloat(tempid) || !nospaces(tempid)) { // this effictively guards from wierd inputs like "dsigdaog nabg"
 		cout << "enter the id for the space you want to edit (press b to go back): ";
 		getline(cin >> ws, tempid);
 
@@ -168,7 +167,7 @@ int EditSpace() {
 	cout << "change:\n1.Name\n2.Area\n3.price per hour\n4.number of seats available\n5.Rating\n6.HasWifi\n7.HasMeetingRoom\n(press 'b' to go back)\nchoice: ";
 	getline(cin >> ws, choice);
 
-	while (!isNumber(choice) || stoi(choice) < 1 || stoi(choice) > 7) {
+	while (!isFloat(choice) || stoi(choice) < 1 || stoi(choice) > 7) {
 		if (choice == "b" || choice == "B") {
 			system("cls");
 			return 0;
@@ -194,14 +193,14 @@ int EditSpace() {
 		spaceArray[j].Area = temp;
 		break;
 	case 3:;
-		while (!isNumber(temp)) {
+		while (!isFloat(temp)) {
 			cout << "enter new price: ";;
 			getline(cin >> ws, temp);
 		}
 		spaceArray[j].PricePerHour = stoi(temp);
 		break;
 	case 4:
-		while (!isNumber(temp)) {
+		while (!isFloat(temp)) {
 			cout << "enter new number of seats available: ";;
 			getline(cin >> ws, temp);
 		}
@@ -267,7 +266,7 @@ int DeleteSpace() {
 		return 0;
 	}
 
-	while (!isNumber(chosenid)) {
+	while (!isFloat(chosenid)) {
 		cout << "this isn't a number, please enter it again: ";
 		getline(cin >> ws, chosenid);
 	}
