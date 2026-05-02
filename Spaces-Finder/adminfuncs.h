@@ -23,7 +23,7 @@ bool isFloat(string s);
 bool isNumber(string s);
 bool nospaces(string x);
 void displaySpaces();
-void ViewSpaces();
+void Spaces_tap();
 int Logging();
 void increaseArray(string x);
 int user_main_menu();

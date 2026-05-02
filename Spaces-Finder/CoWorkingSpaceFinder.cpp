@@ -27,7 +27,7 @@ void LoadData();
 int AddSpace();
 void admin_main_menu();
 void view_my_bookings(int userid);
-void ViewSpaces();
+void Spaces_tap();
 void book_space(int userid);
 bool isvaliddate(string date);
 void FilterSpaces();
@@ -477,14 +477,14 @@ void LoadData()
 }
 
 
-void ViewSpaces() {
+void Spaces_tap() {
 	displaySpaces();
 	while (true) {
 		cout << endl;
-		cout << "s --> search area" << endl;
-		cout << "f --> filtering" << endl;
-		cout << "b --> Book a space" << endl;
-		cout << "m --> main menu" << endl;
+		cout << "S --> Search area" << endl;
+		cout << "F --> Filtering" << endl;
+		cout << "B --> Book a space" << endl;
+		cout << "M --> Main menu" << endl;
 		cout << "Enter choice (s/f/b/m): ";
 		string choice; //string, so if the user types something like (hsdnf) no weird behaviour accours
 		getline(cin >> ws, choice);
@@ -817,9 +817,9 @@ void book_space(int userid) {
 //if the user Want to Cancel a Booking
 void cancel_booking(int userid) {
 	string bookid;
-	cout << "enter the id for the booking you want to cancel: ";
 
 	while (true) {
+		cout << "enter the id for the booking you want to cancel: ";
 		getline(cin >> ws, bookid);
 
 		if (!isFloat(bookid)) {
@@ -963,7 +963,7 @@ int user_main_menu() {
 
 		if (choice == "1") {
 			system("cls");
-			ViewSpaces();
+			Spaces_tap();
 		}
 		else if (choice == "2") {
 			system("cls");
