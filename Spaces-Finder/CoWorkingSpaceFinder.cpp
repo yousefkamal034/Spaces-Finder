@@ -44,7 +44,7 @@ string stringtolower(string s) {
 	return s;
 }
 
-// this one is to check if a string is a float
+// this one is to check if a string is a float (or a number in general)
 bool isFloat(string str) {
 	try {
 		stof(str);
@@ -53,6 +53,15 @@ bool isFloat(string str) {
 	catch (...) {
 		return false;
 	}
+}
+
+// a helper function to check if a string is a positive integer, to protect vs inputs like -50 AddSpace or 1.5 in menu
+bool isNumber(string s) {
+	for (char c : s) {
+		if (isdigit(c) == false)
+			return false;
+	}
+	return true;
 }
 
 // a helper function to check if a string has spaces or not
@@ -287,7 +296,7 @@ int Sign_up() {
 	{
 		cout << "Enter Phone Number: ";
 		getline(cin >> ws, tempPhone);
-		if (isFloat(tempPhone))
+		if (isNumber(tempPhone))
 		{
 			if (nospaces(tempPhone))
 				break;
@@ -314,8 +323,8 @@ int Sign_up() {
 	usersArray[totalUsersCount].Email = tempEmail;
 	usersArray[totalUsersCount].Phone = tempPhone;
 	totalUsersCount++;
-	system("pause");
-	system("cls"); //Clearing the Terminal
+	system("pause"); // (Press any key to continue ...)
+	system("cls"); //clearing the Terminal
 	return Log_in();
 }
 
@@ -573,7 +582,7 @@ void FilterSpaces() {
 			while (true) {
 				cout << "Enter minimum rating: ";
 				getline(cin >> ws, minRating);
-				if (isFloat(minRating))
+				if (isNumber(minRating))
 					break;
 			}
 
@@ -688,7 +697,7 @@ void book_space(int userid) {
 	bool idfound = false;
 	bool space_correct = false;
 	bool date_correct = false;
-	int j; // this is the chosen space index in spacesarray
+	int j; // this is the chosen space index in spacesArray
 	int availableseats = 0;
 
 	while (true) {
@@ -699,7 +708,7 @@ void book_space(int userid) {
 			getline(cin >> ws, chosenspaceid);
 
 			while (!idfound) {
-				while (!isFloat(chosenspaceid)) {
+				while (!isNumber(chosenspaceid)) {
 					cout << "Enter a valid number for space ID: ";
 					getline(cin >> ws, chosenspaceid);
 				}
@@ -727,15 +736,15 @@ void book_space(int userid) {
 			getline(cin >> ws, date);
 
 			if (date == "b" || date == "B") {
-				space_correct = false; // They want to go back, so we need a space again
-				continue;         // Restart the loop from the top
+				space_correct = false; // reset to ask for a new space, which also asks for a new date
+				continue;
 			}
 
 			while (!isvaliddate(date)) {
 				cout << "Invalid date! Please enter Date Again: ";
 				getline(cin >> ws, date);
 			}
-			date_correct = true; // Check it off the list!
+			date_correct = true; // date is all good
 		}
 
 		availableseats = spaceArray[j].NoOfSeatAvailable;
@@ -765,7 +774,7 @@ void book_space(int userid) {
 			continue; // restart the loop to ask for a new space
 		}
 
-		if (isFloat(seats) && stoi(seats) <= availableseats && stoi(seats) > 0) {
+		if (isNumber(seats) && stoi(seats) <= availableseats && stoi(seats) > 0) {
 			break;
 		}
 		else {
@@ -777,7 +786,7 @@ void book_space(int userid) {
 	getline(cin >> ws, hours);
 
 	while (true) {
-		if (isFloat(hours) && stoi(hours) <= 12 && stoi(hours) > 0) {
+		if (isNumber(hours) && stoi(hours) <= 12 && stoi(hours) > 0) {
 			break; // Valid hours, break the loop
 		}
 		cout << "Enter a valid number. Please enter how many hours you want to book for (1-12): ";

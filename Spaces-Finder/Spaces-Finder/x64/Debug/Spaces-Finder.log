@@ -1,7 +1,7 @@
 ﻿  CoWorkingSpaceFinder.cpp
-C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(40,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(50,7): warning C4834: discarding return value of function with [[nodiscard]] attribute
-C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(456,45): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(979,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(231,1): warning C4715: 'Log_in': not all control paths return a value
-  Spaces-Finder.vcxproj -> C:\Users\Yousef\source\repos\yousefkamal034\Spaces-Finder\Spaces-Finder\x64\Debug\Spaces-Finder.exe
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(40,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(50,7): warning C4834: discarding return value of function with [[nodiscard]] attribute
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(456,45): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(979,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\CoWorkingSpaceFinder.cpp(231,1): warning C4715: 'Log_in': not all control paths return a value
+  Spaces-Finder.vcxproj -> C:\Users\dell\Documents\GitHub\Spaces-Finder\Spaces-Finder\x64\Debug\Spaces-Finder.exe

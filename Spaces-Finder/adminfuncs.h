@@ -1,4 +1,3 @@
-
 #pragma once
 #include <iostream>
 #include <fstream>
@@ -21,6 +20,7 @@ void LoadData();
 void admin_main_menu();
 int SaveAll();
 bool isFloat(string s);
+bool isNumber(string s);
 bool nospaces(string x);
 void displaySpaces();
 void ViewSpaces();
@@ -38,11 +38,11 @@ int AddSpace() {
 	}
 
 	string temp, tempName, tempArea;
-	string haswifi, hasmr; // hmr = HasMeetingRoom
+	string haswifi, hasmr; // hasmr = HasMeetingRoom
 	while (true) {
 		cout << "enter space name: ";
 		getline(cin >> ws, tempName);
-		if (!nospaces(tempName)) {
+		if (!nospaces(tempName)) { // if it contains spaces
 			cout << "name can't contain spaces.\n";
 			continue;
 		}
@@ -54,7 +54,7 @@ int AddSpace() {
 	while (true) {
 		cout << "enter space area: ";
 		getline(cin >> ws, tempArea);
-		if (!nospaces(tempArea)) {
+		if (!nospaces(tempArea)) { 
 			cout << "area can't contain spaces.\n";
 			continue;
 		}
@@ -64,16 +64,16 @@ int AddSpace() {
 
 	cout << "enter price per hour: ";
 	getline(cin >> ws, temp);
-	while (!isFloat(temp)) {
-		cout << "this isn't a number, please enter it again: ";
+	while (!isNumber(temp)) {
+		cout << "this isn't a positive number, please enter it again: ";
 		getline(cin >> ws, temp);
 	}
 	spaceArray[totalSpacesCount].PricePerHour = stoi(temp);
 
 	cout << "enter number of seats available: ";
 	getline(cin >> ws, temp);
-	while (!isFloat(temp)) {
-		cout << "this isn't a number, please enter it again: ";
+	while (!isNumber(temp)) {
+		cout << "this isn't a positive number, please enter it again: ";
 		getline(cin >> ws, temp);
 	}
 	spaceArray[totalSpacesCount].NoOfSeatAvailable = stoi(temp);
@@ -133,17 +133,25 @@ int AddSpace() {
 
 int EditSpace() {
 	system("cls");
-	string tempid = "holder"; // to store the id for the space i want to edit
+	string tempid; // to store the id for the space i want to edit
 	bool found = false;
 	displaySpaces();
 
-
-	while (!isFloat(tempid) || !nospaces(tempid)) { // this effictively guards from wierd inputs like "dsigdaog nabg"
+	while (true) {
 		cout << "enter the id for the space you want to edit (press b to go back): ";
 		getline(cin >> ws, tempid);
 
 		if (tempid == "b" || tempid == "B") { // if admin wants to go back
+			system("cls");
 			return 0;
+		}
+
+		else if (isNumber(tempid) && nospaces(tempid)) {
+			break;
+		}
+		
+		else {
+			cout << "invalid input\n";
 		}
 	}
 
@@ -164,58 +172,87 @@ int EditSpace() {
 
 
 	string choice;
-	string newwifi, newhmr; // hmr = has meeting room
+	string newwifi, newhmr; // hasmr = has meeting room
 	cout << "change:\n1.Name\n2.Area\n3.price per hour\n4.number of seats available\n5.Rating\n6.HasWifi\n7.HasMeetingRoom\n(press 'b' to go back)\nchoice: ";
 	getline(cin >> ws, choice);
 
-	while (!isFloat(choice) || stoi(choice) < 1 || stoi(choice) > 7) {
+	while (true) {
+
 		if (choice == "b" || choice == "B") {
 			system("cls");
 			return 0;
 		}
-		cout << "this isn't a number, please enter it again (1:7) : ";
-		getline(cin >> ws, choice);
+
+		else if (isNumber(choice) && stoi(choice) >= 1 && stoi(choice) <= 7) { // using isNumber so inputs like 1.5 won't work
+			break;
+		}
+
+		else {
+			cout << "please enter a number from 1 to 7, or 'b' to go back.\n";
+			cout << "choice: ";
+			getline(cin >> ws, choice);
+		}
+
 	}
 
-	string temp = "holder 2";
+
+	string temp;
 	switch (stoi(choice)) {
 	case 1:
-		while (!nospaces(temp)) {
+		while (true) {
 			cout << "enter new name: ";
 			getline(cin >> ws, temp);
-		}
-		spaceArray[j].Name = temp;
-		break;
+			if (!nospaces(temp)) {
+				cout << "name can't contain spaces.\n";
+				continue;
+			}
+			spaceArray[j].Name = temp;
+			break;
+		} break;
 	case 2:
-		while (!nospaces(temp)) {
+		while (true) {
 			cout << "enter new area: ";
 			getline(cin >> ws, temp);
-		}
-		spaceArray[j].Area = temp;
-		break;
-	case 3:;
-		while (!isFloat(temp)) {
-			cout << "enter new price: ";;
+			if (!nospaces(temp)) {
+				cout << "area can't contain spaces.\n";
+				continue;
+			}
+			spaceArray[j].Area = temp;
+			break;
+		} break;
+	case 3:
+		while (true) {
+			cout << "enter new price per hour: ";
 			getline(cin >> ws, temp);
-		}
-		spaceArray[j].PricePerHour = stoi(temp);
-		break;
+			if (!isNumber(temp)) {
+				cout << "price per hour must be a number.\n";
+				continue;
+			}
+			spaceArray[j].PricePerHour = stoi(temp);
+			break;
+		} break;
 	case 4:
-		while (!isFloat(temp)) {
-			cout << "enter new number of seats available: ";;
+		while (true) {
+			cout << "enter new number of seats available: ";
 			getline(cin >> ws, temp);
-		}
-		spaceArray[j].NoOfSeatAvailable = stoi(temp);
-		break;
+			if (!isNumber(temp)) {
+				cout << "number of seats must be a number.\n";
+				continue;
+			}
+			spaceArray[j].NoOfSeatAvailable = stoi(temp);
+			break;
+		} break;
 	case 5:
-		cout << "enter new rating: ";
-		getline(cin >> ws, temp);
-		while (!isFloat(temp) || stof(temp) > 5 || stof(temp) < 0) {
+		while (true) {
 			cout << "enter new rating (0:5) : ";
 			getline(cin >> ws, temp);
-		}
-		spaceArray[j].Rating = stof(temp);
-		break;
+			if (!isFloat(temp) || stof(temp) > 5 || stof(temp) < 0) {
+				cout << "rating must be a number between 0 and 5\n";
+				continue;
+			}
+			spaceArray[j].Rating = stof(temp);
+			break;
+		} break;
 	case 6: // loop to make sure admin hits y or n only
 		while (true) {
 			cout << "does the place have wifi?: (y,n)";
@@ -225,6 +262,10 @@ int EditSpace() {
 			}
 			else if (temp == "n" || temp == "N") {
 				spaceArray[j].HasWifi = false; break;
+			}
+			else {
+				cout << "please enter 'y' or 'n' only.\n";
+				continue;
 			}
 		}break;
 	case 7:
@@ -236,6 +277,10 @@ int EditSpace() {
 			}
 			else if (temp == "n" || temp == "N") {
 				spaceArray[j].HasMeetingRoom = false; break;
+			}
+			else {
+				cout << "please enter 'y' or 'n' only.\n";
+				continue;
 			}
 		}break;
 	}
@@ -255,23 +300,17 @@ int DeleteSpace() {
 	while (true) {
 		cout << "enter the id for the space you want to delete (press b to go back): ";
 		getline(cin >> ws, chosenid);
-		if (nospaces(chosenid))
+
+		if (chosenid == "b" || chosenid == "B") { // if admin chose to go back
+			system("cls");
+			return 0;
+		}
+
+		else if (isNumber(chosenid) && nospaces(chosenid))
 			break;
 		else
-			cout << "id can't contain spaces.\n";
+			cout << "id must be a positive integer.\n";
 	}
-
-
-	if (chosenid == "b" || chosenid == "B") { // if admin chose to go back
-		system("cls");
-		return 0;
-	}
-
-	while (!isFloat(chosenid)) {
-		cout << "this isn't a number, please enter it again: ";
-		getline(cin >> ws, chosenid);
-	}
-
 
 	for (int i = 0; i < totalSpacesCount; i++) {
 		if (spaceArray[i].SpaceId == stoi(chosenid)) {
@@ -286,6 +325,13 @@ int DeleteSpace() {
 
 			system("cls");
 			cout << "Space deleted from memory!\n";
+			for (int b = 0; b < totalBookingsCount; b++) {
+				if (bookingsArray[b].SpaceId == stoi(chosenid)) {
+					bookingsArray[b] = bookingsArray[totalBookingsCount - 1];
+					totalBookingsCount--;
+					b--; // so if there is 2 booking next to each other
+				}
+			}
 			break;
 		}
 	}
@@ -321,7 +367,7 @@ void admin_main_menu() {
 		cout << "------------------ ADMIN MAIN MENU---------------------\n";
 		cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.View all bookings\n 5.logout \n 6.exit program\n ___________________\n";
 		cout << "choice: ";
-		cin >> choice;
+		getline(cin >> ws, choice);
 		if (choice == "1") {
 			AddSpace();
 		}
