@@ -33,7 +33,7 @@ int user_main_menu();
 int AddSpace() {
 	system("cls");
 
-	if (totalSpacesCount == spaceCapacity) {
+	if (totalSpacesCount == spaceCapacity) { // increase the spaceArray if needed
 		increaseArray("space");
 	}
 
@@ -112,7 +112,7 @@ int AddSpace() {
 			cout << "wrong choice, enter y or n only\n";
 	}
 
-	while (true) {
+	while (true) { // generate a random spaceid, and check to make sure it's unique
 		spaceArray[totalSpacesCount].SpaceId = rand() % (1000 - 100 + 1) + 100; // i think between 100 and 1000
 		bool unique = true;
 		for (int i = 0; i < totalSpacesCount; i++) {
@@ -135,9 +135,10 @@ int EditSpace() {
 	system("cls");
 	string tempid; // to store the id for the space i want to edit
 	bool found = false;
+	int j; // this is the index for the space i want to change in the space array
 	displaySpaces();
 
-	while (true) {
+	while (true) { // big loop to get a valid, existing space id
 		cout << "enter the id for the space you want to edit (press b to go back): ";
 		getline(cin >> ws, tempid);
 
@@ -146,7 +147,19 @@ int EditSpace() {
 			return 0;
 		}
 
-		else if (isNumber(tempid) && nospaces(tempid)) {
+		else if (isNumber(tempid)) {
+			for (int i = 0; i < totalSpacesCount; i++) {
+				if (spaceArray[i].SpaceId == stoi(tempid)) {
+					found = true;
+					j = i;
+					break;
+				}
+			}
+
+			if (found == false) {
+				cout << "didn't find space\n";
+				continue;
+			}
 			break;
 		}
 		
@@ -155,29 +168,12 @@ int EditSpace() {
 		}
 	}
 
-	int j; // this is the index of the space we want to edit
-	for (int i = 0; i < totalSpacesCount; i++) {
-		if (spaceArray[i].SpaceId == stoi(tempid)) {
-			found = true;
-			j = i;
-			break;
-		}
-	}
-
-	if (found == false) {
-		system("cls");
-		cout << "didn't find space!\n";
-		return 0;
-	}
-
-
 	string choice;
 	string newwifi, newhmr; // hasmr = has meeting room
 	cout << "change:\n1.Name\n2.Area\n3.price per hour\n4.number of seats available\n5.Rating\n6.HasWifi\n7.HasMeetingRoom\n(press 'b' to go back)\nchoice: ";
-	getline(cin >> ws, choice);
-
-	while (true) {
-
+	
+	while (true) { // a big loop to get a valid choice from admin
+		getline(cin >> ws, choice);
 		if (choice == "b" || choice == "B") {
 			system("cls");
 			return 0;
@@ -190,7 +186,6 @@ int EditSpace() {
 		else {
 			cout << "please enter a number from 1 to 7, or 'b' to go back.\n";
 			cout << "choice: ";
-			getline(cin >> ws, choice);
 		}
 
 	}
@@ -293,55 +288,56 @@ int EditSpace() {
 int DeleteSpace() {
 	system("cls");
 	string chosenid;
-	bool found = false;
 
 	displaySpaces();
-
 	while (true) {
-		cout << "enter the id for the space you want to delete (press b to go back): ";
-		getline(cin >> ws, chosenid);
+		bool found = false;
+		while (true) {
+			cout << "enter the id for the space you want to delete (press b to go back): ";
+			getline(cin >> ws, chosenid);
 
-		if (chosenid == "b" || chosenid == "B") { // if admin chose to go back
-			system("cls");
-			return 0;
-		}
-
-		else if (isNumber(chosenid) && nospaces(chosenid))
-			break;
-		else
-			cout << "id must be a positive integer.\n";
-	}
-
-	for (int i = 0; i < totalSpacesCount; i++) {
-		if (spaceArray[i].SpaceId == stoi(chosenid)) {
-
-			found = true;
-
-			// overwrite this space with the very last space in the array
-			spaceArray[i] = spaceArray[totalSpacesCount - 1];
-
-			// -1 from totalspacecount (a space is deleted)
-			totalSpacesCount--;
-
-			system("cls");
-			cout << "Space deleted from memory!\n";
-			for (int b = 0; b < totalBookingsCount; b++) {
-				if (bookingsArray[b].SpaceId == stoi(chosenid)) {
-					bookingsArray[b] = bookingsArray[totalBookingsCount - 1];
-					totalBookingsCount--;
-					b--; // so if there is 2 booking next to each other
-				}
+			if (chosenid == "b" || chosenid == "B") { // if admin chose to go back
+				system("cls");
+				return 0;
 			}
-			break;
+
+			else if (isNumber(chosenid) && nospaces(chosenid))
+				break;
+			else
+				cout << "id must be a positive integer.\n";
 		}
-	}
 
-	if (found == false) {
-		system("cls");
-		cout << "didn't find space!\n";
-	}
+		for (int i = 0; i < totalSpacesCount; i++) {
+			if (spaceArray[i].SpaceId == stoi(chosenid)) {
 
-	return 0;
+				found = true;
+
+				// overwrite this space with the very last space in the array
+				spaceArray[i] = spaceArray[totalSpacesCount - 1];
+
+				// -1 from totalspacecount (a space is deleted)
+				totalSpacesCount--;
+
+				system("cls");
+				cout << "Space deleted from memory!\n";
+				for (int b = 0; b < totalBookingsCount; b++) { // we delete any bookings related to that space
+					if (bookingsArray[b].SpaceId == stoi(chosenid)) {
+						bookingsArray[b] = bookingsArray[totalBookingsCount - 1];
+						totalBookingsCount--;
+						b--; // so if there is 2 booking next to each other
+					}
+				}
+				break;
+			}
+		}
+
+		if (found == false) {
+			cout << "didn't find space!\n";
+			continue;
+		}
+
+		return 0;
+	}
 }
 
 int ViewAllBookings() {
@@ -358,7 +354,6 @@ int ViewAllBookings() {
 		cout << "-----------------------------" << endl;
 	}
 	return 0;
-
 }
 
 void admin_main_menu() {
