@@ -1,22 +1,25 @@
 #include <iostream>
-#include <fstream>
-#include <cstdlib>
-#include <ctime>
-#include <string>
-#include "structs.h"
-#include "adminfuncs.h"
+#include <fstream> //input-output
+#include <cstdlib> //String Conversions 
+#include <ctime> // for srand(time(0));
+#include <ctype.h> //for tolower()
+#include <string> //string functions
+#include "structs.h" //structs file
+#include "adminfuncs.h" //admin functions file
 
 using namespace std;
 
+//null pointers for the arrays
 User* usersArray = nullptr;
 Booking* bookingsArray = nullptr;
 Space* spaceArray = nullptr;
+
 int activeUserID;
 int totalUsersCount = 0, userCapacity = 0;
 int totalBookingsCount = 0, bookingCapacity = 0;
 int totalSpacesCount = 0, spaceCapacity = 0;
 
-
+//all the Functions
 int Log_in();
 int Sign_up();
 int Logging();
@@ -32,7 +35,7 @@ void SearchByArea();
 int user_main_menu();
 void cancel_booking(int userid);
 
-// this is to turn a string into lower case
+//to turn all the string into lower case
 string stringtolower(string s) {
 	int length = s.length();
 	for (int i = 0; i < length; i++) {
@@ -52,7 +55,7 @@ bool isFloat(string str) {
 	}
 }
 
-// a hleper function to check if a string has spaces or not
+// a helper function to check if a string has spaces or not
 bool nospaces(string x) {
 	for (int i = 0; i < x.length(); i++) {
 		if (x[i] == ' ') {
@@ -138,15 +141,17 @@ void increaseArray(string x) {
 	}
 }
 
-
+//log in
 int Log_in() {
 	system("cls");
 	string username, password;
 	bool pass_correct = false, name_correct = false;
 	int pass_tries = 3, name_tries = 3;
 	cout << "----Log In---" << endl;
-	while (!name_correct) {
-		while (true) {
+	while (!name_correct)
+	{
+		while (true)
+		{
 			cout << "Enter UserName(Case Sensitive) (press 'b' to go back): ";
 			getline(cin >> ws, username);
 			if (nospaces(username))
@@ -154,22 +159,26 @@ int Log_in() {
 			else
 				cout << "username can't contain spaces.\n";
 		}
-		
+
 		if (username == "b" || username == "B")
 			return -1;
 
-		//for admin,username, password=admin
-		if (username == "admin") {
-			cout << "Password(Case Sensitive): ";
-			getline(cin >> ws, password);
-			if (password == "admin") {
-				system("cls");
-				cout << "Logged in as Admin Successfully!" << endl;
-				return 0;
-			}
-			else {
-				cout << "Incorrect Admin Password!" << endl;
-				continue;
+		//for admin,username and password=admin
+		if (username == "admin")
+		{
+			while (true)
+			{
+				cout << "Password(Case Sensitive): ";
+				getline(cin >> ws, password);
+				if (password == "admin") {
+					system("cls");
+					cout << "Logged in as Admin Successfully!" << endl;
+					return 0;
+				}
+				else {
+					cout << "Incorrect Admin Password!" << endl;
+					continue;
+				}
 			}
 		}
 		for (int i = 0; i < totalUsersCount; i++) {
@@ -221,7 +230,7 @@ int Log_in() {
 	}
 }
 
-
+//signup
 int Sign_up() {
 	system("cls");
 
@@ -230,63 +239,75 @@ int Sign_up() {
 	}
 
 	string tempUsername, tempPassword, tempEmail, tempPhone;
-	bool pass_correct = false;
-	bool phoneok = false;
 
 	while (true) { // a loop to make sure the username doesn't contain a space 
-		bool nameok = true;
 		cout << "Enter A UserName (press 'b' to go back): ";
 		getline(cin >> ws, tempUsername);
 
 		if (tempUsername == "b" || tempUsername == "B") // to go back to login or signup page
 			return -1;
 
-		nameok = nospaces(tempUsername);
-
-		if (nameok)
+		if (nospaces(tempUsername))
 			break;
 		else
 			cout << "username can't contain a space.\n";
 	}
+	while (true)
+	{
+		cout << "Create A password:";
+		getline(cin >> ws, tempPassword);
+		if (tempPassword.length() >= 6)
+		{
+			if (nospaces(tempPassword))
+				break;
+			else
+			{
+				cout << "Password can't contain spaces" << endl;
+				continue;
+			}
+		}
+		else
+		{
+			cout << "Password Should be more than 6 characters" << endl;
+			continue;
+		}
 
+	}
 	while (true) { // a loop to get an Email
 		cout << "Enter Email: ";
 		getline(cin >> ws, tempEmail);
+
 		if (nospaces(tempEmail))
 			break;
 		else {
 			cout << "Email can't contain a space.\n";
 		}
 	}
-
-
-	while (!pass_correct) {
-		cout << "Create A password:";
-		getline(cin >> ws, tempPassword);
-		if (tempPassword.length() < 6 || !nospaces(tempPassword)) {
-			cout << "Password Should be more than 6 characters, and can't contain spaces" << endl;
-			continue;
-		}
-		else
-			pass_correct = true;
-	}
-
-	while (!phoneok) {
+	while (true)
+	{
 		cout << "Enter Phone Number: ";
 		getline(cin >> ws, tempPhone);
-		if (isFloat(tempPhone)) {
-			phoneok = true;
+		if (isFloat(tempPhone))
+		{
+			if (nospaces(tempPhone))
+				break;
+			else
+			{
+				cout << "Phone Number can't contain spaces" << endl;
+				continue;
+			}
 		}
-		else {
-			cout << "Phone Number must be a number, and can't contain a space.\n";
+		else
+		{
+			cout << "Phone Number must be a number\n";
 			continue;
 		}
 	}
 
-
-	int tempUserID = rand() % (199 - 100 + 1) + 100;
+	int tempUserID = rand() % (199 - 100 + 1) + 100; //generating ID from 100 to 199
 	cout << "Your ID is: " << tempUserID << endl;
 
+	//Saving Data To the Arrays
 	usersArray[totalUsersCount].UserName = tempUsername;
 	usersArray[totalUsersCount].Password = tempPassword;
 	usersArray[totalUsersCount].Id = tempUserID;
@@ -294,11 +315,11 @@ int Sign_up() {
 	usersArray[totalUsersCount].Phone = tempPhone;
 	totalUsersCount++;
 	system("pause");
-	system("cls"); //clearing the Terminal
+	system("cls"); //Clearing the Terminal
 	return Log_in();
 }
 
-
+//log in or signup
 int Logging() {
 	string choice;
 	cout << "-----------" << '\n' << "1- Log in" << '\n' << "2- Don't Have an Account? " << '\n' << "3- exit program\n" << "-----------" << endl;
@@ -318,120 +339,132 @@ int Logging() {
 		return Logging();
 }
 
-
-void LoadData() {
+//load all the files into the arrays 
+void LoadData()
+{
+	string header;
 	// load users from Users.csv into usersarray
 	ifstream file("Users.csv");
-	if (file.is_open()) {
-
-		string header;
-		getline(file, header); // to get rid of the header line
-		string tempID, tempUser, tempPassword, tempEmail, tempPhone;
-
-
-		while (getline(file, tempUser, ',')) {
-			if (tempUser.empty() || tempUser == "\n") // a small check for safety
-				continue;
-
-			// a loop to make usersarray bigger by multiplying it's capacity * 2
-			if (totalUsersCount == userCapacity) {
-				increaseArray("user");
-			}
-
-			getline(file, tempID, ',');
-			getline(file, tempPassword, ',');
-			getline(file, tempEmail, ',');
-			getline(file, tempPhone, '\n');
-
-			usersArray[totalUsersCount].UserName = tempUser;
-			usersArray[totalUsersCount].Id = stoi(tempID);
-			usersArray[totalUsersCount].Password = tempPassword;
-			usersArray[totalUsersCount].Email = tempEmail;
-			usersArray[totalUsersCount].Phone = tempPhone;
-
-			totalUsersCount++;
-		}
-		file.close();
+	if (!file.is_open())
+	{
+		cout << "couldn't open users.csv";
+		return;
 	}
+	getline(file, header); // to get rid of the header line
+	string tempUserID, tempUser, tempPassword, tempEmail, tempPhone;
+
+
+	while (getline(file, tempUser, ','))
+	{
+		if (tempUser.empty() || tempUser == "\n") // a small check for safety
+			continue;
+		// a loop to make usersarray bigger by multiplying it's capacity * 2
+		if (totalUsersCount == userCapacity)
+		{
+			increaseArray("user");
+		}
+		getline(file, tempUserID, ',');
+		getline(file, tempPassword, ',');
+		getline(file, tempEmail, ',');
+		getline(file, tempPhone, '\n');
+
+		usersArray[totalUsersCount].UserName = tempUser;
+		usersArray[totalUsersCount].Id = stoi(tempUserID);
+		usersArray[totalUsersCount].Password = tempPassword;
+		usersArray[totalUsersCount].Email = tempEmail;
+		usersArray[totalUsersCount].Phone = tempPhone;
+
+		totalUsersCount++;
+	}
+	file.close();
 
 	// load bookings from bookings.csv into booking array
 	ifstream file2("bookings.csv");
-	if (file2.is_open()) {
-
-		string header;
-		getline(file2, header); // to get rid of the header line
-		string bookingID, spaceID, userID, Date, Hours, TotalCost, Seats;
-
-
-		while (getline(file2, bookingID, ',')) {
-			if (bookingID.empty() || bookingID == "\n") // a small check for safety
-				continue;
-
-			// a loop to increase the size of booking array if needed
-			if (totalBookingsCount == bookingCapacity) {
-				increaseArray("booking");
-			}
-
-			getline(file2, spaceID, ',');
-			getline(file2, userID, ',');
-			getline(file2, Date, ',');
-			getline(file2, Hours, ',');
-			getline(file2, TotalCost, ',');
-			getline(file2, Seats, '\n');
-
-			bookingsArray[totalBookingsCount].BookingId = stoi(bookingID);
-			bookingsArray[totalBookingsCount].SpaceId = stoi(spaceID);
-			bookingsArray[totalBookingsCount].UserId = stoi(userID);
-			bookingsArray[totalBookingsCount].date = Date;
-			bookingsArray[totalBookingsCount].Hours = stoi(Hours);
-			bookingsArray[totalBookingsCount].TotalCost = stoi(TotalCost);
-			bookingsArray[totalBookingsCount].Seats = stoi(Seats);
-			totalBookingsCount++;
-		}
-		file2.close();
+	if (!file2.is_open())
+	{
+		cout << "couldn't open bookings.csv";
+		return;
 	}
+	getline(file2, header); // to get rid of the header line
+	string bookingID, spaceID, userID, Date, Hours, TotalCost, Seats;
+
+
+	while (getline(file2, bookingID, ','))
+	{
+		if (bookingID.empty() || bookingID == "\n") // a small check for safety
+			continue;
+
+		// a loop to increase the size of booking array if needed
+		if (totalBookingsCount == bookingCapacity)
+		{
+			increaseArray("booking");
+		}
+
+		getline(file2, spaceID, ',');
+		getline(file2, userID, ',');
+		getline(file2, Date, ',');
+		getline(file2, Hours, ',');
+		getline(file2, TotalCost, ',');
+		getline(file2, Seats, '\n');
+
+		bookingsArray[totalBookingsCount].BookingId = stoi(bookingID);
+		bookingsArray[totalBookingsCount].SpaceId = stoi(spaceID);
+		bookingsArray[totalBookingsCount].UserId = stoi(userID);
+		bookingsArray[totalBookingsCount].date = Date;
+		bookingsArray[totalBookingsCount].Hours = stoi(Hours);
+		bookingsArray[totalBookingsCount].TotalCost = stoi(TotalCost);
+		bookingsArray[totalBookingsCount].Seats = stoi(Seats);
+		totalBookingsCount++;
+	}
+	file2.close();
+
 
 	// load spaces from Spaces.csv into spacesarray
 	ifstream file3("Spaces.csv");
-	if (file3.is_open()) {
-		string header;
-		getline(file3, header);
-		string tempName, tempID, tempArea, tempPricePerHour, tempNoOfSeatAvailable, tempRating, tempHasWifi, tempHasMeetingRoom;
-		while (getline(file3, tempName, ',')) {
-			if (tempName.empty() || tempName == "\n") // a small check for safety
-				continue;
-
-			// a loop to make spacearray bigger by multiplying it's capacity * 2
-			if (totalSpacesCount == spaceCapacity) {
-				increaseArray("space");
-			}
-
-			getline(file3, tempID, ',');
-			getline(file3, tempArea, ',');
-			getline(file3, tempPricePerHour, ',');
-			getline(file3, tempNoOfSeatAvailable, ',');
-			getline(file3, tempRating, ',');
-			getline(file3, tempHasWifi, ',');
-			getline(file3, tempHasMeetingRoom, '\n');
-
-			spaceArray[totalSpacesCount].Name = tempName;
-			spaceArray[totalSpacesCount].SpaceId = stoi(tempID);
-			spaceArray[totalSpacesCount].Area = tempArea;
-			spaceArray[totalSpacesCount].PricePerHour = stoi(tempPricePerHour);
-			spaceArray[totalSpacesCount].NoOfSeatAvailable = stoi(tempNoOfSeatAvailable);
-			spaceArray[totalSpacesCount].Rating = stod(tempRating);
-			if (tempHasWifi == "Yes")
-				spaceArray[totalSpacesCount].HasWifi = true;
-			else
-				spaceArray[totalSpacesCount].HasWifi = false;
-			if (tempHasMeetingRoom == "Yes")
-				spaceArray[totalSpacesCount].HasMeetingRoom = true;
-			else
-				spaceArray[totalSpacesCount].HasMeetingRoom = false;
-			totalSpacesCount++;
-		}
-		file3.close();
+	if (!file3.is_open())
+	{
+		cout << "couldn't open Spaces.csv";
+		return;
 	}
+	getline(file3, header);
+	string tempName, tempSpaceID, tempArea, tempPricePerHour, tempNoOfSeatAvailable, tempRating, tempHasWifi, tempHasMeetingRoom;
+
+	while (getline(file3, tempName, ','))
+	{
+		if (tempName.empty() || tempName == "\n") // a small check for safety
+			continue;
+
+		// a loop to make spacearray bigger by multiplying it's capacity * 2
+		if (totalSpacesCount == spaceCapacity)
+		{
+			increaseArray("space");
+		}
+
+		getline(file3, tempSpaceID, ',');
+		getline(file3, tempArea, ',');
+		getline(file3, tempPricePerHour, ',');
+		getline(file3, tempNoOfSeatAvailable, ',');
+		getline(file3, tempRating, ',');
+		getline(file3, tempHasWifi, ',');
+		getline(file3, tempHasMeetingRoom, '\n');
+
+		spaceArray[totalSpacesCount].Name = tempName;
+		spaceArray[totalSpacesCount].SpaceId = stoi(tempSpaceID);
+		spaceArray[totalSpacesCount].Area = tempArea;
+		spaceArray[totalSpacesCount].PricePerHour = stoi(tempPricePerHour);
+		spaceArray[totalSpacesCount].NoOfSeatAvailable = stoi(tempNoOfSeatAvailable);
+		spaceArray[totalSpacesCount].Rating = stod(tempRating);
+		if (tempHasWifi == "Yes")
+			spaceArray[totalSpacesCount].HasWifi = true;
+		else
+			spaceArray[totalSpacesCount].HasWifi = false;
+		if (tempHasMeetingRoom == "Yes")
+			spaceArray[totalSpacesCount].HasMeetingRoom = true;
+		else
+			spaceArray[totalSpacesCount].HasMeetingRoom = false;
+		totalSpacesCount++;
+	}
+	file3.close();
 }
 
 
@@ -444,7 +477,7 @@ void ViewSpaces() {
 		cout << "b --> Book a space" << endl;
 		cout << "m --> main menu" << endl;
 		cout << "Enter choice (s/f/b/m): ";
-		string choice; // changed this to a string, so if the user types something like (hsdnf) no weird behaviour accours
+		string choice; //string, so if the user types something like (hsdnf) no weird behaviour accours
 		getline(cin >> ws, choice);
 		if (choice == "s" || choice == "S") {
 			SearchByArea();
@@ -467,7 +500,7 @@ void ViewSpaces() {
 	}
 }
 
-
+//To search The Spaces by Area
 void SearchByArea() {
 	string area;
 	cout << "Enter Area: ";
@@ -496,7 +529,7 @@ void SearchByArea() {
 
 }
 
-
+//Filter by maxprice,minrating,WiFI,MR
 void FilterSpaces() {
 	string wifiFilter, meetingRoomFilter;
 	string minRating;
@@ -610,7 +643,7 @@ void FilterSpaces() {
 	}
 }
 
-
+//View all user Bookings
 void view_my_bookings(int userid) {
 	for (int i = 0; i < totalBookingsCount; i++) {
 		if (bookingsArray[i].UserId == userid) {
@@ -643,7 +676,7 @@ void view_my_bookings(int userid) {
 	}
 }
 
-
+//for Booking a space
 void book_space(int userid) {
 	if (totalBookingsCount == bookingCapacity) { // a small loop to check if we reached max bookings number and increase it
 		increaseArray("booking");
@@ -653,14 +686,14 @@ void book_space(int userid) {
 	string date, hours;
 	string seats;
 	bool idfound = false;
-	bool spaceok = false;
-	bool dateok = false;
+	bool space_correct = false;
+	bool date_correct = false;
 	int j; // this is the chosen space index in spacesarray
 	int availableseats = 0;
 
 	while (true) {
 		// get space id
-		if (!spaceok) {
+		if (!space_correct) {
 			bool idfound = false;
 			cout << "Enter SpaceID: ";
 			getline(cin >> ws, chosenspaceid);
@@ -684,17 +717,17 @@ void book_space(int userid) {
 					getline(cin >> ws, chosenspaceid);
 				}
 			}
-			spaceok = true;
-			dateok = false;
+			space_correct = true;
+			date_correct = false;
 		}
 
 		// get the date if the dateok = flase
-		if (!dateok) {
+		if (!date_correct) {
 			cout << "Enter the date you want to book for (DD/MM/YYYY) (press b to go back): ";
 			getline(cin >> ws, date);
 
 			if (date == "b" || date == "B") {
-				spaceok = false; // They want to go back, so we need a space again
+				space_correct = false; // They want to go back, so we need a space again
 				continue;         // Restart the loop from the top
 			}
 
@@ -702,7 +735,7 @@ void book_space(int userid) {
 				cout << "Invalid date! Please enter Date Again: ";
 				getline(cin >> ws, date);
 			}
-			dateok = true; // Check it off the list!
+			date_correct = true; // Check it off the list!
 		}
 
 		availableseats = spaceArray[j].NoOfSeatAvailable;
@@ -714,7 +747,7 @@ void book_space(int userid) {
 
 		if (availableseats <= 0) {
 			cout << "The space is fully booked on this date, please choose another date!\n";
-			dateok = false;
+			date_correct = false;
 			continue; // restart the loop from the top
 		}
 
@@ -723,12 +756,12 @@ void book_space(int userid) {
 		getline(cin >> ws, seats);
 
 		if (seats == "d" || seats == "D") {
-			dateok = false;
+			date_correct = false;
 			continue; // restart the loop to ask for a new date
 		}
 
 		if (seats == "b" || seats == "B") {
-			spaceok = false;
+			space_correct = false;
 			continue; // restart the loop to ask for a new space
 		}
 
@@ -772,7 +805,7 @@ void book_space(int userid) {
 	system("cls");
 }
 
-
+//if the user Want to Cancel a Booking
 void cancel_booking(int userid) {
 	string bookid;
 	cout << "enter the id for the booking you want to cancel: ";
@@ -806,7 +839,7 @@ void cancel_booking(int userid) {
 	}
 }
 
-
+//to check if the date is in valid DD/MM/YYYY Format
 bool isvaliddate(string date) {
 	if (date.length() != 10) {
 		return false;
@@ -844,17 +877,33 @@ bool isvaliddate(string date) {
 
 }
 
+//save all the arrays into the files
+int SaveAll()
+{
+	ofstream file_2("Users.csv");
+	if (!file_2.is_open())
+	{
+		cout << "couldn't open file";
+		return 1;
+	}
+	file_2 << "UserName,UserID,Password,Email,Phone\n"; //Header
+	for (int i = 0; i < totalUsersCount; i++)
+	{
+		file_2 << usersArray[i].UserName << "," << usersArray[i].Id << "," << usersArray[i].Password << "," << usersArray[i].Email << "," << usersArray[i].Phone << endl;
+	}
+	file_2.close();
 
-int SaveAll() {
-	ofstream savespacefile("Spaces.csv");
-	if (!savespacefile.is_open()) {
+	ofstream file22("Spaces.csv");
+	if (!file22.is_open())
+	{
 		cout << "couldn't open file";
 		return 1;
 	}
 
-	savespacefile << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n";
+	file22 << "Name,SpaceID,Area,PricePerHour,NoOfSeatAvailable,Rating,HasWifi,HasMeetingRoom\n"; //Header
 	string wifi, hmr;
-	for (int i = 0; i < totalSpacesCount; i++) {
+	for (int i = 0; i < totalSpacesCount; i++)
+	{
 		if (spaceArray[i].HasWifi)
 			wifi = "Yes";
 		else
@@ -863,39 +912,30 @@ int SaveAll() {
 			hmr = "Yes";
 		else
 			hmr = "No";
-		savespacefile << spaceArray[i].Name << "," << spaceArray[i].SpaceId << "," << spaceArray[i].Area << "," << spaceArray[i].PricePerHour <<
+		file22 << spaceArray[i].Name << "," << spaceArray[i].SpaceId << "," << spaceArray[i].Area << "," << spaceArray[i].PricePerHour <<
 			"," << spaceArray[i].NoOfSeatAvailable << "," << spaceArray[i].Rating << "," << wifi << "," << hmr << endl;
 	}
-	savespacefile.close();
+	file22.close();
 
 
-	ofstream savebookingsfile("bookings.csv");
-	if (!savebookingsfile.is_open()) {
+	ofstream file32("bookings.csv");
+	if (!file32.is_open())
+	{
 		cout << "couldn't open file";
 		return 1;
 	}
-	savebookingsfile << "BookingId,SpaceId,UserId,date,Hours,TotalCost,Seats\n";
-	for (int i = 0; i < totalBookingsCount; i++) {
-		savebookingsfile << bookingsArray[i].BookingId << "," << bookingsArray[i].SpaceId << "," << bookingsArray[i].UserId << "," <<
+	file32 << "BookingId,SpaceId,UserId,date,Hours,TotalCost,Seats\n"; //Header
+	for (int i = 0; i < totalBookingsCount; i++)
+	{
+		file32 << bookingsArray[i].BookingId << "," << bookingsArray[i].SpaceId << "," << bookingsArray[i].UserId << "," <<
 			bookingsArray[i].date << "," << bookingsArray[i].Hours << "," << bookingsArray[i].TotalCost << "," << bookingsArray[i].Seats << endl;
 	}
-	savebookingsfile.close();
-
-	ofstream saveuserfile("Users.csv");
-	if (!saveuserfile.is_open()) {
-		cout << "couldn't open file";
-		return 1;
-	}
-	saveuserfile << "UserName,UserID,Password,Email,Phone\n";
-	for (int i = 0; i < totalUsersCount; i++) {
-		saveuserfile << usersArray[i].UserName << "," << usersArray[i].Id << "," << usersArray[i].Password << "," << usersArray[i].Email << "," << usersArray[i].Phone << endl;
-	}
-	saveuserfile.close();
+	file32.close();
 
 	return 0;
 }
 
-
+//main Menu
 int user_main_menu() {
 	string choice;
 	while (true) {
@@ -939,7 +979,7 @@ int main() {
 	srand(time(0));
 	LoadData();
 	while (true) {
-		activeUserID = Logging(); //if -1 there is error  if = 0 activeuser is admin 
+		activeUserID = Logging(); //if -1 there is an error  if = 0 activeuser is admin 
 		if (activeUserID == 0)
 			admin_main_menu();
 		else if (activeUserID == -1)
@@ -948,3 +988,4 @@ int main() {
 			user_main_menu();
 	}
 }
+

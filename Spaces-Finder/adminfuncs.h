@@ -1,3 +1,4 @@
+
 #pragma once
 #include <iostream>
 #include <fstream>
@@ -36,7 +37,7 @@ int AddSpace() {
 		increaseArray("space");
 	}
 
-	string temp ,tempName, tempArea;
+	string temp, tempName, tempArea;
 	string haswifi, hasmr; // hmr = HasMeetingRoom
 	while (true) {
 		cout << "enter space name: ";
@@ -302,6 +303,7 @@ int ViewAllBookings() {
 	// just read everything from the bookings array bruh
 	for (int i = 0; i < totalBookingsCount; i++) {
 		cout << "Booking ID: " << bookingsArray[i].BookingId << endl;
+		cout << "User ID: " << bookingsArray[i].UserId << endl;
 		cout << "Space ID: " << bookingsArray[i].SpaceId << endl;
 		cout << "Date: " << bookingsArray[i].date << endl;
 		cout << "Hours: " << bookingsArray[i].Hours << endl;
@@ -317,7 +319,7 @@ void admin_main_menu() {
 	string choice;
 	while (true) { // no need to check if it's a number or not, this loop handles this
 		cout << "------------------ ADMIN MAIN MENU---------------------\n";
-		cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.View all bookings\n 5.logout \n 6.exit program\n __________________\n";
+		cout << "______________________\n 1.add a space\n 2.edit a space\n 3.delete a space\n 4.View all bookings\n 5.logout \n 6.exit program\n ___________________\n";
 		cout << "choice: ";
 		cin >> choice;
 		if (choice == "1") {
@@ -346,5 +348,3 @@ void admin_main_menu() {
 		}
 	}
 }
-
-
